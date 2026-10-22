@@ -9,14 +9,22 @@ interface NavItem {
   label: string;
   sublabel: string;
   icon: string;
+  badge?: string;
 }
 
 const NAV_ITEMS: NavItem[] = [
   {
     href: '/',
-    label: 'Echo Simulator',
-    sublabel: 'Voice-first demo',
-    icon: 'M',
+    label: 'Overview & Mission',
+    sublabel: 'Executive showcase',
+    icon: 'O',
+  },
+  {
+    href: '/simulator',
+    label: 'Echo Show Simulator',
+    sublabel: 'Voice & APL 2.0 demo',
+    icon: 'E',
+    badge: 'LIVE',
   },
   {
     href: '/stress-lab',
@@ -33,7 +41,7 @@ const NAV_ITEMS: NavItem[] = [
   {
     href: '/architecture',
     label: 'Architecture',
-    sublabel: 'System overview',
+    sublabel: 'System & AWS Lambda',
     icon: 'A',
   },
 ];
@@ -44,19 +52,19 @@ export default function Sidebar() {
   return (
     <aside className="sidebar-glass w-[260px] min-h-screen flex flex-col py-6 px-4 border-r border-white/60 shrink-0">
       {/* BRANDING */}
-      <div className="flex items-center gap-3 px-2 mb-8">
-        <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-cyan-400 via-blue-500 to-indigo-900 flex items-center justify-center shadow-lg shadow-cyan-500/30">
+      <Link href="/" className="flex items-center gap-3 px-2 mb-8 group cursor-pointer">
+        <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-cyan-400 via-blue-500 to-indigo-900 flex items-center justify-center shadow-lg shadow-cyan-500/30 group-hover:scale-105 transition-all">
           <span className="text-white font-extrabold text-sm tracking-tight">CC</span>
         </div>
         <div>
-          <h2 className="font-display font-extrabold text-sm text-slate-800 tracking-tight leading-tight">
+          <h2 className="font-display font-extrabold text-sm text-slate-800 tracking-tight leading-tight group-hover:text-cyan-700 transition-colors">
             Claim-Check MCP
           </h2>
           <span className="text-[10px] font-semibold text-slate-400 tracking-wide uppercase">
             Alexa+ Epistemic Safety
           </span>
         </div>
-      </div>
+      </Link>
 
       {/* NAVIGATION */}
       <nav className="flex flex-col gap-1.5 flex-1">
@@ -81,20 +89,27 @@ export default function Sidebar() {
               >
                 {item.icon}
               </span>
-              <div className="min-w-0">
-                <span
-                  className={`block text-xs font-bold leading-tight truncate ${
-                    isActive ? 'text-cyan-700' : 'text-slate-700'
-                  }`}
-                >
-                  {item.label}
-                </span>
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center justify-between gap-1">
+                  <span
+                    className={`block text-xs font-bold leading-tight truncate ${
+                      isActive ? 'text-cyan-700' : 'text-slate-700'
+                    }`}
+                  >
+                    {item.label}
+                  </span>
+                  {item.badge && (
+                    <span className="px-1.5 py-0.2 rounded text-[8px] font-extrabold bg-cyan-100 text-cyan-800 border border-cyan-300">
+                      {item.badge}
+                    </span>
+                  )}
+                </div>
                 <span className="block text-[10px] text-slate-400 font-medium truncate">
                   {item.sublabel}
                 </span>
               </div>
               {isActive && (
-                <span className="ml-auto w-1.5 h-5 rounded-full bg-gradient-to-b from-cyan-400 to-blue-500 shrink-0" />
+                <span className="w-1.5 h-5 rounded-full bg-gradient-to-b from-cyan-400 to-blue-500 shrink-0" />
               )}
             </Link>
           );
@@ -106,21 +121,19 @@ export default function Sidebar() {
         <div className="flex items-center gap-2 mb-2">
           <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
           <span className="text-[10px] font-semibold text-slate-500">
-            MCP Spec 2025-11-25
+            FastMCP Spec 2025-11-25
           </span>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 mb-2">
           <span className="w-2 h-2 rounded-full bg-sky-500" />
           <span className="text-[10px] font-semibold text-slate-500">
             Streamable HTTP /mcp
           </span>
         </div>
-        <div className="mt-3 neu-inset px-3 py-2 rounded-lg">
-          <span className="text-[9px] font-bold uppercase tracking-wider text-slate-400 block mb-0.5">
-            Dev B Ownership
-          </span>
-          <span className="text-[10px] text-slate-500 font-medium">
-            frontend/* | data/* | docs
+        <div className="flex items-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-indigo-500" />
+          <span className="text-[10px] font-semibold text-slate-500">
+            Alexa APL 2.0 & AWS Lambda
           </span>
         </div>
       </div>
