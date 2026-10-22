@@ -110,7 +110,7 @@ export default function ProtocolPage() {
                 onClick={() => setSelectedScenario(sc)}
                 className={`neu-button p-2 text-left rounded-xl border transition-all text-xs font-bold truncate ${
                   isActive
-                    ? 'active ring-2 ring-marigold-500 text-marigold-600 font-extrabold border-marigold-300'
+                    ? 'active ring-2 ring-cyan-400 text-cyan-500 font-extrabold border-cyan-400/30'
                     : 'text-aubergine-900 border-white/60 hover:scale-[1.02]'
                 }`}
               >
@@ -124,7 +124,7 @@ export default function ProtocolPage() {
       {/* PROTOCOL OVERVIEW CARDS */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
         <div className="neu-raised p-3 border border-white/80 text-center">
-          <span className="font-display font-extrabold text-2xl text-marigold-600">
+          <span className="font-display font-extrabold text-2xl text-cyan-500">
             {selectedScenario.mcp_trace.length}
           </span>
           <span className="block text-[10px] font-bold text-silver-700 uppercase tracking-wider mt-0.5">
@@ -230,7 +230,7 @@ export default function ProtocolPage() {
                 {isExpanded && (
                   <div className="ml-[140px] mt-2 mb-1 neu-inset p-3 rounded-xl">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-marigold-600">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-cyan-500">
                         JSON-RPC 2.0 Request Payload
                       </span>
                       <span className="text-[9px] font-mono text-slate-400">
@@ -260,7 +260,7 @@ export default function ProtocolPage() {
           </h2>
           <button
             onClick={() => setShowFullPayload(!showFullPayload)}
-            className="neu-button px-3 py-1 text-[11px] font-bold text-marigold-600"
+            className="neu-button px-3 py-1 text-[11px] font-bold text-cyan-500"
           >
             {showFullPayload ? 'Collapse' : 'Expand'} JSON
           </button>

@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import ThemeToggle from '@/components/ThemeToggle';
 
 export default function DramaticLandingPage() {
   const [crisisIndex, setCrisisIndex] = useState<number>(0);
@@ -66,7 +67,7 @@ export default function DramaticLandingPage() {
       <header className="w-full border-b border-aubergine-900/10 bg-white/70 backdrop-blur-md sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-aubergine-800 via-aubergine-900 to-aubergine-950 flex items-center justify-center shadow-lg shadow-aubergine-950/30 border border-marigold-400/40">
+            <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-aubergine-800 via-aubergine-900 to-aubergine-950 flex items-center justify-center shadow-lg shadow-aubergine-950/30 border border-cyan-400/40">
               <span className="text-marigold-300 font-extrabold text-sm tracking-tight">CC</span>
             </div>
             <div>
@@ -85,24 +86,25 @@ export default function DramaticLandingPage() {
           </div>
 
           <nav className="hidden md:flex items-center gap-6 text-xs font-bold text-aubergine-900">
-            <a href="#threat-models" className="hover:text-marigold-600 transition-colors">
+            <a href="#threat-models" className="hover:text-cyan-500 transition-colors">
               Threat Models
             </a>
-            <a href="#architecture" className="hover:text-marigold-600 transition-colors">
+            <a href="#architecture" className="hover:text-cyan-500 transition-colors">
               Architecture
             </a>
-            <a href="#economics" className="hover:text-marigold-600 transition-colors">
+            <a href="#economics" className="hover:text-cyan-500 transition-colors">
               Unit Economics
             </a>
-            <Link href="/stress-lab" className="hover:text-marigold-600 transition-colors">
+            <Link href="/stress-lab" className="hover:text-cyan-500 transition-colors">
               Stress Lab
             </Link>
           </nav>
 
           <div className="flex items-center gap-3">
+            <ThemeToggle />
             <Link
               href="/simulator"
-              className="marigold-btn px-5 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 border border-marigold-400/40"
+              className="alexa-btn px-5 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-2 border border-cyan-400/40"
             >
               <span>Start Live Demo</span>
               <span>&rarr;</span>
@@ -114,14 +116,14 @@ export default function DramaticLandingPage() {
       {/* 2. DRAMATIC HERO SECTION */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-16 text-center">
         {/* HERO BADGE (AUBERGINE & MARIGOLD) */}
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-aubergine-900 text-white text-xs font-extrabold tracking-wider uppercase mb-6 shadow-md shadow-aubergine-900/20 border border-marigold-400/30">
-          <span className="w-2 h-2 rounded-full bg-marigold-400 animate-ping" />
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-aubergine-900 text-white text-xs font-extrabold tracking-wider uppercase mb-6 shadow-md shadow-aubergine-900/20 border border-cyan-400/30">
+          <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
           <span>Amazon Alexa+ Hackathon • Production Epistemic Safety</span>
         </div>
 
         <h1 className="font-display font-extrabold text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-aubergine-950 tracking-tight leading-[1.12] max-w-5xl mx-auto">
           When AI Fluency Can Be Fatal,{' '}
-          <span className="bg-gradient-to-r from-aubergine-800 via-aubergine-600 to-marigold-500 bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-aubergine-800 via-aubergine-600 to-cyan-500 bg-clip-text text-transparent">
             Truth Must Be Verified
           </span>{' '}
           Before It Speaks.
@@ -131,14 +133,14 @@ export default function DramaticLandingPage() {
           Standard voice assistants verify action permissions. <strong>Claim-Check MCP</strong> introduces
           epistemic safety: decomposing candidate responses into atomic assertions, cross-referencing clinical &
           scientific truth, and synthesizing real-time voice self-corrections in under{' '}
-          <strong className="text-marigold-600 font-extrabold">1.4 seconds</strong> over the Model Context Protocol.
+          <strong className="text-cyan-500 font-extrabold">1.4 seconds</strong> over the Model Context Protocol.
         </p>
 
         {/* PRIMARY HERO CTAS */}
         <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
           <Link
             href="/simulator"
-            className="marigold-btn px-8 py-4 rounded-2xl text-sm font-black transition-all flex items-center gap-2 border border-marigold-300"
+            className="alexa-btn px-8 py-4 rounded-2xl text-sm font-black transition-all flex items-center gap-2 border border-cyan-400/30"
           >
             <span>Start Live Demo</span>
             <span className="text-base">&rarr;</span>
@@ -151,7 +153,7 @@ export default function DramaticLandingPage() {
           </Link>
           <Link
             href="/protocol"
-            className="neu-button px-6 py-4 rounded-2xl text-sm font-bold text-aubergine-900 hover:text-marigold-600 transition-all flex items-center gap-2"
+            className="neu-button px-6 py-4 rounded-2xl text-sm font-bold text-aubergine-900 hover:text-cyan-500 transition-all flex items-center gap-2"
           >
             <span>Inspect MCP /mcp Protocol</span>
           </Link>
@@ -173,7 +175,7 @@ export default function DramaticLandingPage() {
               LLM Batch Reduction
             </span>
             <span className="font-display font-black text-xl text-aubergine-950 block mt-0.5">
-              -60% <span className="text-xs font-bold text-marigold-600">(2 vs 5 Calls)</span>
+              -60% <span className="text-xs font-bold text-cyan-500">(2 vs 5 Calls)</span>
             </span>
           </div>
 
@@ -218,8 +220,8 @@ export default function DramaticLandingPage() {
                   onClick={() => setCrisisIndex(idx)}
                   className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                     crisisIndex === idx
-                      ? 'bg-aubergine-900 text-white shadow-md border border-marigold-400/40'
-                      : 'text-aubergine-900 hover:text-marigold-600'
+                      ? 'bg-aubergine-900 text-white shadow-md border border-cyan-400/40'
+                      : 'text-aubergine-900 hover:text-cyan-500'
                   }`}
                 >
                   {sc.label}
@@ -260,8 +262,8 @@ export default function DramaticLandingPage() {
             <div className="aubergine-card p-6 flex flex-col justify-between">
               <div>
                 <div className="flex items-center justify-between mb-3">
-                  <span className="px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-marigold-400/20 text-marigold-300 border border-marigold-400/40 flex items-center gap-1.5 font-black">
-                    <span className="w-2 h-2 rounded-full bg-marigold-400 animate-ping" />
+                  <span className="px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-cyan-500/20 text-marigold-300 border border-cyan-400/40 flex items-center gap-1.5 font-black">
+                    <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
                     Claim-Check MCP Guardrail
                   </span>
                   <span className="text-xs font-mono font-bold text-silver-300 bg-white/10 px-2 py-0.5 rounded border border-white/10">
@@ -274,7 +276,7 @@ export default function DramaticLandingPage() {
                 </h3>
                 <div className="p-2 rounded-lg bg-white/10 text-xs font-semibold text-silver-200 mb-4 flex items-center justify-between border border-white/10">
                   <span className="truncate pr-2">Source: {currentCrisis.source}</span>
-                  <span className="font-mono text-marigold-400 font-extrabold shrink-0">
+                  <span className="font-mono text-cyan-300 font-extrabold shrink-0">
                     Trust: {currentCrisis.trustScore}%
                   </span>
                 </div>
@@ -300,7 +302,7 @@ export default function DramaticLandingPage() {
                 <span>Rewritten in under 1.4s before audio emits.</span>
                 <Link
                   href="/simulator"
-                  className="px-3.5 py-1.5 rounded-lg marigold-btn text-xs font-extrabold"
+                  className="px-3.5 py-1.5 rounded-lg alexa-btn text-xs font-extrabold"
                 >
                   Start Live Demo &rarr;
                 </Link>
@@ -323,7 +325,7 @@ export default function DramaticLandingPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <div className="neu-raised p-5 rounded-2xl border border-white/80">
-            <div className="w-10 h-10 rounded-xl bg-aubergine-900 border border-marigold-400/40 flex items-center justify-center text-marigold-400 font-black text-sm mb-3 shadow-md shadow-aubergine-950/20">
+            <div className="w-10 h-10 rounded-xl bg-aubergine-900 border border-cyan-400/40 flex items-center justify-center text-cyan-300 font-black text-sm mb-3 shadow-md shadow-aubergine-950/20">
               MCP
             </div>
             <h3 className="font-bold text-sm text-aubergine-950">FastMCP 2025 Spec</h3>
@@ -343,7 +345,7 @@ export default function DramaticLandingPage() {
           </div>
 
           <div className="neu-raised p-5 rounded-2xl border border-white/80">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-marigold-400 to-marigold-500 flex items-center justify-center text-aubergine-950 font-black text-sm mb-3 shadow-md shadow-marigold-500/20">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-400 to-cyan-500 flex items-center justify-center text-aubergine-950 font-black text-sm mb-3 shadow-md shadow-cyan-500/25">
               AWS
             </div>
             <h3 className="font-bold text-sm text-aubergine-950">AWS Lambda Skill Adapter</h3>
@@ -369,7 +371,7 @@ export default function DramaticLandingPage() {
         <div className="aubergine-card p-8 md:p-12">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
             <div className="space-y-3 max-w-2xl">
-              <span className="px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-marigold-400/20 text-marigold-400 border border-marigold-400/40">
+              <span className="px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-cyan-500/20 text-cyan-300 border border-cyan-400/40">
                 Unit Economics & Production Feasibility
               </span>
               <h2 className="font-display font-extrabold text-2xl sm:text-3xl md:text-4xl tracking-tight text-white">
@@ -383,13 +385,13 @@ export default function DramaticLandingPage() {
             <div className="flex flex-col sm:flex-row items-center gap-4 shrink-0">
               <Link
                 href="/simulator"
-                className="marigold-btn px-8 py-4 rounded-2xl text-sm font-black"
+                className="alexa-btn px-8 py-4 rounded-2xl text-sm font-black"
               >
                 Start Live Demo &rarr;
               </Link>
               <Link
                 href="/architecture"
-                className="px-6 py-4 rounded-2xl font-bold text-xs text-silver-100 hover:text-white bg-white/10 hover:bg-white/20 border border-white/20 hover:border-marigold-400/40 backdrop-blur-sm transition-all"
+                className="px-6 py-4 rounded-2xl font-bold text-xs text-silver-100 hover:text-white bg-white/10 hover:bg-white/20 border border-white/20 hover:border-cyan-400/40 backdrop-blur-sm transition-all"
               >
                 View System Architecture
               </Link>
@@ -402,16 +404,16 @@ export default function DramaticLandingPage() {
       <footer className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 border-t border-aubergine-900/10 text-center text-xs text-silver-700 flex flex-col sm:flex-row items-center justify-between gap-4">
         <span>Claim-Check MCP — Built for the Amazon Alexa+ Hackathon. MIT License.</span>
         <div className="flex items-center gap-4 font-bold text-aubergine-900">
-          <Link href="/simulator" className="hover:text-marigold-600">
+          <Link href="/simulator" className="hover:text-cyan-500">
             Start Live Demo
           </Link>
-          <Link href="/stress-lab" className="hover:text-marigold-600">
+          <Link href="/stress-lab" className="hover:text-cyan-500">
             Stress Lab
           </Link>
-          <Link href="/protocol" className="hover:text-marigold-600">
+          <Link href="/protocol" className="hover:text-cyan-500">
             Protocol Trace
           </Link>
-          <Link href="/architecture" className="hover:text-marigold-600">
+          <Link href="/architecture" className="hover:text-cyan-500">
             Architecture
           </Link>
         </div>

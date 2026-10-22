@@ -107,12 +107,12 @@ export default function StressLabPage() {
             className={`neu-button px-5 py-2.5 text-sm font-bold flex items-center gap-2 transition-all ${
               isRunning
                 ? 'text-slate-400 cursor-not-allowed opacity-60'
-                : 'text-aubergine-950 font-extrabold hover:text-marigold-600'
+                : 'text-aubergine-950 font-extrabold hover:text-cyan-500'
             }`}
           >
             {isRunning ? (
               <>
-                <span className="w-3 h-3 rounded-full border-2 border-marigold-400 border-t-transparent animate-spin" />
+                <span className="w-3 h-3 rounded-full border-2 border-cyan-400/40 border-t-transparent animate-spin" />
                 Running {Math.round(progress)}%...
               </>
             ) : (
@@ -204,7 +204,7 @@ export default function StressLabPage() {
               key={scenario.preset_id}
               className={`neu-raised p-4 border transition-all duration-300 ${
                 isActive
-                  ? 'border-marigold-400 ring-2 ring-marigold-300/50 animate-pulse'
+                  ? 'border-cyan-400/40 ring-2 ring-marigold-300/50 animate-pulse'
                   : testResult
                   ? testResult.passed
                     ? 'border-emerald-300/80'
@@ -233,7 +233,7 @@ export default function StressLabPage() {
                     {testResult.passed ? 'PASS' : 'FAIL'}
                   </span>
                 ) : isActive ? (
-                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-marigold-100 text-aubergine-950 font-extrabold border border-marigold-300 animate-pulse">
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-cyan-100 dark:bg-cyan-950/60 text-aubergine-950 font-extrabold border border-cyan-400/30 animate-pulse">
                     RUNNING
                   </span>
                 ) : (

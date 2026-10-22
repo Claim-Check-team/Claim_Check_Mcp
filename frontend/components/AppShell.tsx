@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import Sidebar from './Sidebar';
+import ThemeToggle from './ThemeToggle';
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -35,7 +36,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             {/* HAMBURGER TOGGLE BUTTON */}
             <button
               onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-              className="neu-button w-10 h-10 rounded-xl flex items-center justify-center text-aubergine-900 hover:text-marigold-600 transition-all cursor-pointer"
+              className="neu-button w-10 h-10 rounded-xl flex items-center justify-center text-aubergine-900 hover:text-cyan-500 transition-all cursor-pointer"
               title={isSidebarOpen ? 'Hide Navigation' : 'Show Navigation'}
               aria-label="Toggle navigation"
             >
@@ -49,7 +50,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                 <h2 className="font-display font-extrabold text-sm text-aubergine-950 tracking-tight">
                   Claim-Check MCP
                 </h2>
-                <span className="px-2 py-0.5 rounded-full text-[9px] font-extrabold bg-marigold-100 text-marigold-600 border border-marigold-300">
+                <span className="px-2 py-0.5 rounded-full text-[9px] font-extrabold bg-cyan-500/15 text-cyan-600 dark:text-cyan-300 border border-cyan-400/30">
                   Alexa+ Guardrail
                 </span>
               </div>
@@ -60,9 +61,10 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
           </div>
 
           <div className="flex items-center gap-2.5">
+            <ThemeToggle />
             <Link
               href="/"
-              className="neu-button px-3.5 py-1.5 rounded-xl text-xs font-bold text-aubergine-900 hover:text-marigold-600 transition-colors flex items-center gap-1.5"
+              className="neu-button px-3.5 py-1.5 rounded-xl text-xs font-bold text-aubergine-900 hover:text-cyan-500 transition-colors flex items-center gap-1.5"
             >
               <span>&larr;</span>
               <span>Overview</span>

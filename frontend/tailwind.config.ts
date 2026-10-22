@@ -1,6 +1,7 @@
 ﻿import type { Config } from 'tailwindcss';
 
 const config: Config = {
+  darkMode: 'class',
   content: [
     './app/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -9,25 +10,46 @@ const config: Config = {
     extend: {
       colors: {
         aubergine: {
-          950: '#1e0822',
-          900: '#2b0f32',
-          850: '#35133c',
-          800: '#42184b',
-          700: '#561f62',
-          600: '#712981',
-          500: '#8f34a3',
-          200: '#ecd7f1',
-          100: '#f6ecf9',
+          950: '#18071c',
+          900: '#260c2d',
+          850: '#32103b',
+          800: '#42164d',
+          700: '#581f66',
+          600: '#722a84',
+          500: '#8e37a4',
+          200: '#ecd4f2',
+          100: '#f6eaf8',
           50: '#faf5fb',
         },
+        alexa: {
+          cyan: '#00d2ff',
+          neon: '#00caff',
+          sapphire: '#0284c7',
+          deep: '#0369a1',
+          glow: 'rgba(0, 210, 255, 0.45)',
+        },
+        cyan: {
+          950: '#082f49',
+          900: '#0c4a6e',
+          800: '#075985',
+          700: '#0369a1',
+          600: '#0284c7',
+          500: '#0ea5e9',
+          400: '#38bdf8',
+          300: '#7dd3fc',
+          200: '#bae6fd',
+          100: '#e0f2fe',
+          50: '#f0f9ff',
+        },
+        // Fallback compatibility mapped to Alexa Cyan
         marigold: {
-          600: '#d48b1e',
-          500: '#e59d28', // elegant, refined warm gold (not harsh deep orange)
-          400: '#f2b544',
-          300: '#f8cc6f',
-          200: '#fde3a4',
-          100: '#fef3d6',
-          50: '#fffbf0',
+          600: '#0284c7',
+          500: '#0ea5e9',
+          400: '#38bdf8',
+          300: '#7dd3fc',
+          200: '#bae6fd',
+          100: '#e0f2fe',
+          50: '#f0f9ff',
         },
         silver: {
           900: '#1e293b',
@@ -46,8 +68,8 @@ const config: Config = {
         'neu-raised-sm': '3px 3px 8px #cbd5e1, -3px -3px 8px #ffffff',
         'neu-inset': 'inset 3px 3px 6px #cbd5e1, inset -3px -3px 6px #ffffff',
         'neu-button': '4px 4px 10px #cbd5e1, -4px -4px 10px #ffffff',
-        'aubergine-glow': '0 10px 30px -5px rgba(53, 19, 60, 0.3)',
-        'marigold-glow': '0 0 20px rgba(229, 157, 40, 0.45)',
+        'aubergine-glow': '0 10px 30px -5px rgba(38, 12, 45, 0.4)',
+        'alexa-glow': '0 0 25px rgba(0, 210, 255, 0.55)',
       },
     },
   },

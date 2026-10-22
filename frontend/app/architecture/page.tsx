@@ -256,7 +256,7 @@ export default function ArchitecturePage() {
           </div>
 
           {/* Ownership Boundary */}
-          <div className="mt-6 glass-card p-4 rounded-2xl border border-marigold-300/60">
+          <div className="mt-6 glass-card p-4 rounded-2xl border border-cyan-400/30/60">
             <h3 className="text-sm font-bold text-aubergine-950 mb-2">
               File Ownership Boundary (Zero Conflict Rule)
             </h3>
@@ -321,10 +321,10 @@ export default function ArchitecturePage() {
             </div>
           ))}
 
-          <div className="glass-card p-4 rounded-2xl border border-marigold-300/60 text-center">
+          <div className="glass-card p-4 rounded-2xl border border-cyan-400/30/60 text-center">
             <p className="text-xs text-silver-700">
               Full friction log with recommendations available in{' '}
-              <span className="font-mono font-bold text-marigold-600">FRICTION_LOG.md</span>
+              <span className="font-mono font-bold text-cyan-500">FRICTION_LOG.md</span>
             </p>
           </div>
         </div>
