@@ -1,0 +1,401 @@
+﻿[
+  {
+    "preset_id": "dengue_aspirin",
+    "title": "The Dengue Aspirin Trap (Compound Medical Myth)",
+    "query_context": "Tell me about aspirin and dengue fever.",
+    "original_text": "Aspirin reduces fever and inflammation, was derived from willow bark, and is recommended for treating dengue fever.",
+    "total_claims": 3,
+    "claims": [
+      {
+        "claim_id": "c1",
+        "atomic_text": "Aspirin reduces fever and inflammation.",
+        "category": "medical_fact",
+        "check_worthiness": "high",
+        "verdict": "supported",
+        "confidence": 0.98,
+        "evidence_source": "Wikipedia (Aspirin) / WHO Guidelines",
+        "evidence_snippet": "Aspirin (acetylsalicylic acid) is a medication used to reduce pain, fever, and/or inflammation.",
+        "reasoning_steps": [
+          "Identified pharmacological claim regarding antipyretic (fever) and anti-inflammatory properties.",
+          "Matched against clinical pharmacology reference verifying both therapeutic indications.",
+          "Confirmed claim is scientifically accurate and supported with high confidence (0.98)."
+        ],
+        "correction": null
+      },
+      {
+        "claim_id": "c2",
+        "atomic_text": "Aspirin was historically derived from compounds found in willow bark.",
+        "category": "historical_fact",
+        "check_worthiness": "medium",
+        "verdict": "supported",
+        "confidence": 0.95,
+        "evidence_source": "Wikipedia (History of Aspirin)",
+        "evidence_snippet": "Medicines made from willow and other salicylate-rich plants were used for thousands of years before salicin was isolated and synthesized into aspirin.",
+        "reasoning_steps": [
+          "Identified botanical origin claim concerning willow bark and acetylsalicylic acid.",
+          "Cross-referenced historical pharmacology records on salicin extraction.",
+          "Confirmed accurate historical linkage with high confidence (0.95)."
+        ],
+        "correction": null
+      },
+      {
+        "claim_id": "c3",
+        "atomic_text": "Aspirin is recommended for treating dengue fever.",
+        "category": "medical_advice",
+        "check_worthiness": "critical",
+        "verdict": "contradicted",
+        "confidence": 0.96,
+        "evidence_source": "World Health Organization (WHO) / CDC Guidelines",
+        "evidence_snippet": "NSAIDs such as ibuprofen and aspirin should be avoided in dengue due to the increased risk of severe hemorrhage and internal bleeding.",
+        "reasoning_steps": [
+          "Identified critical medical intervention claim recommending aspirin for dengue fever.",
+          "Checked WHO clinical management guidelines for suspected dengue infections.",
+          "Found direct contraindication: aspirin's antiplatelet action precipitates fatal hemorrhaging.",
+          "Concluded claim is dangerous and contradicted with high confidence (0.96)."
+        ],
+        "correction": "Aspirin must be strictly avoided during dengue fever because its blood-thinning effect dramatically increases the risk of fatal hemorrhaging; paracetamol (acetaminophen) is the recommended antipyretic."
+      }
+    ],
+    "spoken_verdict": {
+      "overall_trust_score": 67,
+      "status": "self_corrected",
+      "abstained": false,
+      "spoken_response": "Hold on—two parts of that are true, but one is dangerous. Aspirin does reduce fever and comes from willow bark. However, you should never take aspirin for dengue fever because it increases the risk of severe bleeding. Doctors recommend paracetamol instead.",
+      "self_correction_diff": {
+        "removed_claim": "and is recommended for treating dengue fever",
+        "injected_correction": "However, you should never take aspirin for dengue fever because it increases bleeding risks; use paracetamol instead."
+      }
+    },
+    "mcp_trace": [
+      {"step": 1, "tool": "extract_claims", "status": "ok", "latency_ms": 310},
+      {"step": 2, "tool": "verify_claim", "status": "ok", "latency_ms": 640},
+      {"step": 3, "tool": "spoken_verdict", "status": "ok", "latency_ms": 280}
+    ]
+  },
+  {
+    "preset_id": "great_wall_space",
+    "title": "The Great Wall From Space (Popular Misconception)",
+    "query_context": "Tell me about the Great Wall of China.",
+    "original_text": "The Great Wall of China is over 13,000 miles long, was built across several dynasties, and is the only human-made structure visible from the Moon with the naked eye.",
+    "total_claims": 3,
+    "claims": [
+      {
+        "claim_id": "c1",
+        "atomic_text": "The Great Wall of China is over 13,000 miles long.",
+        "category": "historical_fact",
+        "check_worthiness": "high",
+        "verdict": "supported",
+        "confidence": 0.94,
+        "evidence_source": "China State Administration of Cultural Heritage / Wikipedia",
+        "evidence_snippet": "A comprehensive archaeological survey concluded the Great Wall encompasses 21,196 km (13,171 mi) across all built sections and dynasties.",
+        "reasoning_steps": [
+          "Evaluated geographic length figure (13,000+ miles).",
+          "Matched with 2012 SACH archaeological survey data (13,171 miles total).",
+          "Confirmed claim is supported with 0.94 confidence."
+        ],
+        "correction": null
+      },
+      {
+        "claim_id": "c2",
+        "atomic_text": "The Great Wall was built across several Chinese dynasties.",
+        "category": "historical_fact",
+        "check_worthiness": "medium",
+        "verdict": "supported",
+        "confidence": 0.97,
+        "evidence_source": "Wikipedia (History of the Great Wall)",
+        "evidence_snippet": "Successive dynasties including Qin, Han, and Ming reconstructed, maintained, and expanded fortifications over two millennia.",
+        "reasoning_steps": [
+          "Assessed historical construction timeline across dynasties.",
+          "Confirmed major phases span Warring States, Qin, Han, and Ming dynasties.",
+          "Verdict supported with 0.97 confidence."
+        ],
+        "correction": null
+      },
+      {
+        "claim_id": "c3",
+        "atomic_text": "The Great Wall is the only human-made structure visible from the Moon with the naked eye.",
+        "category": "scientific_fact",
+        "check_worthiness": "critical",
+        "verdict": "contradicted",
+        "confidence": 0.98,
+        "evidence_source": "NASA Earth Observatory / Apollo Astronaut Statements",
+        "evidence_snippet": "Apollo astronauts repeatedly confirmed no human structures are discernible from lunar orbit without magnification; the wall is only a few meters wide and matches surrounding soil hues.",
+        "reasoning_steps": [
+          "Investigated lunar visibility claim using optical physics and astronaut observations.",
+          "Confirmed angular resolution of human eye cannot resolve a 6-meter-wide wall from 384,000 km.",
+          "Identified long-standing urban myth debunked by NASA.",
+          "Verdict strongly contradicted with 0.98 confidence."
+        ],
+        "correction": "The Great Wall cannot be seen from the Moon with the naked eye. At lunar distance, resolving a structure only a few meters wide is physically impossible without high-powered optics, as confirmed by NASA Apollo astronauts."
+      }
+    ],
+    "spoken_verdict": {
+      "overall_trust_score": 67,
+      "status": "self_corrected",
+      "abstained": false,
+      "spoken_response": "Most of that is correct, but one part is a famous myth. The Great Wall is indeed over 13,000 miles long and spanned multiple dynasties. However, NASA astronauts have confirmed it is completely invisible from the Moon with the naked eye.",
+      "self_correction_diff": {
+        "removed_claim": "and is the only human-made structure visible from the Moon with the naked eye",
+        "injected_correction": "However, it is physically impossible to see from the Moon with the naked eye, as confirmed by NASA astronauts."
+      }
+    },
+    "mcp_trace": [
+      {"step": 1, "tool": "extract_claims", "status": "ok", "latency_ms": 295},
+      {"step": 2, "tool": "verify_claim", "status": "ok", "latency_ms": 710},
+      {"step": 3, "tool": "spoken_verdict", "status": "ok", "latency_ms": 260}
+    ]
+  },
+  {
+    "preset_id": "fed_cash_2027",
+    "title": "Unverified Future Policy / Rumor (Abstention Trigger)",
+    "query_context": "What is the Federal Reserve planning for physical cash?",
+    "original_text": "The Federal Reserve will abolish physical cash by November 2027 and replace all checking accounts with a mandatory biometric token.",
+    "total_claims": 2,
+    "claims": [
+      {
+        "claim_id": "c1",
+        "atomic_text": "The Federal Reserve will abolish physical cash by November 2027.",
+        "category": "policy_claim",
+        "check_worthiness": "critical",
+        "verdict": "unsure",
+        "confidence": 0.28,
+        "evidence_source": "Federal Reserve Board (Official Communications) / US Treasury",
+        "evidence_snippet": "The Federal Reserve has repeatedly stated that physical currency will remain a core component of the payment system and has announced no timeline to abolish cash.",
+        "reasoning_steps": [
+          "Searched official Federal Reserve policy announcements and Congressional testimonies.",
+          "Found zero enacted legislation or executive orders mandating cash abolition by 2027.",
+          "Identified viral unverified speculative internet rumor.",
+          "Confidence falls well below the 0.65 threshold (0.28) -> Calibrated abstention triggered."
+        ],
+        "correction": null
+      },
+      {
+        "claim_id": "c2",
+        "atomic_text": "All bank checking accounts will be replaced with a mandatory biometric token.",
+        "category": "policy_claim",
+        "check_worthiness": "critical",
+        "verdict": "unsure",
+        "confidence": 0.22,
+        "evidence_source": "US Banking Regulatory Filings",
+        "evidence_snippet": "No regulatory framework exists requiring biometric tokens as mandatory replacements for commercial banking accounts.",
+        "reasoning_steps": [
+          "Evaluated claim against FDIC and Federal Reserve retail payments roadmap.",
+          "No verified evidence found supporting mandatory biometric replacement.",
+          "Low confidence (0.22) mandates calibrated epistemic abstention."
+        ],
+        "correction": null
+      }
+    ],
+    "spoken_verdict": {
+      "overall_trust_score": 25,
+      "status": "abstained",
+      "abstained": true,
+      "spoken_response": "I'm not sure about that. There is no verified evidence from the Federal Reserve or US Treasury supporting claims that physical cash will be abolished in 2027 or replaced with mandatory biometric tokens. I recommend checking official Federal Reserve statements directly.",
+      "self_correction_diff": null
+    },
+    "mcp_trace": [
+      {"step": 1, "tool": "extract_claims", "status": "ok", "latency_ms": 320},
+      {"step": 2, "tool": "verify_claim", "status": "ok", "latency_ms": 590},
+      {"step": 3, "tool": "spoken_verdict", "status": "ok", "latency_ms": 230}
+    ]
+  },
+  {
+    "preset_id": "microwave_nutrients",
+    "title": "Microwave & Nutrient Science (100% Accurate Control)",
+    "query_context": "How do microwave ovens heat food and do they destroy nutrients?",
+    "original_text": "Microwave ovens heat food using non-ionizing electromagnetic radiation, and because cooking times are short, they often retain more Vitamin C than boiling.",
+    "total_claims": 2,
+    "claims": [
+      {
+        "claim_id": "c1",
+        "atomic_text": "Microwave ovens heat food using non-ionizing electromagnetic radiation.",
+        "category": "scientific_fact",
+        "check_worthiness": "high",
+        "verdict": "supported",
+        "confidence": 0.99,
+        "evidence_source": "FDA Radiation Safety / Wikipedia (Microwave oven)",
+        "evidence_snippet": "Microwaves produce non-ionizing radiation at 2.45 GHz which excites dielectric water molecules in food through dielectric heating.",
+        "reasoning_steps": [
+          "Evaluated physics principle of microwave ovens.",
+          "Confirmed 2.45 GHz radiation is non-ionizing and heats via molecular dipole rotation.",
+          "Supported with 0.99 confidence."
+        ],
+        "correction": null
+      },
+      {
+        "claim_id": "c2",
+        "atomic_text": "Because cooking times are short, microwaving often retains more Vitamin C than boiling.",
+        "category": "scientific_fact",
+        "check_worthiness": "high",
+        "verdict": "supported",
+        "confidence": 0.96,
+        "evidence_source": "Harvard Health Publishing / Journal of Food Science",
+        "evidence_snippet": "Vitamin C is water-soluble and heat-sensitive; microwaving requires minimal water and shorter exposure, preserving higher antioxidant concentrations than immersion boiling.",
+        "reasoning_steps": [
+          "Evaluated nutritional degradation kinetics of ascorbic acid (Vitamin C).",
+          "Cross-checked peer-reviewed studies comparing boiling vs microwaving.",
+          "Confirmed shorter thermal exposure minimizes nutrient leeching.",
+          "Supported with 0.96 confidence."
+        ],
+        "correction": null
+      }
+    ],
+    "spoken_verdict": {
+      "overall_trust_score": 98,
+      "status": "verified_safe",
+      "abstained": false,
+      "spoken_response": "That is completely accurate! Microwave ovens use safe, non-ionizing radiation to heat water molecules in food. And because cooking times are so quick with minimal water, microwaving actually preserves more Vitamin C than boiling.",
+      "self_correction_diff": null
+    },
+    "mcp_trace": [
+      {"step": 1, "tool": "extract_claims", "status": "ok", "latency_ms": 280},
+      {"step": 2, "tool": "verify_claim", "status": "ok", "latency_ms": 610},
+      {"step": 3, "tool": "spoken_verdict", "status": "ok", "latency_ms": 240}
+    ]
+  },
+  {
+    "preset_id": "ev_cold_battery",
+    "title": "EV Battery Cold Weather Range (Nuanced Partial Truth)",
+    "query_context": "How do EV batteries perform in freezing winter weather?",
+    "original_text": "Lithium-ion EV batteries lose temporary range in freezing weather, use thermal management systems, and permanently lose 50% capacity after one winter freeze.",
+    "total_claims": 3,
+    "claims": [
+      {
+        "claim_id": "c1",
+        "atomic_text": "Lithium-ion EV batteries lose temporary range in freezing weather.",
+        "category": "physical_property",
+        "check_worthiness": "high",
+        "verdict": "supported",
+        "confidence": 0.97,
+        "evidence_source": "Society of Automotive Engineers (SAE) / Recurrent Auto Study",
+        "evidence_snippet": "Low ambient temperatures increase internal electrolyte resistance and necessitate cabin heating, causing a temporary range reduction between 10% and 35%.",
+        "reasoning_steps": [
+          "Analyzed electrochemical behavior of lithium-ion cells at sub-zero temperatures.",
+          "Confirmed sluggish lithium ion diffusion causes temporary usable capacity reduction.",
+          "Supported with 0.97 confidence."
+        ],
+        "correction": null
+      },
+      {
+        "claim_id": "c2",
+        "atomic_text": "Modern electric vehicles use thermal management systems for batteries.",
+        "category": "physical_property",
+        "check_worthiness": "medium",
+        "verdict": "supported",
+        "confidence": 0.95,
+        "evidence_source": "Wikipedia (Electric vehicle battery)",
+        "evidence_snippet": "Modern EVs feature active liquid heating and cooling thermal management loops to condition the battery pack within ideal operational windows.",
+        "reasoning_steps": [
+          "Checked modern EV engineering architectures.",
+          "Confirmed active battery thermal management systems are standard in modern production EVs.",
+          "Supported with 0.95 confidence."
+        ],
+        "correction": null
+      },
+      {
+        "claim_id": "c3",
+        "atomic_text": "EV batteries permanently lose 50% capacity after one winter freeze.",
+        "category": "physical_property",
+        "check_worthiness": "critical",
+        "verdict": "contradicted",
+        "confidence": 0.96,
+        "evidence_source": "National Renewable Energy Laboratory (NREL) / AAA Field Tests",
+        "evidence_snippet": "Freezing conditions do not cause catastrophic permanent capacity degradation; normal battery capacity fully rebounds when ambient temperatures normalize.",
+        "reasoning_steps": [
+          "Investigated irreversible vs reversible capacity degradation in automotive cells.",
+          "NREL and battery telemetry show permanent annual degradation is typically 1.5% to 2.5%, not 50% from a single winter.",
+          "Concluded claim confuses temporary seasonal range loss with permanent damage.",
+          "Contradicted with 0.96 confidence."
+        ],
+        "correction": "EV batteries do not permanently lose 50% capacity after a winter freeze. The cold causes a temporary range reduction of 15% to 30%, but full battery capacity returns as soon as the weather warms up."
+      }
+    ],
+    "spoken_verdict": {
+      "overall_trust_score": 68,
+      "status": "self_corrected",
+      "abstained": false,
+      "spoken_response": "Two parts of that are accurate, but the last statement is a myth. Electric vehicles do temporarily lose range in sub-freezing weather, and they rely on thermal management systems. However, this cold-weather range drop is strictly temporary—batteries do NOT permanently lose 50% capacity from a single winter freeze.",
+      "self_correction_diff": {
+        "removed_claim": "and permanently lose 50% capacity after one winter freeze",
+        "injected_correction": "However, cold weather range loss is purely temporary and fully rebounds when temperatures warm up; batteries do not permanently lose half their capacity."
+      }
+    },
+    "mcp_trace": [
+      {"step": 1, "tool": "extract_claims", "status": "ok", "latency_ms": 305},
+      {"step": 2, "tool": "verify_claim", "status": "ok", "latency_ms": 680},
+      {"step": 3, "tool": "spoken_verdict", "status": "ok", "latency_ms": 270}
+    ]
+  },
+  {
+    "preset_id": "co_detector_floor",
+    "title": "Smart Home Carbon Monoxide Placement (Safety Critical)",
+    "query_context": "Where should I install carbon monoxide detectors in my house?",
+    "original_text": "Carbon monoxide detectors last 5 to 10 years, sound an audible alarm, and must only be installed flat on the floor because CO is much heavier than air.",
+    "total_claims": 3,
+    "claims": [
+      {
+        "claim_id": "c1",
+        "atomic_text": "Carbon monoxide detectors last 5 to 10 years.",
+        "category": "physical_property",
+        "check_worthiness": "high",
+        "verdict": "supported",
+        "confidence": 0.96,
+        "evidence_source": "US Consumer Product Safety Commission (CPSC) / NFPA Guidelines",
+        "evidence_snippet": "Electrochemical CO sensor elements have an operational lifespan of 5 to 10 years before requiring full unit replacement.",
+        "reasoning_steps": [
+          "Evaluated sensor longevity guideline.",
+          "CPSC and manufacturer recommendations mandate replacement between 5 and 10 years.",
+          "Supported with 0.96 confidence."
+        ],
+        "correction": null
+      },
+      {
+        "claim_id": "c2",
+        "atomic_text": "Carbon monoxide detectors sound an audible alarm when gas is detected.",
+        "category": "physical_property",
+        "check_worthiness": "medium",
+        "verdict": "supported",
+        "confidence": 0.99,
+        "evidence_source": "UL 2034 Standard for Safety",
+        "evidence_snippet": "UL 2034 certifies residential detectors to emit a minimum 85-decibel pulsing alarm upon detecting threshold CO concentrations.",
+        "reasoning_steps": [
+          "Verified safety standard requirements for audible notification.",
+          "Supported with 0.99 confidence."
+        ],
+        "correction": null
+      },
+      {
+        "claim_id": "c3",
+        "atomic_text": "CO detectors must only be installed flat on the floor because carbon monoxide is much heavier than air.",
+        "category": "medical_advice",
+        "check_worthiness": "critical",
+        "verdict": "contradicted",
+        "confidence": 0.98,
+        "evidence_source": "EPA Indoor Air Quality / National Fire Protection Association (NFPA 720)",
+        "evidence_snippet": "Carbon monoxide has a molar mass of 28.01 g/mol compared to air's 28.96 g/mol, meaning it is slightly lighter than air and mixes evenly throughout ambient space. Detectors should be mounted at knee-to-eye level on walls, not on the floor.",
+        "reasoning_steps": [
+          "Calculated molecular mass ratio: CO (28.01) vs dry air (~28.97).",
+          "Confirmed CO is slightly lighter than air and diffuses homogeneously.",
+          "Floor-only placement risks delayed detection and could cause fatal asphyxiation.",
+          "Contradicted with 0.98 confidence."
+        ],
+        "correction": "Carbon monoxide is actually slightly lighter than air (molecular weight 28 vs air's 29) and diffuses evenly with room airflow. The EPA and NFPA recommend installing detectors on walls at breathing level (around 5 feet high), never flat on the floor."
+      }
+    ],
+    "spoken_verdict": {
+      "overall_trust_score": 65,
+      "status": "self_corrected",
+      "abstained": false,
+      "spoken_response": "The first two facts are true, but the placement advice is dangerously incorrect. Detectors do last 5 to 10 years and sound an audible alarm. However, carbon monoxide is actually slightly lighter than air and mixes evenly—so detectors should be installed on the wall at breathing height, about five feet up, never flat on the floor.",
+      "self_correction_diff": {
+        "removed_claim": "and must only be installed flat on the floor because CO is much heavier than air",
+        "injected_correction": "However, carbon monoxide is actually slightly lighter than air and mixes evenly throughout a room; install detectors on walls at breathing height (about 5 feet up), never flat on the floor."
+      }
+    },
+    "mcp_trace": [
+      {"step": 1, "tool": "extract_claims", "status": "ok", "latency_ms": 315},
+      {"step": 2, "tool": "verify_claim", "status": "ok", "latency_ms": 660},
+      {"step": 3, "tool": "spoken_verdict", "status": "ok", "latency_ms": 250}
+    ]
+  }
+]
