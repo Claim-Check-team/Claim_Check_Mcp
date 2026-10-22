@@ -199,3 +199,50 @@ code, pre, .font-mono {
   0%, 100% { height: 4px; }
   50% { height: 18px; }
 }
+
+/* Sidebar Glassmorphic Surface */
+.sidebar-glass {
+  background: rgba(240, 244, 249, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-right: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 4px 0 24px rgba(15, 23, 42, 0.06);
+}
+
+.sidebar-nav-item {
+  position: relative;
+  overflow: hidden;
+}
+
+.sidebar-nav-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+}
+
+.sidebar-nav-item:hover::before {
+  opacity: 1;
+}
+
+/* Page transition */
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+main > * {
+  animation: page-enter 0.35s ease-out;
+}

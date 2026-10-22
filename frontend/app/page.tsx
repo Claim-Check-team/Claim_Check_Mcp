@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
 import { PRESET_SCENARIOS, Scenario, Claim } from '../lib/presets';
@@ -56,7 +56,7 @@ export default function EchoShowSimulator() {
     const s = scenarios.find((p) => p.preset_id === id) || scenarios[0];
     setCurrentScenario(s);
     setInputText(s.original_text);
-    setStatusMessage(Loaded scenario: );
+    setStatusMessage('Loaded scenario: ' + s.title.split('(')[0]);
     if (!hwMuted) {
       speakText(s.spoken_verdict.spoken_response);
     }
@@ -181,12 +181,11 @@ export default function EchoShowSimulator() {
 
   return (
     <div className="p-3 md:p-6 lg:p-8 max-w-7xl mx-auto">
-      
       {/* HEADER BAR: PROTOCOL BADGES & STRESS TEST */}
       <header className="neu-raised p-4 md:px-6 mb-6 flex flex-wrap items-center justify-between gap-4 border border-white/80">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-alexa-cyan via-alexa-blue to-alexa-deep flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-cyan-500/25">
-            ???
+            Shield
           </div>
           <div>
             <div className="flex items-center gap-2">
@@ -198,7 +197,7 @@ export default function EchoShowSimulator() {
               </span>
             </div>
             <p className="text-xs text-slate-500 font-medium">
-              Epistemic Safety ? FActScore Atomic Decomposition ? Calibrated Voice Abstention
+              Epistemic Safety - FActScore Atomic Decomposition - Calibrated Voice Abstention
             </p>
           </div>
         </div>
@@ -218,7 +217,7 @@ export default function EchoShowSimulator() {
             onClick={runStressTest}
             className="neu-button px-3.5 py-1.5 text-xs font-bold text-amber-800 bg-amber-50 hover:bg-amber-100 border border-amber-200/80 flex items-center gap-1.5"
           >
-            <span>?</span> Q3/Q4 Self-Correction Stress Test
+            <span>Run</span> Q3/Q4 Self-Correction Stress Test
           </button>
         </div>
       </header>
@@ -239,28 +238,26 @@ export default function EchoShowSimulator() {
             const isActive = sc.preset_id === currentScenario.preset_id;
             const st = sc.spoken_verdict.status;
             let badgeColor = 'bg-cyan-100 text-cyan-800 border-cyan-300';
-            let dot = '?';
+            let dot = 'Status:';
             if (st === 'verified_safe') {
               badgeColor = 'bg-emerald-100 text-emerald-800 border-emerald-300';
-              dot = '??';
             } else if (st === 'abstained') {
               badgeColor = 'bg-amber-100 text-amber-800 border-amber-300';
-              dot = '??';
             } else if (st === 'self_corrected') {
               badgeColor = 'bg-rose-100 text-rose-800 border-rose-300';
-              dot = '??';
             }
 
             return (
               <button
                 key={sc.preset_id}
                 onClick={() => selectScenario(sc.preset_id)}
-                className={
-eu-button p-2 text-left flex flex-col justify-between rounded-xl border border-white/60 transition-all hover:scale-[1.02] }
+                className={`neu-button p-2 text-left flex flex-col justify-between rounded-xl border border-white/60 transition-all hover:scale-[1.02] ${
+                  isActive ? 'active ring-2 ring-cyan-500' : ''
+                }`}
               >
                 <div className="flex items-center justify-between w-full mb-1">
                   <span className="text-[10px] font-mono font-bold text-slate-400">#{i + 1}</span>
-                  <span className={	ext-[9px] px-1.5 py-0.2 rounded-full font-bold border }>
+                  <span className={`text-[9px] px-1.5 py-0.2 rounded-full font-bold border ${badgeColor}`}>
                     {dot} {st.replace('_', ' ').toUpperCase()}
                   </span>
                 </div>
@@ -296,7 +293,7 @@ eu-button p-2 text-left flex flex-col justify-between rounded-xl border border-w
               onClick={toggleMute}
               className="neu-button px-2.5 py-1 text-xs font-semibold flex items-center gap-1.5 text-slate-700"
             >
-              <span className={w-2 h-2 rounded-full }></span>
+              <span className={`w-2 h-2 rounded-full ${hwMuted ? 'bg-rose-500 animate-pulse' : 'bg-slate-400'}`}></span>
               <span>{hwMuted ? 'Muted' : 'Mic Active'}</span>
             </button>
 
@@ -355,9 +352,11 @@ eu-button p-2 text-left flex flex-col justify-between rounded-xl border border-w
                   <button
                     onClick={toggleMic}
                     title="Microphone Input"
-                    className={bsolute right-2.5 top-2.5 w-8 h-8 rounded-xl neu-button flex items-center justify-center }
+                    className={`absolute right-2.5 top-2.5 w-8 h-8 rounded-xl neu-button flex items-center justify-center ${
+                      isListening ? 'bg-rose-100 text-rose-600 animate-pulse' : 'text-slate-600 hover:text-cyan-600'
+                    }`}
                   >
-                    ??
+                    Mic
                   </button>
                 </div>
               </div>
@@ -375,7 +374,7 @@ eu-button p-2 text-left flex flex-col justify-between rounded-xl border border-w
                   title="Read aloud"
                   className="neu-button p-2.5 rounded-xl text-slate-700 hover:text-cyan-600"
                 >
-                  ??
+                  Audio
                 </button>
               </div>
             </div>
@@ -393,8 +392,10 @@ eu-button p-2 text-left flex flex-col justify-between rounded-xl border border-w
                       d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
                     />
                     <path
-                      className={	ransition-all duration-1000 ease-out }
-                      strokeDasharray={${trustScore}, 100}
+                      className={`transition-all duration-1000 ease-out ${
+                        trustScore >= 80 ? 'text-emerald-500' : status === 'abstained' ? 'text-amber-500' : 'text-cyan-500'
+                      }`}
+                      strokeDasharray={`${trustScore}, 100`}
                       strokeWidth="3.5"
                       strokeLinecap="round"
                       stroke="currentColor"
@@ -417,8 +418,7 @@ eu-button p-2 text-left flex flex-col justify-between rounded-xl border border-w
                     {status.replace('_', ' ').toUpperCase()}
                   </h3>
                   <p className="text-xs text-slate-500 mt-1">
-                    {currentScenario.claims.filter((c) => c.verdict === 'supported').length} supported -{' '}
-                    {currentScenario.claims.filter((c) => c.verdict === 'contradicted').length} contradicted
+                    {currentScenario.claims.filter((c) => c.verdict === 'supported').length} supported - {currentScenario.claims.filter((c) => c.verdict === 'contradicted').length} contradicted
                   </p>
                 </div>
               </div>
@@ -428,7 +428,11 @@ eu-button p-2 text-left flex flex-col justify-between rounded-xl border border-w
                   Abstention
                 </span>
                 <span
-                  className={	ext-xs font-extrabold px-2 py-0.5 rounded border }
+                  className={`text-xs font-extrabold px-2 py-0.5 rounded border ${
+                    currentScenario.spoken_verdict.abstained
+                      ? 'text-amber-700 bg-amber-50 border-amber-200'
+                      : 'text-emerald-700 bg-emerald-50 border-emerald-200'
+                  }`}
                 >
                   {currentScenario.spoken_verdict.abstained ? 'Unsure (<0.65)' : 'Confident'}
                 </span>
@@ -446,18 +450,18 @@ eu-button p-2 text-left flex flex-col justify-between rounded-xl border border-w
                     onClick={() => speakText(currentScenario.spoken_verdict.spoken_response)}
                     className="text-xs font-semibold text-cyan-600 hover:text-cyan-700 flex items-center gap-1"
                   >
-                    ?? Listen
+                    Audio Listen
                   </button>
                 </div>
 
                 <div className="neu-inset p-3.5 text-xs md:text-sm text-slate-800 leading-relaxed font-medium min-h-[90px]">
-                  "{currentScenario.spoken_verdict.spoken_response}"
+                  {'"' + currentScenario.spoken_verdict.spoken_response + '"'}
                 </div>
 
                 {currentScenario.spoken_verdict.self_correction_diff && (
                   <div className="mt-3 p-2.5 rounded-xl bg-amber-50/70 border border-amber-200/80 text-xs text-slate-700">
                     <span className="font-bold text-amber-900 block mb-1">
-                      ? Q3/Q4 Real-Time Self-Correction Diff:
+                      Q3/Q4 Real-Time Self-Correction Diff:
                     </span>
                     <div className="flex items-start gap-1.5 text-rose-700">
                       <span className="font-bold">- Removed:</span>
@@ -494,7 +498,7 @@ eu-button p-2 text-left flex flex-col justify-between rounded-xl border border-w
               <div className="flex items-center justify-between pb-3 border-b border-slate-200/70 mb-4">
                 <div>
                   <h2 className="font-display font-extrabold text-base text-slate-800 flex items-center gap-2">
-                    <span>??</span> Atomic Claim Decomposition & Evidence Grounding
+                    Atomic Claim Decomposition & Evidence Grounding
                   </h2>
                   <p className="text-xs text-slate-500">
                     FActScore isolation judged against live Wikipedia REST API
@@ -509,24 +513,20 @@ eu-button p-2 text-left flex flex-col justify-between rounded-xl border border-w
               <div className="space-y-3.5 overflow-y-auto max-h-[500px] pr-1">
                 {currentScenario.claims.map((claim: Claim) => {
                   let badge = 'bg-emerald-100 text-emerald-800 border-emerald-300';
-                  let icon = '??';
                   let border = 'border-l-4 border-l-emerald-500';
 
                   if (claim.verdict === 'contradicted') {
                     badge = 'bg-rose-100 text-rose-800 border-rose-300';
-                    icon = '??';
                     border = 'border-l-4 border-l-rose-500';
                   } else if (claim.verdict === 'unsure') {
                     badge = 'bg-amber-100 text-amber-800 border-amber-300';
-                    icon = '??';
                     border = 'border-l-4 border-l-amber-500';
                   }
 
                   const isExpanded = expandedReasoning[claim.claim_id] || false;
 
                   return (
-                    <div key={claim.claim_id} className={
-eu-raised p-4 rounded-2xl  border border-white/80}>
+                    <div key={claim.claim_id} className={`neu-raised p-4 rounded-2xl border border-white/80 ${border}`}>
                       <div className="flex items-start justify-between gap-3">
                         <div className="flex items-center gap-2">
                           <span className="neu-inset px-2 py-0.5 text-[10px] font-mono font-bold text-slate-600">
@@ -541,14 +541,14 @@ eu-raised p-4 rounded-2xl  border border-white/80}>
                           <span className="text-[10px] font-mono font-bold text-slate-500">
                             {Math.round(claim.confidence * 100)}% Conf
                           </span>
-                          <span className={px-2 py-0.5 rounded-full text-[10px] font-bold border }>
-                            {icon} {claim.verdict.toUpperCase()}
+                          <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold border ${badge}`}>
+                            {claim.verdict.toUpperCase()}
                           </span>
                         </div>
                       </div>
 
                       <p className="text-xs md:text-sm font-semibold text-slate-800 mt-2">
-                        "{claim.atomic_text}"
+                        {'"' + claim.atomic_text + '"'}
                       </p>
 
                       <div className="mt-2 pt-2 border-t border-slate-200/60 flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-500">
@@ -559,26 +559,26 @@ eu-raised p-4 rounded-2xl  border border-white/80}>
                           onClick={() => toggleReasoning(claim.claim_id)}
                           className="text-cyan-600 hover:text-cyan-700 font-bold text-[11px] flex items-center gap-1"
                         >
-                          <span>Judge Reasoning</span> <span>{isExpanded ? '?' : '?'}</span>
+                          <span>Judge Reasoning</span> <span>{isExpanded ? '▲' : '▼'}</span>
                         </button>
                       </div>
 
                       {isExpanded && (
                         <div className="mt-2.5 pt-2 border-t border-dashed border-slate-200">
                           <div className="p-2 rounded-lg bg-slate-100/80 text-[11px] text-slate-700 italic mb-2">
-                            "{claim.evidence_snippet}"
+                            {'"' + claim.evidence_snippet + '"'}
                           </div>
                           <ul className="space-y-1 mt-1">
                             {claim.reasoning_steps.map((r, i) => (
                               <li key={i} className="text-[11px] text-slate-600 flex items-start gap-1.5">
-                                <span className="text-cyan-600 font-bold">?</span>
+                                <span className="text-cyan-600 font-bold">•</span>
                                 <span>{r}</span>
                               </li>
                             ))}
                           </ul>
                           {claim.correction && (
                             <div className="mt-2.5 p-2 rounded-xl bg-rose-50/80 border border-rose-200 text-xs text-rose-900">
-                              <strong className="font-bold">?? Grounded Correction:</strong>
+                              <strong className="font-bold">Grounded Correction:</strong>
                               <p className="mt-0.5">{claim.correction}</p>
                             </div>
                           )}
@@ -635,13 +635,13 @@ eu-raised p-4 rounded-2xl  border border-white/80}>
           <div className="neu-raised max-w-3xl w-full max-h-[85vh] flex flex-col p-6 rounded-3xl border border-white/80 shadow-2xl">
             <div className="flex items-center justify-between pb-3 border-b border-slate-200">
               <h3 className="font-display font-extrabold text-base text-slate-800">
-                ?? Unified MCP JSON Payload
+                Unified MCP JSON Payload
               </h3>
               <button
                 onClick={() => setShowJsonModal(false)}
                 className="neu-button w-8 h-8 rounded-full flex items-center justify-center text-slate-600 hover:text-slate-900"
               >
-                ?
+                ✕
               </button>
             </div>
 
