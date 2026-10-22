@@ -1,0 +1,62 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "claim check",
+      "intents": [
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": [
+            "cancel",
+            "never mind"
+          ]
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": [
+            "help",
+            "what can I say",
+            "how do I use claim check"
+          ]
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": [
+            "stop",
+            "exit",
+            "bye",
+            "goodbye"
+          ]
+        },
+        {
+          "name": "AMAZON.NavigateHomeIntent",
+          "samples": [
+            "go home",
+            "home"
+          ]
+        },
+        {
+          "name": "ClaimCheckIntent",
+          "slots": [
+            {
+              "name": "claim",
+              "type": "AMAZON.SearchQuery"
+            }
+          ],
+          "samples": [
+            "verify {claim}",
+            "claim check {claim}",
+            "fact check {claim}",
+            "check if it is true that {claim}",
+            "ask claim check about {claim}",
+            "is it safe to {claim}",
+            "is it true that {claim}",
+            "can you verify {claim}",
+            "run a claim check on {claim}",
+            "check this claim {claim}"
+          ]
+        }
+      ],
+      "types": []
+    }
+  }
+}
