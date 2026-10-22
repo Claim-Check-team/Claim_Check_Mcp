@@ -131,6 +131,9 @@ export default function EchoShowSimulator() {
     setIsChecking(true);
     setStatusMessage('Invoking MCP pipeline (/mcp): extract_claims -> verify_claim -> spoken_verdict...');
 
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 2500);
+
     try {
       const res = await fetch('/api/check', {
         method: 'POST',
@@ -139,7 +142,9 @@ export default function EchoShowSimulator() {
           response_text: inputText,
           preset_id: currentScenario.preset_id,
         }),
+        signal: controller.signal,
       });
+      clearTimeout(timeoutId);
 
       if (res.ok) {
         const data = await res.json();
@@ -150,7 +155,8 @@ export default function EchoShowSimulator() {
         return;
       }
     } catch {
-      // Backend offline -> fallback
+      clearTimeout(timeoutId);
+      // Cold-start or timeout -> fallback gracefully to deterministic cache
     }
 
     setTimeout(() => {

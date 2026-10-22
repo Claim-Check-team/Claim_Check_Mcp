@@ -165,10 +165,28 @@ async def check_claim(request: CheckRequest):
 
     # Resolve input query_context and response_text
     query_context = request.query_context or (target_preset.get("query_context") if target_preset else "")
-    response_text = request.response_text or (target_preset.get("original_text") if target_preset else "")
+    response_text = request.response_text if request.response_text is not None else (target_preset.get("original_text") if target_preset else "")
 
-    if not response_text:
-        raise HTTPException(status_code=400, detail="response_text or valid preset_id is required")
+    # Zero-Division & Empty/Noise Input Guard
+    if not response_text or not response_text.strip():
+        empty_res = {
+            "preset_id": "empty_input",
+            "title": "Empty Voice Input",
+            "query_context": query_context,
+            "original_text": response_text or "",
+            "total_claims": 0,
+            "claims": [],
+            "spoken_verdict": {
+                "overall_trust_score": 100,
+                "status": "verified_safe",
+                "abstained": False,
+                "spoken_response": "I didn't catch a verifiable claim. Tell me a statement you'd like me to check.",
+                "self_correction_diff": None
+            },
+            "mcp_trace": []
+        }
+        empty_res["apl_directive"] = build_apl_directive(empty_res)
+        return empty_res
 
     # If preset_id is provided and no custom text modification was made,
     # return the high-fidelity curated benchmark with live telemetry latency simulation

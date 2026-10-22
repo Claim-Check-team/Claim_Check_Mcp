@@ -72,5 +72,21 @@ Free-tier and rate-limited model endpoints (such as Gemini 2.5 Flash at 15 Reque
 
 ---
 
+## Friction Item 5: Epistemic Grounding Across Regional Dialects & Code-Switched Speech (Banglish / Hinglish / Spanglish)
+
+### 1.1 Context
+In global voice markets, users rarely speak pure textbook English; they frequently mix regional dialects, colloquial idioms (e.g., *"রক্ত পানি হয়ে যাওয়া"*), and English medical nouns within a single conversational utterance.
+
+### 1.2 Problem
+Direct entity lookups against English knowledge bases fail when passed raw code-switched transcripts (e.g., searching Wikipedia for mixed Bengali/English terms returns HTTP 404 or Disambiguation dead-ends).
+
+### 1.3 How Claim-Check MCP Solved It
+Our `extract_claims` pipeline performs **Cross-Lingual Canonicalization**—normalizing dialectal idioms and ASR phonetic drift into canonical English subject-predicate-object claims for high-precision grounding against authoritative sources (e.g., mapping *"সাপে কাটলে শক্ত করে রশি দিয়ে বাঁধা"* to *"tight tourniquet for snakebite contraindicated by WHO"*), while preserving regional context for the final voice correction.
+
+### 1.4 Recommendation for Alexa+ & MCP Teams
+- Expose the ASR confidence scores and detected code-switching locale array (e.g., `["bn-BD", "en-US"]`) inside the MCP request metadata so verification servers can automatically trigger phonetic and dialect normalization.
+
+---
+
 ## Conclusion
 Resolving these four friction points will elevate MCP from an action-execution protocol into a comprehensive, voice-first epistemic safety standard for next-generation conversational agents.

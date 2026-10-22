@@ -3,6 +3,7 @@ Voice Verdict & Self-Correction Synthesis Tool.
 Synthesizes voice-first summaries with calibrated abstention and Q3/Q4 self-correction.
 """
 
+import html
 import json
 import logging
 import os
@@ -26,6 +27,13 @@ Output JSON format strictly:
   "spoken_response": "Natural spoken response here..."
 }
 """
+
+
+def safe_ssml_text(text: str) -> str:
+    """Escapes XML reserved characters to prevent Alexa SSML parser crashes."""
+    if not text:
+        return ""
+    return html.escape(text, quote=False)
 
 
 def _clean_json_response(text: str) -> str:
@@ -79,7 +87,7 @@ async def spoken_verdict_logic(
             "overall_trust_score": trust_score,
             "status": "abstained",
             "abstained": True,
-            "spoken_response": spoken_response,
+            "spoken_response": safe_ssml_text(spoken_response),
             "self_correction_diff": None
         }
 
@@ -144,7 +152,7 @@ Output JSON with 'spoken_response'."""
             "overall_trust_score": trust_score,
             "status": "self_corrected",
             "abstained": False,
-            "spoken_response": spoken_response,
+            "spoken_response": safe_ssml_text(spoken_response),
             "self_correction_diff": self_correction_diff
         }
 
@@ -158,6 +166,6 @@ Output JSON with 'spoken_response'."""
         "overall_trust_score": trust_score,
         "status": "verified_safe",
         "abstained": False,
-        "spoken_response": spoken_response,
+        "spoken_response": safe_ssml_text(spoken_response),
         "self_correction_diff": None
     }
