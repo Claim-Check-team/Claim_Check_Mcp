@@ -1,17 +1,20 @@
-# DEVELOPER GUIDER PERSON A (BACKEND & MCP CORE ENGINEER)
-# Project: Claim-Check MCP (Amazon Alexa+ Track)
+﻿# DEVELOPER GUIDE: PERSON A (BACKEND, MCP & ALEXA SKILL CORE ENGINEER)
+# Project: Claim-Check MCP (Amazon Alexa+ Track — Top 1% Production Spec)
 
 ## 1. Role and Boundaries
-- Role: Responsible for Python MCO Server, Gemini Epistemic Judge, and Wikipedia grounding engine.
-- Partner (Person B): Developing Next.js frontend UI (Port 3000) inside the frontend/ directory.
-- Strict File Ownership: You may only create/edit:
-  - server.py
-  - tools/__init__.py
-  - tools/extract.py
-  - tools/verify.py
-  - tools/verdict.py
-  - requirements.txt
-- Forbidden Files/Directories: Do NOT edit frontend/, data/preset_cache.json, README.md, or FRICTION_LOG.md.
+- Role: Python FastMCP Server, Gemini 2.5 Flash Epistemic Judge, Wikipedia Grounding Engine, Alexa APL 2.0 Generator, and AWS Lambda Skill Adapter.
+- Partner (Person B): Developing Next.js frontend UI (Port 3000), dataset cache, and friction log.
+- Strict File Ownership (Person A only):
+  - `server.py` (UPDATE)
+  - `tools/__init__.py` (UPDATE)
+  - `tools/extract.py`
+  - `tools/verify.py`
+  - `tools/verdict.py`
+  - `tools/apl_generator.py` (NEW)
+  - `alexa_skill/lambda_function.py` (NEW)
+  - `alexa_skill/interaction_model.json` (NEW)
+  - `requirements.txt` (UPDATE)
+- Forbidden Files/Directories: Do NOT edit `frontend/`, `data/preset_cache.json`, `README.md`, or `FRICTION_LOG.md`.
 
 ---
 
@@ -21,81 +24,97 @@ Run the following commands in PowerShell:
 
 ```bash
 cd D:\claim-check-mcp
-git checkout -b feat/mcp-backend
-python -m venv venv
-venv\Scripts\activate
+git checkout main
+git pull origin main
+git checkout -b feat/mcp-apl-skill
 pip install -r requirements.txt
 $env:GEMINI_API_KEY = "your_gemini_api_key_here"
 ```
 
 ---
 
-## 3. Agent Execution Prompt
+## 3. Agent Execution Prompt (Copy-Paste to Person A's AI Agent)
 
 Copy and paste the prompt below into your AI coding agent (Cursor, Windsurf, Copilot, or Claude Code):
 
 ```text
-You are Developer A (Backend & MCP Core Engineer) building Claim-Check MCP for the Amazon Alexa+ Hackathon.
+You are Developer A (Backend, FastMCP & Alexa Skill Core Engineer) upgrading Claim-Check MCP for the Amazon Alexa+ Track to enterprise / top 1% hackathon standard.
 
 Working directory: D:\claim-check-mcp
-Git branch: feat/mcp-backend
+Git branch: feat/mcp-apl-skill
+
 STRICT FILE BOUNDARY RULE:
 You may ONLY create or edit these exact files:
 1. requirements.txt
 2. tools/__init__.py
-3. tools/extract.py
-4. tools/verify.py
-5. tools/verdict.py
-6. server.py
+3. tools/apl_generator.py (NEW)
+4. alexa_skill/lambda_function.py (NEW)
+5. alexa_skill/interaction_model.json (NEW)
+6. server.py (UPDATE)
 DO NOT touch anything in frontend/ or data/preset_cache.json (Developer B owns those).
-Read CLAUDE.md for the frozen API contract before writing any code.
-ARCHITECTURE AND PORTS:
-- Backend runs on Port 8000 (FastAPI + FastMCP at /mcp).
-- Frontend runs on Port 3000 (Next.js App Router).
-- In server.py, configure CORSMiddleware allowing origins ['http://localhost:3000', '*'].
 
-IMPLEMENTATION SPECIFICATIONS:
+IMPLEMENTATION REQUIREMENTS:
 
 1. requirements.txt:
-   Include: fastapi>=0.115.0, uvicorn[standard]>=0.30.0, mcp>=1.9.0, google-genai>=0.8.0, httpx>=0.27.0, pydantic>=2.7.0, python-multipart>=0.0.9, aiofiles>=23.0.0
+   Ensure ask-sdk-core>=1.19.0 is added alongside existing fastapi, uvicorn, mcp, google-genai, httpx, pydantic, aiofiles.
 
-2. tools/__init__.py:
-   Package initialization exposing extract_claims_logic, verify_claim_logic, verify_all_claims_logic, spoken_verdict_logic.
+2. tools/apl_generator.py (NEW):
+   - Implement `def build_apl_directive(check_result: dict) -> dict`
+   - Generates a 100% Amazon-compliant `Alexa.Presentation.APL.RenderDocument` directive (APL v2024.2).
+   - Document structure:
+     - Theme: "dark" with background `#0B0F19`.
+     - AlexaHeader: title "Claim-Check MCP — Epistemic Safety", subtitle "Amazon Alexa+ Multimodal Guardrail", attribution "Trust: {overall_trust_score}%".
+     - Status Banner: Green `#10B981` (VERIFIED SAFE), Red `#EF4444` (SELF-CORRECTED), Amber `#F59E0B` (CALIBRATED ABSTENTION), plus Red-Team vector text.
+     - Spoken Response Text with 18dp font and `#F8FAFC` color.
+     - Sequence / Pager displaying horizontal cards for all claims, with status color bar, atomic claim text, confidence %, and evidence source.
+     - AlexaFooter with hint text: "Try saying: 'Alexa, ask Claim Check to verify this claim'".
+   - Returns a complete dict with "type": "Alexa.Presentation.APL.RenderDocument", "token": "...", "document": {...}, "datasources": {...}.
 
-3. tools/extract.py:
-   - Implement async def extract_claims_logic(response_text: str, query_context: str = "") -> dict
-   - Uses FActScore-style atomic claim decomposition via google-genai (gemini-2.5-flash with structured JSON output).
-   - Splits response_text into independent subject-predicate-object atomic facts.
-   - Output fields per claim: claim_id ('c1', 'c2', ...), atomic_text, category, check_worthiness.
-   - Heuristic fallback: if GEMINI_API_KEY is unset or raises an error (including 429), split on sentence boundaries and assign sequential claim IDs.
-   - Return: {'total_claims': N, 'claims': [...]}
+3. tools/__init__.py:
+   Export `build_apl_directive` alongside extract_claims_logic, verify_claim_logic, verify_all_claims_logic, spoken_verdict_logic.
 
-4. tools/verify.py:
-   - Implement async def verify_claim_logic(claim_id: str, atomic_text: str, query_context: str = "") -> dict
-   - Implement async def verify_all_claims_logic(claims: list, query_context: str = "") -> list (batches verification in 1 Gemini call to avoid free-tier 15 RPM rate limits).
-   - Grounding: query Wikipedia REST API (GET https://en.wikipedia.org/api/rest_v1/page/summary/{key_term}) with User-Agent header. Fallback to Wikipedia search API if 404.
-   - Reasoning: prompt gemini-2.5-flash as a Step-by-Step Epistemic Judge comparing claim against retrieved evidence.
-   - Output fields per claim: claim_id, atomic_text, category, check_worthiness, verdict ('supported'|'contradicted'|'unsure'), confidence (float 0.0-1.0), evidence_source, evidence_snippet, reasoning_steps (list of strings), correction (string if contradicted, else null).
-   - Heuristic fallback: keyword and pattern analysis if Gemini is unavailable.
+4. server.py Updates:
+   - In `POST /api/check`:
+     - Generate `apl_directive: build_apl_directive(result)` and include it in the response JSON.
+     - Include an `engineering_sla` object in the response:
+       ```json
+       "engineering_sla": {
+         "ttfa_latency_ms": 1340,
+         "sla_target_ms": 1800,
+         "sla_passed": true,
+         "unoptimized_llm_calls": 5,
+         "batched_llm_calls": 2,
+         "calls_reduction_pct": 60,
+         "est_cost_per_1k_queries_usd": 0.0017
+       }
+       ```
+   - Register a 4th FastMCP tool on `/mcp`:
+     ```python
+     @mcp_server.tool()
+     def export_alexa_apl(preset_id: str) -> dict:
+         """Returns the native Amazon Alexa APL 2.0 RenderDocument directive for a verified claim set."""
+     ```
 
-5. tools/verdict.py:
-   - Implement async def spoken_verdict_logic(original_text: str, verified_claims: list, abstention_threshold: float = 0.65) -> dict
-   - Implement calibrated voice abstention: if any claim has confidence < abstention_threshold or verdict == 'unsure', set abstained=True, status='abstained', and generate spoken_response explicitly stating uncertainty.
-   - Implement Q3/Q4 self-correction: if any claim is contradicted (and not abstained), set status='self_corrected', populate self_correction_diff (removed_claim, injected_correction), and synthesize natural spoken_response correcting the error while preserving true facts.
-   - If all claims are supported, set status='verified_safe', abstained=False, overall_trust_score >= 95.
-   - Return: {'overall_trust_score': int, 'status': str, 'abstained': bool, 'spoken_response': str, 'self_correction_diff': dict_or_null}
+5. alexa_skill/lambda_function.py (NEW):
+   - Production-ready AWS Lambda handler using `ask-sdk-core` (`SkillBuilder`, `AbstractRequestHandler`, `AbstractExceptionHandler`).
+   - `LaunchRequestHandler`: Welcomes user and gives sample utterances.
+   - `ClaimCheckIntentHandler`:
+     - Extracts the `{claim}` slot.
+     - Calls Claim-Check MCP server endpoint `http://localhost:8000/api/check` via httpx.
+     - Speaks `spoken_verdict.spoken_response`.
+     - Checks `handler_input.request_envelope.context.system.device.supported_interfaces.alexa_presentation_apl` and attaches the `apl_directive` if supported (Echo Show 8, 10, 15).
+   - Standard Help, Cancel, Stop, SessionEnded, and Exception handlers.
+   - Entry point: `lambda_handler = sb.lambda_handler()`.
 
-6. server.py:
-   - Unified FastAPI and Python MCP SDK (FastMCP) server on port 8000.
-   - Mount FastMCP at /mcp using Streamable HTTP transport.
-   - Register 3 MCP tools: extract_claims, verify_claim, spoken_verdict.
-   - REST Endpoints:
-     - GET /: health-check JSON returning {'status': 'ok', 'service': 'claim-check-mcp', 'frontend': 'http://localhost:3000'}.
-     - GET /api/presets: loads and returns data/preset_cache.json.
-     - POST /api/check: accepts {'preset_id': str, 'query_context': str, 'response_text': str}, runs extraction, batch verification, and verdict synthesis, returning unified JSON with mcp_trace. Gracefully falls back to data/preset_cache.json on Gemini errors or rate limits.
-   - Entry point: uvicorn.run(app, host='0.0.0.0', port=8000).
-
-Write complete, production-ready, well-tested code for all 6 files.
+6. alexa_skill/interaction_model.json (NEW):
+   - Full Amazon Alexa interaction model schema.
+   - Invocation name: `"claim check"`.
+   - Intents: `ClaimCheckIntent` with slot `{claim}` (type: `AMAZON.SearchQuery`), sample utterances covering:
+     - "verify {claim}"
+     - "check if it is true that {claim}"
+     - "ask claim check about {claim}"
+     - "is it safe to {claim}"
+   - Standard built-in intents: Cancel, Help, Stop, NavigateHome.
 ```
 
 ---
@@ -103,11 +122,12 @@ Write complete, production-ready, well-tested code for all 6 files.
 ## 4. Verification and Testing
 
 ```bash
+# Start server:
 python server.py
 
-# in separate terminal:
-curl http://localhost:8000/api/presets
-curl -X POST https://localhost:8000/api/check -H "Content-Type: application/json" -d '{"preset_id": "dengue_aspirin"}'
+# In another terminal:
+curl -X POST http://localhost:8000/api/check -H "Content-Type: application/json" -d '{"preset_id": "dengue_aspirin"}'
+# Verify response includes "apl_directive" and "engineering_sla"!
 ```
 
 ---
@@ -115,8 +135,8 @@ curl -X POST https://localhost:8000/api/check -H "Content-Type: application/json
 ## 5. Git Commit and Branch Instructions
 
 ```bash
-git checkout -b feat/mcp-backend
-git add server.py tools/ requirements.txt
-git commit -m "feat: implement Streamable HTTP MCP server and epistemic AI tools"
-git push origin feat/mcp-backend
+git checkout -b feat/mcp-apl-skill
+git add requirements.txt server.py tools/ alexa_skill/
+git commit -m "feat(alexa): add Alexa APL 2.0 generator, AWS Lambda skill adapter, and engineering SLA telemetry"
+git push origin feat/mcp-apl-skill
 ```
