@@ -389,7 +389,7 @@ export default function DramaticLandingPage() {
               </Link>
               <Link
                 href="/architecture"
-                className="neu-button px-6 py-4 rounded-2xl font-bold text-xs text-white bg-white/10 hover:bg-white/20 border border-white/20"
+                className="px-6 py-4 rounded-2xl font-bold text-xs text-silver-100 hover:text-white bg-white/10 hover:bg-white/20 border border-white/20 hover:border-marigold-400/40 backdrop-blur-sm transition-all"
               >
                 View System Architecture
               </Link>
