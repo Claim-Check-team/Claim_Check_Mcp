@@ -110,7 +110,7 @@ export default function ProtocolPage() {
                 onClick={() => setSelectedScenario(sc)}
                 className={`neu-button p-2 text-left rounded-xl border transition-all text-xs font-bold truncate ${
                   isActive
-                    ? 'active ring-2 ring-cyan-400 text-cyan-500 font-extrabold border-cyan-400/30'
+                    ? 'active ring-2 ring-zinc-400 text-cyan-500 font-extrabold border-zinc-600/30'
                     : 'text-aubergine-900 border-white/60 hover:scale-[1.02]'
                 }`}
               >

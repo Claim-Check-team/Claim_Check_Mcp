@@ -54,13 +54,13 @@ export default function StressLabPage() {
   return (
     <div className="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto space-y-6">
       {/* HEADER BAR */}
-      <div className="p-6 rounded-3xl bg-white/80 dark:bg-[#120516]/80 backdrop-blur-xl border border-slate-200 dark:border-white/10 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div className="p-6 rounded-3xl bg-white dark:bg-zinc-950/80 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <span className="w-8 h-8 rounded-xl bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center text-slate-950 font-black text-sm">
+            <span className="w-8 h-8 rounded-xl bg-zinc-900 dark:bg-white text-white dark:text-zinc-950 flex items-center justify-center text-zinc-950 font-black text-sm">
               SL
             </span>
-            <h1 className="font-display font-extrabold text-xl sm:text-2xl text-slate-950 dark:text-white tracking-tight">
+            <h1 className="font-display font-extrabold text-xl sm:text-2xl text-zinc-950 dark:text-white tracking-tight">
               Epistemic Stress Laboratory
             </h1>
           </div>
@@ -72,7 +72,7 @@ export default function StressLabPage() {
         <button
           onClick={runEvaluation}
           disabled={isEvaluating}
-          className="px-5 py-2.5 rounded-xl font-bold text-xs bg-gradient-to-r from-cyan-400 to-blue-600 text-slate-950 hover:brightness-110 shadow-lg shadow-cyan-500/25 transition-all flex items-center gap-2 cursor-pointer disabled:opacity-50"
+          className="px-5 py-2.5 rounded-xl font-bold text-xs bg-zinc-900 text-white dark:bg-white dark:text-zinc-950 hover:bg-zinc-800 dark:hover:bg-zinc-200 shadow-sm transition-all flex items-center gap-2 cursor-pointer disabled:opacity-50"
         >
           {isEvaluating ? (
             <>
@@ -89,7 +89,7 @@ export default function StressLabPage() {
       </div>
 
       {/* SCENARIO SELECTOR (SHOW ONE SCENARIO AT A TIME) */}
-      <div className="p-3 rounded-2xl bg-white/70 dark:bg-[#120516]/70 border border-slate-200 dark:border-white/10 overflow-x-auto">
+      <div className="p-3 rounded-2xl bg-white dark:bg-zinc-950/70 border border-zinc-200 dark:border-zinc-800 overflow-x-auto">
         <div className="flex gap-2 min-w-max">
           {PRESET_SCENARIOS.map((item, idx) => {
             const isSelected = selectedScenarioIndex === idx;
@@ -102,7 +102,7 @@ export default function StressLabPage() {
                 }}
                 className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all text-left flex items-center gap-2.5 cursor-pointer ${
                   isSelected
-                    ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 shadow-md shadow-cyan-500/20 font-black'
+                    ? 'bg-zinc-900 text-white dark:bg-white dark:text-zinc-950 font-bold shadow-sm'
                     : 'bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/10'
                 }`}
               >
@@ -128,9 +128,9 @@ export default function StressLabPage() {
         {/* LEFT COLUMN: QUERY, REASONING PROCESS, & ATOMIC CLAIMS (7 COLS) */}
         <div className="lg:col-span-7 space-y-6">
           {/* QUERY OVERVIEW CARD */}
-          <div className="p-6 rounded-3xl bg-white/80 dark:bg-[#120516]/80 backdrop-blur-xl border border-slate-200 dark:border-white/10 shadow-sm space-y-3">
+          <div className="p-6 rounded-3xl bg-white dark:bg-zinc-950/80 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 shadow-sm space-y-3">
             <div className="flex items-center justify-between">
-              <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-cyan-600 dark:text-cyan-400">
+              <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-zinc-900 dark:text-zinc-100 font-semibold">
                 SCENARIO #{selectedScenarioIndex + 1} &bull; {scenario.red_team_vector}
               </span>
               <span className="text-xs font-mono text-slate-500">
@@ -142,7 +142,7 @@ export default function StressLabPage() {
               {scenario.title}
             </h2>
 
-            <div className="p-3.5 rounded-2xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10">
+            <div className="p-3.5 rounded-2xl bg-slate-100 dark:bg-white/5 border border-zinc-200 dark:border-zinc-800">
               <span className="text-[10px] font-mono text-slate-400 uppercase font-bold block mb-1">
                 INCOMING VOICE STATEMENT
               </span>
@@ -156,12 +156,12 @@ export default function StressLabPage() {
           <div className="p-6 rounded-3xl bg-slate-950 text-white border border-slate-800 shadow-xl font-mono text-xs space-y-4">
             <div className="flex items-center justify-between pb-3 border-b border-zinc-800">
               <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse" />
+                <span className="w-2.5 h-2.5 rounded-full bg-zinc-400 animate-pulse" />
                 <span className="font-bold text-slate-200">
                   REAL-TIME EPISTEMIC REASONING PROCESS
                 </span>
                 {isEvaluating && (
-                  <span className="text-[10px] text-cyan-400 animate-pulse font-normal">
+                  <span className="text-[10px] text-zinc-300 animate-pulse font-normal">
                     (Thinking...)
                   </span>
                 )}
@@ -178,9 +178,9 @@ export default function StressLabPage() {
             {thinkingExpanded && (
               <div className="space-y-3 pt-1">
                 <div className={`p-3 rounded-xl border transition-all ${
-                  activeReasoningStep >= 1 ? 'bg-zinc-900/80 border-cyan-500/40 text-slate-200' : 'bg-zinc-950 border-zinc-850 opacity-40 text-slate-500'
+                  activeReasoningStep >= 1 ? 'bg-zinc-900/80 border-zinc-700 text-slate-200' : 'bg-zinc-950 border-zinc-850 opacity-40 text-slate-500'
                 }`}>
-                  <div className="flex items-center justify-between text-[10px] text-cyan-400 font-bold mb-1">
+                  <div className="flex items-center justify-between text-[10px] text-zinc-300 font-bold mb-1">
                     <span>STEP 1: ATOMIC SVO CLAIM EXTRACTION</span>
                     <span>T+120ms</span>
                   </div>
@@ -190,9 +190,9 @@ export default function StressLabPage() {
                 </div>
 
                 <div className={`p-3 rounded-xl border transition-all ${
-                  activeReasoningStep >= 2 ? 'bg-zinc-900/80 border-cyan-500/40 text-slate-200' : 'bg-zinc-950 border-zinc-850 opacity-40 text-slate-500'
+                  activeReasoningStep >= 2 ? 'bg-zinc-900/80 border-zinc-700 text-slate-200' : 'bg-zinc-950 border-zinc-850 opacity-40 text-slate-500'
                 }`}>
-                  <div className="flex items-center justify-between text-[10px] text-cyan-400 font-bold mb-1">
+                  <div className="flex items-center justify-between text-[10px] text-zinc-300 font-bold mb-1">
                     <span>STEP 2: LIVE EXTERNAL GROUNDING QUERY</span>
                     <span>T+480ms</span>
                   </div>
@@ -202,9 +202,9 @@ export default function StressLabPage() {
                 </div>
 
                 <div className={`p-3 rounded-xl border transition-all ${
-                  activeReasoningStep >= 3 ? 'bg-zinc-900/80 border-cyan-500/40 text-slate-200' : 'bg-zinc-950 border-zinc-850 opacity-40 text-slate-500'
+                  activeReasoningStep >= 3 ? 'bg-zinc-900/80 border-zinc-700 text-slate-200' : 'bg-zinc-950 border-zinc-850 opacity-40 text-slate-500'
                 }`}>
-                  <div className="flex items-center justify-between text-[10px] text-cyan-400 font-bold mb-1">
+                  <div className="flex items-center justify-between text-[10px] text-zinc-300 font-bold mb-1">
                     <span>STEP 3: EPISTEMIC TRUTH EVALUATION</span>
                     <span>T+890ms</span>
                   </div>
@@ -233,7 +233,7 @@ export default function StressLabPage() {
           </div>
 
           {/* ATOMIC CLAIMS BREAKDOWN */}
-          <div className="p-6 rounded-3xl bg-white/80 dark:bg-[#120516]/80 backdrop-blur-xl border border-slate-200 dark:border-white/10 shadow-sm space-y-3">
+          <div className="p-6 rounded-3xl bg-white dark:bg-zinc-950/80 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 shadow-sm space-y-3">
             <h3 className="font-display font-bold text-sm text-slate-900 dark:text-white uppercase tracking-wider">
               Atomic Claims & Verification Matrix ({scenario.claims.length})
             </h3>
@@ -242,7 +242,7 @@ export default function StressLabPage() {
               {scenario.claims.map((claim, idx) => (
                 <div
                   key={claim.claim_id}
-                  className="p-4 rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 space-y-2"
+                  className="p-4 rounded-2xl bg-slate-50 dark:bg-white/5 border border-zinc-200 dark:border-zinc-800 space-y-2"
                 >
                   <div className="flex items-center justify-between">
                     <span className="text-[10px] font-mono font-bold text-slate-400">
@@ -277,12 +277,12 @@ export default function StressLabPage() {
         {/* RIGHT COLUMN: TRUST SCORE RUBRICS & VERDICT CARD (5 COLS) */}
         <div className="lg:col-span-5 space-y-6">
           {/* STRUCTURED TRUST SCORE RUBRICS (EXPLAINS "WHY 25%" OR "WHY 67%") */}
-          <div className="p-6 rounded-3xl bg-white/80 dark:bg-[#120516]/80 backdrop-blur-xl border border-slate-200 dark:border-white/10 shadow-sm space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-white/10">
+          <div className="p-6 rounded-3xl bg-white dark:bg-zinc-950/80 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 shadow-sm space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-zinc-200 dark:border-zinc-800">
               <span className="text-xs font-mono font-bold uppercase text-slate-400">
                 TRUST SCORE RUBRIC EVALUATION
               </span>
-              <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-cyan-100 dark:bg-cyan-950 text-cyan-700 dark:text-cyan-300">
+              <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-zinc-100 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 border border-zinc-200 dark:border-zinc-700">
                 FACTScore Certified
               </span>
             </div>
@@ -315,25 +315,25 @@ export default function StressLabPage() {
                 </span>
               </div>
 
-              <div className="p-3 rounded-xl bg-cyan-50 dark:bg-cyan-950/40 border border-cyan-400/30 text-[11px] text-cyan-900 dark:text-cyan-200 font-sans leading-relaxed">
+              <div className="p-3 rounded-xl bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-[11px] text-zinc-800 dark:text-zinc-200 font-sans leading-relaxed">
                 <strong>Why this Score?</strong> {severityReason}. The final calibrated trust score is computed at <strong>{calculatedTrust}%</strong>.
               </div>
             </div>
           </div>
 
           {/* SPOKEN VERDICT INTERVENTION CARD */}
-          <div className="p-6 rounded-3xl bg-white/80 dark:bg-[#120516]/80 backdrop-blur-xl border border-slate-200 dark:border-white/10 shadow-sm space-y-3">
+          <div className="p-6 rounded-3xl bg-white dark:bg-zinc-950/80 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 shadow-sm space-y-3">
             <div className="flex items-center justify-between">
               <span className="text-xs font-mono font-bold uppercase text-slate-400">
                 FINAL SPOKEN INTERVENTION
               </span>
-              <span className="text-xs font-mono text-cyan-600 dark:text-cyan-400 font-bold">
+              <span className="text-xs font-mono text-zinc-900 dark:text-zinc-100 font-semibold font-bold">
                 Voice TTS
               </span>
             </div>
 
             <div className="p-4 rounded-2xl bg-slate-900 text-white space-y-2">
-              <span className="text-[10px] font-mono text-cyan-400 uppercase font-bold block">
+              <span className="text-[10px] font-mono text-zinc-300 uppercase font-bold block">
                 WHAT ALEXA SPEAKS ALOUD:
               </span>
               <p className="text-xs sm:text-sm font-medium leading-relaxed text-slate-100">

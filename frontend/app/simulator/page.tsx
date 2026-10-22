@@ -216,7 +216,7 @@ export default function EchoShowSimulator() {
           </div>
           <button
             onClick={() => setShowCostModal(true)}
-            className="text-[11px] font-bold text-cyan-500 hover:text-cyan-400 flex items-center gap-1 cursor-pointer"
+            className="text-[11px] font-bold text-cyan-500 hover:text-zinc-300 flex items-center gap-1 cursor-pointer"
           >
             <span>Math Formula & SLA Breakdown</span>
             <span>&rarr;</span>
@@ -255,7 +255,7 @@ export default function EchoShowSimulator() {
                 <span className="text-[10px] text-slate-400">vs {sla.unoptimized_llm_calls} unopt</span>
               </div>
             </div>
-            <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-cyan-100 dark:bg-cyan-950/60 text-cyan-800 dark:text-cyan-200 border border-cyan-400/40">
+            <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-cyan-100 dark:bg-cyan-950/60 text-cyan-800 dark:text-cyan-200 border border-zinc-600/40">
               -{sla.calls_reduction_pct}% Calls
             </span>
           </div>
@@ -263,7 +263,7 @@ export default function EchoShowSimulator() {
           {/* Metric 3: Cost / 1k Queries */}
           <div
             onClick={() => setShowCostModal(true)}
-            className="neu-inset p-3 rounded-xl flex items-center justify-between cursor-pointer hover:ring-1 hover:ring-cyan-400 transition-all"
+            className="neu-inset p-3 rounded-xl flex items-center justify-between cursor-pointer hover:ring-1 hover:ring-zinc-400 transition-all"
           >
             <div>
               <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">
@@ -308,7 +308,7 @@ export default function EchoShowSimulator() {
           {scenarios.map((sc, i) => {
             const isActive = sc.preset_id === currentScenario.preset_id;
             const st = sc.spoken_verdict.status;
-            let badgeColor = 'bg-cyan-100 dark:bg-cyan-950/60 text-cyan-800 dark:text-cyan-200 border-cyan-400/40';
+            let badgeColor = 'bg-cyan-100 dark:bg-cyan-950/60 text-cyan-800 dark:text-cyan-200 border-zinc-600/40';
             if (st === 'verified_safe') {
               badgeColor = 'bg-emerald-100 text-emerald-800 border-emerald-300';
             } else if (st === 'abstained') {
@@ -322,7 +322,7 @@ export default function EchoShowSimulator() {
                 key={sc.preset_id}
                 onClick={() => selectScenario(sc.preset_id)}
                 className={`neu-button p-2 text-left flex flex-col justify-between rounded-xl border border-white/60 transition-all hover:scale-[1.02] ${
-                  isActive ? 'active ring-2 ring-cyan-400' : ''
+                  isActive ? 'active ring-2 ring-zinc-400' : ''
                 }`}
               >
                 <div className="flex items-center justify-between w-full mb-1">
@@ -418,7 +418,7 @@ export default function EchoShowSimulator() {
 
               {/* DYNAMIC AUDIO EQUALIZER WHEN SPEAKING */}
               {isSpeaking && (
-                <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-950/40 border border-cyan-400/30 mb-2">
+                <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-950/40 border border-zinc-600/30 mb-2">
                   <div className="flex items-end gap-1 h-4">
                     {[6, 12, 18, 10, 16, 22, 14, 8, 20, 14, 8, 16].map((h, i) => (
                       <span
@@ -446,7 +446,7 @@ export default function EchoShowSimulator() {
               </h2>
 
               <div className="neu-inset px-3 py-1.5 rounded-full text-xs text-silver-500 mt-2 flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-cyan-500 animate-pulse"></span>
+                <span className="w-2 h-2 rounded-full bg-zinc-900 dark:bg-white text-white dark:text-zinc-950 animate-pulse"></span>
                 <span>{statusMessage}</span>
               </div>
 
@@ -460,7 +460,7 @@ export default function EchoShowSimulator() {
                     value={inputText}
                     onChange={(e) => setInputText(e.target.value)}
                     rows={3}
-                    className="neu-inset w-full p-3 text-xs md:text-sm text-aubergine-950 bg-transparent focus:outline-none focus:ring-2 focus:ring-cyan-400 font-medium"
+                    className="neu-inset w-full p-3 text-xs md:text-sm text-aubergine-950 bg-transparent focus:outline-none focus:ring-2 focus:ring-zinc-400 font-medium"
                     placeholder="Type or speak a claim..."
                   />
                   <button
@@ -483,7 +483,7 @@ export default function EchoShowSimulator() {
               >
                 {isChecking ? (
                   <>
-                    <span className="w-3.5 h-3.5 rounded-full border-2 border-cyan-400 border-t-transparent animate-spin"></span>
+                    <span className="w-3.5 h-3.5 rounded-full border-2 border-zinc-600 border-t-transparent animate-spin"></span>
                     <span>Decomposing & Grounding Claims...</span>
                   </>
                 ) : (
@@ -535,7 +535,7 @@ export default function EchoShowSimulator() {
                   </label>
                   <button
                     onClick={() => speakText(currentScenario.spoken_verdict.spoken_response)}
-                    className="text-xs font-semibold text-cyan-500 hover:text-cyan-400 flex items-center gap-1 cursor-pointer"
+                    className="text-xs font-semibold text-cyan-500 hover:text-zinc-300 flex items-center gap-1 cursor-pointer"
                   >
                     Audio Listen
                   </button>
@@ -590,7 +590,7 @@ export default function EchoShowSimulator() {
                     }`}
                   >
                     <span>2. Alexa APL 2.0 JSON</span>
-                    <span className="px-1.5 py-0.2 rounded text-[9px] bg-cyan-500 text-white">NEW</span>
+                    <span className="px-1.5 py-0.2 rounded text-[9px] bg-zinc-900 dark:bg-white text-white dark:text-zinc-950 text-white">NEW</span>
                   </button>
                   <button
                     onClick={() => setActiveRightTab('mcp')}
@@ -661,7 +661,7 @@ export default function EchoShowSimulator() {
                           </div>
                           <button
                             onClick={() => toggleReasoning(claim.claim_id)}
-                            className="text-cyan-500 hover:text-cyan-400 font-bold text-[11px] flex items-center gap-1 cursor-pointer"
+                            className="text-cyan-500 hover:text-zinc-300 font-bold text-[11px] flex items-center gap-1 cursor-pointer"
                           >
                             <span>Judge Reasoning</span> <span>{isExpanded ? '▲' : '▼'}</span>
                           </button>
@@ -697,7 +697,7 @@ export default function EchoShowSimulator() {
               {/* TAB 2: ALEXA APL 2.0 JSON EXPORTER */}
               {activeRightTab === 'apl' && (
                 <div className="flex flex-col h-full">
-                  <div className="flex items-center justify-between mb-3 bg-gradient-to-r from-aubergine-950 via-aubergine-900 to-aubergine-950 text-white p-3.5 rounded-2xl border border-cyan-400/30 flex-wrap gap-2">
+                  <div className="flex items-center justify-between mb-3 bg-gradient-to-r from-aubergine-950 via-aubergine-900 to-aubergine-950 text-white p-3.5 rounded-2xl border border-zinc-600/30 flex-wrap gap-2">
                     <div>
                       <span className="text-xs font-bold text-aubergine-950 block">
                         Official Alexa.Presentation.APL.RenderDocument Directive (v2024.2)
@@ -793,7 +793,7 @@ export default function EchoShowSimulator() {
             </pre>
 
             <div className="flex justify-end gap-2">
-              <button onClick={copyJson} className="neu-button px-4 py-2 text-xs font-bold text-cyan-400 cursor-pointer">
+              <button onClick={copyJson} className="neu-button px-4 py-2 text-xs font-bold text-zinc-300 cursor-pointer">
                 {copyStatus}
               </button>
               <button onClick={() => setShowJsonModal(false)} className="neu-button px-4 py-2 text-xs font-bold text-silver-700 cursor-pointer">
@@ -840,7 +840,7 @@ export default function EchoShowSimulator() {
 
               <div className="neu-inset p-3 rounded-xl">
                 <h4 className="font-bold text-aubergine-950 mb-1">3. Unit Cost Formula ($0.0017 / 1,000 Queries)</h4>
-                <div className="font-mono text-[11px] bg-white/70 p-2 rounded-lg mt-1 text-aubergine-950 border border-slate-200">
+                <div className="font-mono text-[11px] bg-white p-2 rounded-lg mt-1 text-aubergine-950 border border-slate-200">
                   Cost = (2,200 Input Tokens × $0.075/1M) + (450 Output Tokens × $0.30/1M) = $0.00000165 per query<br />
                   For 1,000 Voice Queries: <strong>~$0.0017 USD</strong> (Fraction of a single US cent)
                 </div>

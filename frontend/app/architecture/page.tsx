@@ -149,10 +149,10 @@ export default function HarmonizedArchitecturePage() {
   return (
     <div className="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto space-y-6">
       {/* HEADER BANNER - HARMONIZED WITH DESIGN SYSTEM */}
-      <div className="p-6 rounded-3xl bg-white/80 dark:bg-[#120516]/80 backdrop-blur-xl border border-slate-200 dark:border-white/10 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div className="p-6 rounded-3xl bg-white dark:bg-zinc-950/80 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <span className="w-8 h-8 rounded-xl bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center text-slate-950 font-black text-sm">
+            <span className="w-8 h-8 rounded-xl bg-zinc-900 dark:bg-white text-white dark:text-zinc-950 flex items-center justify-center text-slate-950 font-black text-sm">
               AR
             </span>
             <h1 className="font-display font-extrabold text-xl sm:text-2xl text-slate-950 dark:text-white tracking-tight">
@@ -165,22 +165,22 @@ export default function HarmonizedArchitecturePage() {
         </div>
 
         <div className="flex items-center gap-2 font-mono text-xs">
-          <span className="px-3 py-1 rounded-full font-bold bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-white/10">
+          <span className="px-3 py-1 rounded-full font-bold bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-slate-300 border border-zinc-200 dark:border-zinc-800">
             SPEC 2025-11-25
           </span>
-          <span className="px-3 py-1 rounded-full font-bold bg-cyan-100 dark:bg-cyan-950 text-cyan-700 dark:text-cyan-300 border border-cyan-400/40">
+          <span className="px-3 py-1 rounded-full font-bold bg-cyan-100 dark:bg-cyan-950 text-cyan-700 dark:text-zinc-200 border border-zinc-400 dark:border-zinc-600/40">
             SLA: 1,340ms
           </span>
         </div>
       </div>
 
       {/* NAVIGATION TABS */}
-      <div className="flex border-b border-slate-200 dark:border-white/10 gap-2">
+      <div className="flex border-b border-zinc-200 dark:border-zinc-800 gap-2">
         <button
           onClick={() => setActiveTab('simulation')}
           className={`pb-3 px-4 text-xs font-mono font-bold transition-all relative ${
             activeTab === 'simulation'
-              ? 'text-cyan-600 dark:text-cyan-400 border-b-2 border-cyan-500'
+              ? 'text-zinc-900 dark:text-white font-semibold border-b-2 border-zinc-900 dark:border-white'
               : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'
           }`}
         >
@@ -190,7 +190,7 @@ export default function HarmonizedArchitecturePage() {
           onClick={() => setActiveTab('stack')}
           className={`pb-3 px-4 text-xs font-mono font-bold transition-all relative ${
             activeTab === 'stack'
-              ? 'text-cyan-600 dark:text-cyan-400 border-b-2 border-cyan-500'
+              ? 'text-zinc-900 dark:text-white font-semibold border-b-2 border-zinc-900 dark:border-white'
               : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'
           }`}
         >
@@ -200,7 +200,7 @@ export default function HarmonizedArchitecturePage() {
           onClick={() => setActiveTab('friction')}
           className={`pb-3 px-4 text-xs font-mono font-bold transition-all relative ${
             activeTab === 'friction'
-              ? 'text-cyan-600 dark:text-cyan-400 border-b-2 border-cyan-500'
+              ? 'text-zinc-900 dark:text-white font-semibold border-b-2 border-zinc-900 dark:border-white'
               : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'
           }`}
         >
@@ -212,11 +212,11 @@ export default function HarmonizedArchitecturePage() {
       {activeTab === 'simulation' && (
         <div className="space-y-6">
           {/* SIMULATION CONTROLS */}
-          <div className="p-4 rounded-2xl bg-white/80 dark:bg-[#120516]/80 backdrop-blur-xl border border-slate-200 dark:border-white/10 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs">
+          <div className="p-4 rounded-2xl bg-white dark:bg-zinc-950/80 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs">
             <div className="flex items-center gap-3">
               <button
                 onClick={() => setIsPlaying(!isPlaying)}
-                className="px-4 py-2 rounded-xl font-bold bg-gradient-to-r from-cyan-400 to-blue-600 text-slate-950 hover:brightness-110 shadow-md shadow-cyan-500/25 transition-all flex items-center gap-2 cursor-pointer"
+                className="px-4 py-2 rounded-xl font-bold bg-zinc-900 text-white dark:bg-white dark:text-zinc-950 hover:bg-zinc-800 dark:hover:bg-zinc-200 shadow-sm transition-all flex items-center gap-2 cursor-pointer"
               >
                 {isPlaying ? (
                   <>
@@ -236,7 +236,7 @@ export default function HarmonizedArchitecturePage() {
                   setIsPlaying(false);
                   setActiveStep((prev) => (prev >= SIMULATION_NODES.length ? 1 : prev + 1));
                 }}
-                className="px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 border border-slate-200 dark:border-white/10 text-slate-800 dark:text-slate-200 font-bold transition-all cursor-pointer"
+                className="px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 border border-zinc-200 dark:border-zinc-800 text-slate-800 dark:text-slate-200 font-bold transition-all cursor-pointer"
               >
                 NEXT_STEP &rarr;
               </button>
@@ -246,7 +246,7 @@ export default function HarmonizedArchitecturePage() {
                   setIsPlaying(false);
                   setActiveStep(1);
                 }}
-                className="px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 border border-slate-200 dark:border-white/10 text-slate-500 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer"
+                className="px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 border border-zinc-200 dark:border-zinc-800 text-slate-500 hover:text-slate-900 dark:hover:text-white transition-all cursor-pointer"
               >
                 RESET
               </button>
@@ -257,7 +257,7 @@ export default function HarmonizedArchitecturePage() {
                 <span className="text-slate-500">SPEED:</span>
                 <button
                   onClick={() => setSimSpeed(simSpeed === 1800 ? 1000 : 1800)}
-                  className="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-white/5 font-bold border border-slate-200 dark:border-white/10 text-slate-800 dark:text-slate-200 cursor-pointer"
+                  className="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-white/5 font-bold border border-zinc-200 dark:border-zinc-800 text-slate-800 dark:text-slate-200 cursor-pointer"
                 >
                   {simSpeed === 1800 ? '1.0x (Normal)' : '2.0x (Fast)'}
                 </button>
@@ -273,13 +273,13 @@ export default function HarmonizedArchitecturePage() {
           </div>
 
           {/* 6-NODE PIPELINE SCHEMATIC - PERFECTLY ALIGNED GRID */}
-          <div className="p-6 rounded-3xl bg-white/80 dark:bg-[#120516]/80 backdrop-blur-xl border border-slate-200 dark:border-white/10 shadow-sm space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-white/10 font-mono text-xs">
+          <div className="p-6 rounded-3xl bg-white dark:bg-zinc-950/80 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 shadow-sm space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-zinc-200 dark:border-zinc-800 font-mono text-xs">
               <span className="font-bold text-slate-900 dark:text-white">
                 [TOPOLOGY_MAP: END_TO_END_MCP_PACKET_TRACE]
               </span>
               <span className="text-slate-500">
-                LATENCY_TIMELINE: <strong className="text-cyan-600 dark:text-cyan-400">+{currentNode.latencyMs}ms</strong> / 1,340ms
+                LATENCY_TIMELINE: <strong className="text-zinc-900 dark:text-white font-semibold">+{currentNode.latencyMs}ms</strong> / 1,340ms
               </span>
             </div>
 
@@ -298,14 +298,14 @@ export default function HarmonizedArchitecturePage() {
                     }}
                     className={`p-4 rounded-2xl border transition-all duration-300 cursor-pointer flex flex-col justify-between min-h-[175px] relative ${
                       isActive
-                        ? 'bg-gradient-to-br from-cyan-500/20 via-blue-500/20 to-purple-500/20 border-cyan-400 shadow-xl shadow-cyan-500/15 scale-[1.03] z-20 ring-2 ring-cyan-400'
+                        ? 'bg-gradient-to-br from-cyan-500/20 via-blue-500/20 to-purple-500/20 border-zinc-400 dark:border-zinc-600 shadow-xl shadow-cyan-500/15 scale-[1.03] z-20 ring-2 ring-zinc-400'
                         : isPassed
                         ? 'bg-slate-50/90 dark:bg-white/5 border-slate-300 dark:border-white/10 text-slate-800 dark:text-slate-200'
                         : 'bg-white/50 dark:bg-zinc-950/40 border-slate-200 dark:border-white/5 text-slate-400 dark:text-slate-500 hover:border-slate-300'
                     }`}
                   >
                     {isActive && (
-                      <span className="absolute -top-1.5 -right-1.5 w-3.5 h-3.5 rounded-full bg-cyan-400 border-2 border-white dark:border-black animate-ping" />
+                      <span className="absolute -top-1.5 -right-1.5 w-3.5 h-3.5 rounded-full bg-zinc-300 border-2 border-white dark:border-black animate-ping" />
                     )}
 
                     <div>
@@ -321,10 +321,10 @@ export default function HarmonizedArchitecturePage() {
                       </span>
                     </div>
 
-                    <div className="mt-3 pt-2 border-t border-slate-200 dark:border-white/10 flex items-center justify-between text-[9px] font-mono">
+                    <div className="mt-3 pt-2 border-t border-zinc-200 dark:border-zinc-800 flex items-center justify-between text-[9px] font-mono">
                       <span className={`px-2 py-0.5 rounded uppercase font-bold ${
                         isActive
-                          ? 'bg-cyan-500 text-slate-950 font-black'
+                          ? 'bg-zinc-900 dark:bg-white text-white dark:text-zinc-950 text-slate-950 font-black'
                           : isPassed
                           ? 'bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300'
                           : 'opacity-50'
@@ -342,7 +342,7 @@ export default function HarmonizedArchitecturePage() {
             <div className="pt-2 flex items-center justify-between gap-3 font-mono text-[10px]">
               <div className="flex-1 bg-slate-200 dark:bg-white/10 h-2 rounded-full overflow-hidden">
                 <div
-                  className="h-full bg-gradient-to-r from-cyan-400 to-blue-600 transition-all duration-500"
+                  className="h-full bg-zinc-900 dark:bg-white transition-all duration-500"
                   style={{ width: `${(activeStep / SIMULATION_NODES.length) * 100}%` }}
                 />
               </div>
@@ -365,7 +365,7 @@ export default function HarmonizedArchitecturePage() {
                     LIVE_PACKET_TRACE: {currentNode.code}
                   </span>
                 </div>
-                <span className="text-[10px] text-cyan-400 bg-cyan-950/60 px-2.5 py-0.5 rounded-full border border-cyan-800/60 font-bold">
+                <span className="text-[10px] text-zinc-300 bg-zinc-800 px-2.5 py-0.5 rounded-full border border-zinc-700 font-bold">
                   {currentNode.status}
                 </span>
               </div>
@@ -393,7 +393,7 @@ export default function HarmonizedArchitecturePage() {
                   <span className="text-slate-500 block text-[10px] uppercase font-bold mb-1">
                     [OUTPUT_PAYLOAD / DIRECTIVE]
                   </span>
-                  <pre className="p-3 rounded-xl bg-zinc-900 border border-zinc-800 text-cyan-300 text-[11px] overflow-x-auto whitespace-pre-wrap">
+                  <pre className="p-3 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-200 text-[11px] overflow-x-auto whitespace-pre-wrap">
                     {currentNode.outputPayload}
                   </pre>
                 </div>
@@ -401,9 +401,9 @@ export default function HarmonizedArchitecturePage() {
             </div>
 
             {/* SLA TELEMETRY MATRIX (5 COLS) */}
-            <div className="lg:col-span-5 p-6 rounded-3xl bg-white/80 dark:bg-[#120516]/80 backdrop-blur-xl border border-slate-200 dark:border-white/10 shadow-sm flex flex-col justify-between font-mono space-y-4">
+            <div className="lg:col-span-5 p-6 rounded-3xl bg-white dark:bg-zinc-950/80 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 shadow-sm flex flex-col justify-between font-mono space-y-4">
               <div>
-                <div className="flex items-center justify-between pb-3 mb-4 border-b border-slate-200 dark:border-white/10">
+                <div className="flex items-center justify-between pb-3 mb-4 border-b border-zinc-200 dark:border-zinc-800">
                   <h3 className="font-bold text-xs uppercase tracking-wider text-slate-900 dark:text-white">
                     VOICE_SLA_COMPLIANCE
                   </h3>
@@ -413,7 +413,7 @@ export default function HarmonizedArchitecturePage() {
                 </div>
 
                 <div className="space-y-3">
-                  <div className="p-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-center justify-between">
+                  <div className="p-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-zinc-200 dark:border-zinc-800 flex items-center justify-between">
                     <div>
                       <span className="text-[10px] text-slate-500 block">CURRENT_STEP_LATENCY</span>
                       <span className="text-sm font-bold text-slate-900 dark:text-white">+{currentNode.latencyMs} ms</span>
@@ -421,27 +421,27 @@ export default function HarmonizedArchitecturePage() {
                     <span className="text-xs font-bold text-slate-400">Stage #{currentNode.id}</span>
                   </div>
 
-                  <div className="p-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-center justify-between">
+                  <div className="p-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-zinc-200 dark:border-zinc-800 flex items-center justify-between">
                     <div>
                       <span className="text-[10px] text-slate-500 block">CUMULATIVE_TIME_TO_FIRST_AUDIO</span>
-                      <span className="text-base font-extrabold text-cyan-600 dark:text-cyan-400">1,340 ms</span>
+                      <span className="text-base font-extrabold text-zinc-900 dark:text-white font-semibold">1,340 ms</span>
                     </div>
                     <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400">
                       &lt; 1,800ms SLA
                     </span>
                   </div>
 
-                  <div className="p-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-center justify-between">
+                  <div className="p-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-zinc-200 dark:border-zinc-800 flex items-center justify-between">
                     <div>
                       <span className="text-[10px] text-slate-500 block">BATCHED_UNIT_ECONOMICS</span>
                       <span className="text-sm font-bold text-slate-900 dark:text-white">$0.0017 / 1k queries</span>
                     </div>
-                    <span className="text-[10px] text-cyan-600 dark:text-cyan-400 font-bold">60% SAVINGS</span>
+                    <span className="text-[10px] text-zinc-900 dark:text-white font-semibold font-bold">60% SAVINGS</span>
                   </div>
                 </div>
               </div>
 
-              <div className="pt-3 border-t border-slate-200 dark:border-white/10 text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed font-sans">
+              <div className="pt-3 border-t border-zinc-200 dark:border-zinc-800 text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed font-sans">
                 <strong>Epistemic Guarantee:</strong> In case of clinical or physical safety contradictions, the pipeline aborts speculative speech and synthesizes a calibrated clinical correction within the 1.4-second voice SLA budget.
               </div>
             </div>
@@ -455,10 +455,10 @@ export default function HarmonizedArchitecturePage() {
           {TECH_STACK.map((tech) => (
             <div
               key={tech.name}
-              className="p-5 rounded-3xl bg-white/80 dark:bg-[#120516]/80 backdrop-blur-xl border border-slate-200 dark:border-white/10 shadow-sm flex flex-col justify-between"
+              className="p-5 rounded-3xl bg-white dark:bg-zinc-950/80 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 shadow-sm flex flex-col justify-between"
             >
               <div>
-                <span className="text-[10px] font-mono text-cyan-600 dark:text-cyan-400 font-bold uppercase block mb-1">
+                <span className="text-[10px] font-mono text-zinc-900 dark:text-white font-semibold font-bold uppercase block mb-1">
                   {tech.category} &bull; {tech.owner}
                 </span>
                 <h4 className="font-display font-black text-base text-slate-900 dark:text-white mb-1.5">
@@ -469,7 +469,7 @@ export default function HarmonizedArchitecturePage() {
                 </p>
               </div>
 
-              <div className="mt-4 pt-3 border-t border-slate-200 dark:border-white/10 flex items-center justify-between text-[10px] font-mono">
+              <div className="mt-4 pt-3 border-t border-zinc-200 dark:border-zinc-800 flex items-center justify-between text-[10px] font-mono">
                 <span className="font-bold text-slate-500">PRODUCTION</span>
                 <span className="w-2 h-2 rounded-full bg-emerald-500" />
               </div>
@@ -483,14 +483,14 @@ export default function HarmonizedArchitecturePage() {
         <div className="space-y-4">
           <div className="p-4 rounded-2xl bg-slate-900 text-white font-mono text-xs flex items-center justify-between">
             <span>OFFICIAL_ALEXA_PLUS_EVALUATION_FEEDBACK</span>
-            <span className="text-cyan-400 font-bold">10% BONUS MARKS</span>
+            <span className="text-zinc-300 font-bold">PRODUCTION SLA COMPLIANCE</span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {FRICTION_POINTS.map((item) => (
               <div
                 key={item.id}
-                className="p-5 rounded-3xl bg-white/80 dark:bg-[#120516]/80 backdrop-blur-xl border border-slate-200 dark:border-white/10 shadow-sm space-y-2 font-sans"
+                className="p-5 rounded-3xl bg-white dark:bg-zinc-950/80 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 shadow-sm space-y-2 font-sans"
               >
                 <div className="flex items-center justify-between">
                   <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-slate-100 dark:bg-white/10 text-slate-700 dark:text-slate-300">
