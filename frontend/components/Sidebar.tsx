@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React from 'react';
 import Link from 'next/link';
@@ -48,54 +48,65 @@ export default function Sidebar({ onClose }: SidebarProps) {
   const pathname = usePathname();
 
   return (
-    <aside className="w-[260px] min-h-screen flex flex-col py-5 px-4 shrink-0 bg-white dark:bg-[#09090b] border-r border-zinc-200 dark:border-zinc-800">
+    <aside className="w-[260px] min-h-screen flex flex-col py-5 px-4 shrink-0 glass-panel border-r border-slate-200/80 dark:border-white/10 relative overflow-hidden">
+      {/* GLOWING AMBIENT ACCENT */}
+      <div className="absolute -top-24 -left-24 w-48 h-48 rounded-full bg-cyan-500/15 blur-3xl pointer-events-none" />
+      <div className="absolute top-1/2 -right-24 w-48 h-48 rounded-full bg-sky-500/10 blur-3xl pointer-events-none" />
+
       {/* BRANDING */}
-      <div className="flex items-center justify-between px-2 mb-6">
+      <div className="flex items-center justify-between px-2 mb-6 relative z-10">
         <Link href="/" className="flex items-center gap-2.5 group cursor-pointer">
-          <div className="w-8 h-8 rounded-lg bg-zinc-900 dark:bg-white flex items-center justify-center text-white dark:text-zinc-950 font-mono font-bold text-sm tracking-tight">
-            CC
+          <div className="w-9 h-9 rounded-xl neu-raised flex items-center justify-center text-zinc-950 dark:text-white font-mono font-black text-sm tracking-tight border border-white/80 dark:border-white/10 shadow-sm relative overflow-hidden group-hover:scale-105 transition-transform">
+            <span className="relative z-10 text-cyan-600 dark:text-cyan-400 font-extrabold">CC</span>
+            <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/20 via-transparent to-transparent pointer-events-none" />
           </div>
           <div>
-            <h2 className="font-bold text-sm text-zinc-950 dark:text-white tracking-tight leading-tight">
-              Claim-Check
-            </h2>
-            <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider">
-              Epistemic Guardrail
+            <div className="flex items-center gap-1.5">
+              <h2 className="font-extrabold text-sm text-zinc-950 dark:text-white tracking-tight leading-tight">
+                Claim-Check
+              </h2>
+              <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 animate-pulse" />
+            </div>
+            <span className="text-[10px] font-mono text-zinc-500 dark:text-zinc-400 uppercase tracking-wider block">
+              Epistemic Safety MCP
             </span>
           </div>
         </Link>
       </div>
 
       {/* QUICK HOME LINK */}
-      <div className="mb-4 px-1">
+      <div className="mb-4 px-1 relative z-10">
         <Link
           href="/"
-          className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-semibold text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-all border border-zinc-200 dark:border-zinc-800"
+          className="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white neu-raised-sm hover:neu-raised transition-all border border-white/80 dark:border-white/10 shadow-sm"
         >
-          <span>&larr;</span>
-          <span>Main Product Site</span>
+          <span className="text-cyan-500">&larr;</span>
+          <span>Main Product Overview</span>
         </Link>
       </div>
 
       {/* NAVIGATION */}
-      <nav className="flex flex-col gap-1.5 flex-1">
+      <nav className="flex flex-col gap-2 flex-1 relative z-10">
         {NAV_ITEMS.map((item) => {
           const isActive = pathname === item.href;
           return (
             <Link
               key={item.href}
               href={item.href}
-              className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-semibold transition-all ${
+              className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-semibold transition-all relative overflow-hidden ${
                 isActive
-                  ? 'bg-zinc-900 text-white dark:bg-white dark:text-zinc-950 shadow-sm'
-                  : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-900'
+                  ? 'neu-raised border border-cyan-400/40 text-cyan-700 dark:text-cyan-300 shadow-md font-bold'
+                  : 'hover:neu-raised-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white border border-transparent hover:border-white/60 dark:hover:border-white/5'
               }`}
             >
+              {isActive && (
+                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-6 rounded-r bg-cyan-500 shadow-sm shadow-cyan-400" />
+              )}
               <span
-                className={`w-7 h-7 rounded-md flex items-center justify-center font-mono text-[11px] font-bold shrink-0 transition-colors ${
+                className={`w-7 h-7 rounded-lg flex items-center justify-center font-mono text-[11px] font-extrabold shrink-0 transition-all ${
                   isActive
-                    ? 'bg-zinc-800 text-white dark:bg-zinc-200 dark:text-zinc-950'
-                    : 'bg-zinc-100 dark:bg-zinc-850 text-zinc-600 dark:text-zinc-400'
+                    ? 'bg-gradient-to-br from-cyan-500 to-sky-600 text-white shadow-sm'
+                    : 'neu-inset text-zinc-700 dark:text-zinc-300'
                 }`}
               >
                 {item.icon}
@@ -105,10 +116,10 @@ export default function Sidebar({ onClose }: SidebarProps) {
                   <span className="truncate">{item.label}</span>
                   {item.badge && (
                     <span
-                      className={`px-1.5 py-0.5 rounded text-[9px] font-mono font-bold ${
+                      className={`px-1.5 py-0.5 rounded text-[9px] font-mono font-extrabold ${
                         isActive
-                          ? 'bg-zinc-800 text-zinc-200 dark:bg-zinc-200 dark:text-zinc-950'
-                          : 'bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700'
+                          ? 'bg-cyan-500 text-white shadow-sm'
+                          : 'bg-cyan-100 dark:bg-cyan-950/80 text-cyan-800 dark:text-cyan-300 border border-cyan-200 dark:border-cyan-800'
                       }`}
                     >
                       {item.badge}
@@ -117,7 +128,7 @@ export default function Sidebar({ onClose }: SidebarProps) {
                 </div>
                 <span
                   className={`block text-[10px] font-normal truncate ${
-                    isActive ? 'text-zinc-400 dark:text-zinc-600' : 'text-zinc-400 dark:text-zinc-500'
+                    isActive ? 'text-cyan-600 dark:text-cyan-400/80 font-medium' : 'text-zinc-400 dark:text-zinc-500'
                   }`}
                 >
                   {item.sublabel}
@@ -129,24 +140,26 @@ export default function Sidebar({ onClose }: SidebarProps) {
       </nav>
 
       {/* FOOTER STATUS */}
-      <div className="mt-auto pt-4 px-2 border-t border-zinc-200 dark:border-zinc-800 space-y-2">
-        <div className="flex items-center gap-2">
-          <span className="w-1.5 h-1.5 rounded-full bg-zinc-400 dark:bg-zinc-200 animate-pulse" />
-          <span className="text-[11px] font-mono text-zinc-600 dark:text-zinc-400">
-            FastMCP Spec 2025-11-25
-          </span>
-        </div>
-        <div className="flex items-center gap-2">
-          <span className="w-1.5 h-1.5 rounded-full bg-zinc-400 dark:bg-zinc-200" />
-          <span className="text-[11px] font-mono text-zinc-600 dark:text-zinc-400">
-            Streamable HTTP /mcp
-          </span>
-        </div>
-        <div className="flex items-center gap-2">
-          <span className="w-1.5 h-1.5 rounded-full bg-zinc-400 dark:bg-zinc-200" />
-          <span className="text-[11px] font-mono text-zinc-600 dark:text-zinc-400">
-            Alexa APL 2.0 &amp; Lambda
-          </span>
+      <div className="mt-auto pt-4 px-2 border-t border-slate-200/70 dark:border-white/10 space-y-2 relative z-10">
+        <div className="neu-inset p-2.5 rounded-xl space-y-1.5">
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="text-[10px] font-mono font-bold text-zinc-700 dark:text-zinc-300">
+              FastMCP Spec 2025-11-25
+            </span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-cyan-500" />
+            <span className="text-[10px] font-mono text-zinc-600 dark:text-zinc-400">
+              Streamable HTTP /mcp
+            </span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-sky-500" />
+            <span className="text-[10px] font-mono text-zinc-600 dark:text-zinc-400">
+              Alexa APL 2.0 &amp; Lambda
+            </span>
+          </div>
         </div>
       </div>
     </aside>

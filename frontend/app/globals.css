@@ -2,19 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap');
 
 :root {
-  --bg-main: #ffffff;
-  --bg-card: #f8fafc;
-  --border-subtle: #e2e8f0;
-  --text-primary: #09090b;
-  --text-muted: #64748b;
-  --accent-primary: #18181b;
+  --bg-neu: #edf2f7;
+  --shadow-neu-dark: #cbd5e1;
+  --shadow-neu-light: #ffffff;
+  --text-main: #09090b;
 }
 
 body {
-  background-color: #fafafa;
+  background-color: #f1f5f9;
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   color: #09090b;
   min-height: 100vh;
@@ -29,130 +27,134 @@ code, pre, .font-mono {
   font-family: 'JetBrains Mono', monospace;
 }
 
-/* Polished Monochrome Surface Styles */
+/* ==========================================================================
+   POLISHED MONOCHROMATIC NEUMORPHISM (SILVER PLATINUM & ZINC)
+   ========================================================================== */
 .neu-raised {
-  background: #ffffff;
-  border: 1px solid #e4e4e7;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04);
-  border-radius: 16px;
+  background: linear-gradient(145deg, #f8fafc 0%, #edf2f7 100%);
+  box-shadow: 8px 8px 20px #cbd5e1, -8px -8px 20px #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: 20px;
 }
 
 .neu-raised-sm {
-  background: #ffffff;
-  border: 1px solid #e4e4e7;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
-  border-radius: 12px;
+  background: linear-gradient(145deg, #f8fafc 0%, #edf2f7 100%);
+  box-shadow: 4px 4px 12px #cbd5e1, -4px -4px 12px #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: 14px;
 }
 
 .neu-inset {
-  background: #f4f4f5;
-  border: 1px solid #e4e4e7;
-  border-radius: 12px;
+  background: #e8eef5;
+  box-shadow: inset 4px 4px 8px #cbd5e1, inset -4px -4px 8px #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 14px;
 }
 
 .neu-button {
-  background: #ffffff;
-  border: 1px solid #e4e4e7;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
-  border-radius: 10px;
-  transition: all 0.15s ease;
+  background: linear-gradient(145deg, #ffffff 0%, #edf2f7 100%);
+  box-shadow: 5px 5px 12px #cbd5e1, -5px -5px 12px #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
+  user-select: none;
 }
 
 .neu-button:hover {
-  background: #f4f4f5;
-  border-color: #d4d4d8;
+  transform: translateY(-1.5px);
+  box-shadow: 7px 7px 16px #cbd5e1, -7px -7px 16px #ffffff;
 }
 
-.alexa-btn, .marigold-btn {
-  background: #09090b;
-  color: #ffffff;
-  font-weight: 600;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-  transition: all 0.15s ease;
+.neu-button:active, .neu-button.active {
+  background: #e2e8f0;
+  box-shadow: inset 3px 3px 6px #cbd5e1, inset -3px -3px 6px #ffffff;
+  transform: translateY(1px);
 }
 
-.alexa-btn:hover, .marigold-btn:hover {
-  background: #27272a;
-  transform: translateY(-1px);
+/* ==========================================================================
+   GLASSMORPHISM SPECULAR SURFACES
+   ========================================================================== */
+.glass-screen {
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(24px) saturate(190%);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.08);
+  border-radius: 24px;
+  position: relative;
 }
 
-/* Echo Hardware Chassis - Clean Industrial Titanium */
+.glass-card {
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.05);
+  border-radius: 20px;
+}
+
+.glass-specular-glare {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 35%;
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.05) 40%, transparent 80%);
+  pointer-events: none;
+  border-top-left-radius: 22px;
+  border-top-right-radius: 22px;
+}
+
+/* ==========================================================================
+   3D PERSPECTIVE & SKEW HUD ELEMENTS
+   ========================================================================== */
+.skew-pill {
+  transform: skewX(-7deg);
+}
+
+.skew-unskew {
+  transform: skewX(7deg);
+}
+
+.iso-hardware-card {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+  perspective: 1000px;
+}
+
+.iso-hardware-card:hover {
+  transform: translateY(-4px) rotateX(2deg);
+}
+
+/* Echo Hardware Chassis - Titanium Platinum Hardware */
 .echo-hardware-chassis {
-  background: #ffffff;
-  border: 1px solid #e4e4e7;
-  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.08);
-  border-radius: 28px;
+  background: linear-gradient(145deg, #ffffff 0%, #f1f5f9 40%, #e2e8f0 100%);
+  border: 3px solid #ffffff;
+  box-shadow: 
+    0 25px 60px -15px rgba(15, 23, 42, 0.15),
+    inset 0 2px 4px rgba(255, 255, 255, 0.95),
+    inset 0 -2px 6px rgba(15, 23, 42, 0.1);
+  border-radius: 32px;
   position: relative;
 }
 
 .metallic-rim {
-  border: 1px solid #e4e4e7;
+  border: 2px solid;
+  border-color: #ffffff #cbd5e1 #94a3b8 #e2e8f0;
+  box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.95), 0 3px 8px rgba(15, 23, 42, 0.08);
 }
 
 .speaker-acoustic-grill {
-  background-color: #f4f4f5;
-  background-image: radial-gradient(#d4d4d8 20%, transparent 20%), radial-gradient(#d4d4d8 20%, transparent 20%);
+  background-color: #e2e8f0;
+  background-image: radial-gradient(#94a3b8 20%, transparent 20%), radial-gradient(#94a3b8 20%, transparent 20%);
   background-position: 0 0, 4px 4px;
   background-size: 8px 8px;
   border-radius: 16px;
-}
-
-/* Glass Surfaces */
-.glass-screen {
-  background: #ffffff;
-  border: 1px solid #e4e4e7;
-  border-radius: 16px;
-}
-
-.glass-card {
-  background: #ffffff;
-  border: 1px solid #e4e4e7;
-  border-radius: 16px;
-}
-
-/* Minimalist Orb Container */
-.alexa-orb-container {
-  position: relative;
-  width: 72px;
-  height: 72px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.alexa-orb-core {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: #09090b;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
-  position: relative;
-}
-
-.alexa-orb-ring {
-  position: absolute;
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-}
-
-.alexa-light-bar {
-  height: 2px;
-  border-radius: 9999px;
-  background: #09090b;
-}
-
-/* Sidebar Surface */
-.sidebar-glass {
-  background: #ffffff;
-  border-right: 1px solid #e4e4e7;
+  opacity: 0.9;
 }
 
 /* ==========================================================================
-   PURE MATTE OBSIDIAN & ZINC DARK MODE (LINEAR / VERCEL STYLE)
+   MIDNIGHT OBSIDIAN DARK MODE WITH TACTILE DEPTH & GLASS
    ========================================================================== */
 html.dark {
   color-scheme: dark;
@@ -165,97 +167,199 @@ html.dark body {
 }
 
 html.dark .neu-raised {
-  background: #121215 !important;
+  background: linear-gradient(145deg, #16161c 0%, #0e0e12 100%) !important;
+  box-shadow: 10px 10px 25px rgba(0, 0, 0, 0.75), -5px -5px 15px rgba(255, 255, 255, 0.03) !important;
   border: 1px solid rgba(255, 255, 255, 0.08) !important;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3) !important;
 }
 
 html.dark .neu-raised-sm {
-  background: #121215 !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.3) !important;
+  background: linear-gradient(145deg, #16161c 0%, #0e0e12 100%) !important;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.6), -3px -3px 10px rgba(255, 255, 255, 0.03) !important;
+  border: 1px solid rgba(255, 255, 255, 0.07) !important;
 }
 
 html.dark .neu-inset {
-  background: #0c0c0e !important;
+  background: #09090c !important;
+  box-shadow: inset 4px 4px 10px rgba(0, 0, 0, 0.9), inset -2px -2px 6px rgba(255, 255, 255, 0.03) !important;
   border: 1px solid rgba(255, 255, 255, 0.06) !important;
-  box-shadow: none !important;
 }
 
 html.dark .neu-button {
-  background: #18181b !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  background: linear-gradient(145deg, #1c1c24 0%, #121217 100%) !important;
+  box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.65), -2px -2px 8px rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
   color: #f4f4f5 !important;
 }
 
 html.dark .neu-button:hover {
-  background: #27272a !important;
-  border-color: rgba(255, 255, 255, 0.15) !important;
-}
-
-html.dark .alexa-btn, html.dark .marigold-btn {
-  background: #ffffff !important;
-  color: #09090b !important;
-  font-weight: 600 !important;
-  box-shadow: 0 4px 14px rgba(255, 255, 255, 0.1) !important;
-}
-
-html.dark .alexa-btn:hover, html.dark .marigold-btn:hover {
-  background: #e4e4e7 !important;
-}
-
-html.dark header {
-  background-color: #09090b !important;
-  border-color: rgba(255, 255, 255, 0.08) !important;
-}
-
-html.dark .sidebar-glass {
-  background: #09090b !important;
-  border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
-}
-
-html.dark .echo-hardware-chassis {
-  background: #121215 !important;
-  border-color: rgba(255, 255, 255, 0.1) !important;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7) !important;
-}
-
-html.dark .metallic-rim {
-  border-color: rgba(255, 255, 255, 0.08) !important;
-}
-
-html.dark .speaker-acoustic-grill {
-  background-color: #0c0c0e !important;
-  background-image: radial-gradient(#27272a 20%, transparent 20%), radial-gradient(#27272a 20%, transparent 20%) !important;
+  background: #22222c !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  color: #ffffff !important;
 }
 
 html.dark .glass-screen {
-  background: #121215 !important;
-  border-color: rgba(255, 255, 255, 0.08) !important;
+  background: rgba(16, 16, 20, 0.8) !important;
+  border-color: rgba(255, 255, 255, 0.09) !important;
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.85) !important;
 }
 
 html.dark .glass-card {
-  background: #121215 !important;
-  border-color: rgba(255, 255, 255, 0.08) !important;
+  background: rgba(20, 20, 26, 0.82) !important;
+  border-color: rgba(255, 255, 255, 0.09) !important;
+  box-shadow: 0 14px 30px -5px rgba(0, 0, 0, 0.6) !important;
 }
 
-html.dark .alexa-orb-core {
-  background: #ffffff !important;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3) !important;
+html.dark .echo-hardware-chassis {
+  background: linear-gradient(145deg, #1c1c24 0%, #121217 40%, #09090c 100%) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 30px 70px -15px rgba(0, 0, 0, 0.9) !important;
 }
 
-html.dark .alexa-orb-ring {
-  border-color: rgba(255, 255, 255, 0.2) !important;
+html.dark .metallic-rim {
+  border-color: rgba(255, 255, 255, 0.12) !important;
 }
 
-html.dark .alexa-light-bar {
-  background: #ffffff !important;
+html.dark .speaker-acoustic-grill {
+  background-color: #0d0d12 !important;
+  background-image: radial-gradient(#272732 20%, transparent 20%), radial-gradient(#272732 20%, transparent 20%) !important;
 }
 
-html.dark select,
-html.dark input,
-html.dark textarea {
-  background-color: #121215 !important;
-  color: #f4f4f5 !important;
-  border-color: rgba(255, 255, 255, 0.1) !important;
+/* ==========================================================================
+   EXPANDED MORPHISM SYSTEM & ACCENTS
+   ========================================================================== */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 16px 36px -10px rgba(15, 23, 42, 0.08), inset 0 1px 2px rgba(255, 255, 255, 0.9);
+}
+
+html.dark .glass-panel {
+  background: rgba(18, 18, 24, 0.75) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.09) !important;
+  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.75), inset 0 1px 2px rgba(255, 255, 255, 0.05) !important;
+}
+
+.glass-nav {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+html.dark .glass-nav {
+  background: rgba(14, 14, 18, 0.75) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.morphism-glow-cyan {
+  box-shadow: 0 0 25px -4px rgba(0, 210, 255, 0.45);
+}
+
+.morphism-glow-amber {
+  box-shadow: 0 0 25px -4px rgba(245, 158, 11, 0.45);
+}
+
+.morphism-glow-rose {
+  box-shadow: 0 0 25px -4px rgba(244, 63, 94, 0.45);
+}
+
+.morphism-badge {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: inset 1px 1px 2px rgba(255, 255, 255, 0.9), 0 2px 5px rgba(0, 0, 0, 0.04);
+}
+
+html.dark .morphism-badge {
+  background: rgba(28, 28, 36, 0.65) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: inset 1px 1px 2px rgba(255, 255, 255, 0.05), 0 2px 5px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* ==========================================================================
+   ALEXA MULTIMODAL AURA, ORB & LIGHT BAR
+   ========================================================================== */
+.alexa-light-bar {
+  height: 4px;
+  width: 100%;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #0284c7 0%, #00d2ff 25%, #38bdf8 50%, #00d2ff 75%, #0284c7 100%);
+  background-size: 200% 100%;
+  animation: alexaWave 3.5s linear infinite;
+  box-shadow: 0 0 16px rgba(0, 210, 255, 0.75), 0 0 32px rgba(2, 132, 199, 0.4);
+}
+
+.alexa-orb-container {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.alexa-orb-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  border: 2px solid #00d2ff;
+  box-shadow: 0 0 18px rgba(0, 210, 255, 0.6), inset 0 0 12px rgba(0, 210, 255, 0.35);
+  animation: spinSlow 10s linear infinite;
+}
+
+.alexa-orb-core {
+  width: 46px;
+  height: 46px;
+  border-radius: 9999px;
+  background: radial-gradient(circle at 35% 35%, #38bdf8 0%, #0284c7 60%, #0c4a6e 100%);
+  box-shadow: 0 0 16px rgba(0, 210, 255, 0.5), inset 0 2px 4px rgba(255, 255, 255, 0.6);
+}
+
+.speaking-wave span {
+  display: inline-block;
+  width: 2.5px;
+  height: 14px;
+  margin: 0 1px;
+  background: #ffffff;
+  border-radius: 2px;
+  animation: soundWave 0.75s ease-in-out infinite alternate;
+}
+.speaking-wave span:nth-child(2) { animation-delay: 0.15s; }
+.speaking-wave span:nth-child(3) { animation-delay: 0.3s; }
+.speaking-wave span:nth-child(4) { animation-delay: 0.45s; }
+.speaking-wave span:nth-child(5) { animation-delay: 0.6s; }
+
+.alexa-btn {
+  background: linear-gradient(135deg, #0284c7 0%, #00caff 100%);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 6px 18px rgba(0, 202, 255, 0.35), inset 0 1px 2px rgba(255, 255, 255, 0.4);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.alexa-btn:hover {
+  transform: translateY(-1.5px);
+  box-shadow: 0 10px 24px rgba(0, 202, 255, 0.55), inset 0 1px 2px rgba(255, 255, 255, 0.6);
+}
+.alexa-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 3px 10px rgba(0, 202, 255, 0.4);
+}
+
+@keyframes alexaWave {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes soundWave {
+  from { height: 4px; }
+  to { height: 18px; }
 }

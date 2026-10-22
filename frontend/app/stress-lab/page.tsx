@@ -54,12 +54,14 @@ export default function StressLabPage() {
   return (
     <div className="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto space-y-6">
       {/* HEADER BAR */}
-      <div className="p-6 rounded-3xl bg-white dark:bg-zinc-950/80 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div className="p-6 rounded-3xl glass-card neu-raised relative overflow-hidden flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 iso-hardware-card">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <span className="w-8 h-8 rounded-xl bg-zinc-900 dark:bg-white text-white dark:text-zinc-950 flex items-center justify-center text-zinc-950 font-black text-sm">
-              SL
-            </span>
+            <div className="w-10 h-10 rounded-xl neu-raised flex items-center justify-center border border-white/80 dark:border-white/10 shadow-sm shrink-0">
+              <span className="font-black font-mono text-sm tracking-wider text-zinc-950 dark:text-white">
+                SL
+              </span>
+            </div>
             <h1 className="font-display font-extrabold text-xl sm:text-2xl text-zinc-950 dark:text-white tracking-tight">
               Epistemic Stress Laboratory
             </h1>
@@ -72,7 +74,7 @@ export default function StressLabPage() {
         <button
           onClick={runEvaluation}
           disabled={isEvaluating}
-          className="px-5 py-2.5 rounded-xl font-bold text-xs bg-zinc-900 text-white dark:bg-white dark:text-zinc-950 hover:bg-zinc-800 dark:hover:bg-zinc-200 shadow-sm transition-all flex items-center gap-2 cursor-pointer disabled:opacity-50"
+          className="px-5 py-2.5 rounded-xl font-bold text-xs neu-button text-zinc-900 dark:text-white flex items-center gap-2 cursor-pointer disabled:opacity-50 tracking-wide"
         >
           {isEvaluating ? (
             <>
@@ -89,7 +91,7 @@ export default function StressLabPage() {
       </div>
 
       {/* SCENARIO SELECTOR (SHOW ONE SCENARIO AT A TIME) */}
-      <div className="p-3 rounded-2xl bg-white dark:bg-zinc-950/70 border border-zinc-200 dark:border-zinc-800 overflow-x-auto">
+      <div className="p-3 rounded-2xl neu-inset overflow-x-auto">
         <div className="flex gap-2 min-w-max">
           {PRESET_SCENARIOS.map((item, idx) => {
             const isSelected = selectedScenarioIndex === idx;
@@ -128,7 +130,7 @@ export default function StressLabPage() {
         {/* LEFT COLUMN: QUERY, REASONING PROCESS, & ATOMIC CLAIMS (7 COLS) */}
         <div className="lg:col-span-7 space-y-6">
           {/* QUERY OVERVIEW CARD */}
-          <div className="p-6 rounded-3xl bg-white dark:bg-zinc-950/80 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 shadow-sm space-y-3">
+          <div className="p-6 rounded-3xl glass-card neu-raised relative overflow-hidden space-y-4 iso-hardware-card">
             <div className="flex items-center justify-between">
               <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-zinc-900 dark:text-zinc-100 font-semibold">
                 SCENARIO #{selectedScenarioIndex + 1} &bull; {scenario.red_team_vector}
@@ -233,7 +235,7 @@ export default function StressLabPage() {
           </div>
 
           {/* ATOMIC CLAIMS BREAKDOWN */}
-          <div className="p-6 rounded-3xl bg-white dark:bg-zinc-950/80 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 shadow-sm space-y-3">
+          <div className="p-6 rounded-3xl glass-card neu-raised relative overflow-hidden space-y-4 iso-hardware-card">
             <h3 className="font-display font-bold text-sm text-slate-900 dark:text-white uppercase tracking-wider">
               Atomic Claims & Verification Matrix ({scenario.claims.length})
             </h3>
@@ -242,7 +244,7 @@ export default function StressLabPage() {
               {scenario.claims.map((claim, idx) => (
                 <div
                   key={claim.claim_id}
-                  className="p-4 rounded-2xl bg-slate-50 dark:bg-white/5 border border-zinc-200 dark:border-zinc-800 space-y-2"
+                  className="p-4 rounded-2xl neu-inset space-y-2"
                 >
                   <div className="flex items-center justify-between">
                     <span className="text-[10px] font-mono font-bold text-slate-400">
@@ -277,7 +279,7 @@ export default function StressLabPage() {
         {/* RIGHT COLUMN: TRUST SCORE RUBRICS & VERDICT CARD (5 COLS) */}
         <div className="lg:col-span-5 space-y-6">
           {/* STRUCTURED TRUST SCORE RUBRICS (EXPLAINS "WHY 25%" OR "WHY 67%") */}
-          <div className="p-6 rounded-3xl bg-white dark:bg-zinc-950/80 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 shadow-sm space-y-4">
+          <div className="p-6 rounded-3xl glass-card neu-raised relative overflow-hidden space-y-4 iso-hardware-card">
             <div className="flex items-center justify-between pb-3 border-b border-zinc-200 dark:border-zinc-800">
               <span className="text-xs font-mono font-bold uppercase text-slate-400">
                 TRUST SCORE RUBRIC EVALUATION
@@ -294,21 +296,21 @@ export default function StressLabPage() {
 
             {/* DETAILED RUBRIC TABLE */}
             <div className="space-y-2 text-xs font-mono">
-              <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-white/5 flex items-center justify-between">
+              <div className="p-2.5 rounded-xl neu-inset flex items-center justify-between">
                 <span className="text-slate-500">1. Raw Claim Grounding Ratio</span>
                 <span className="font-bold text-slate-900 dark:text-white">
                   {supportedCount}/{totalClaims} ({rawRatio}%)
                 </span>
               </div>
 
-              <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-white/5 flex items-center justify-between">
+              <div className="p-2.5 rounded-xl neu-inset flex items-center justify-between">
                 <span className="text-slate-500">2. External Evidence Source</span>
                 <span className="font-bold text-slate-900 dark:text-white truncate max-w-[170px]">
                   {scenario.claims[0]?.evidence_source.split('(')[0] || 'Wikipedia REST'}
                 </span>
               </div>
 
-              <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-white/5 flex items-center justify-between">
+              <div className="p-2.5 rounded-xl neu-inset flex items-center justify-between">
                 <span className="text-slate-500">3. Hazard / Severity Penalty</span>
                 <span className="font-bold text-rose-600 dark:text-rose-400">
                   {severityPenalty > 0 ? `-${severityPenalty}%` : '0%'}
@@ -322,7 +324,7 @@ export default function StressLabPage() {
           </div>
 
           {/* SPOKEN VERDICT INTERVENTION CARD */}
-          <div className="p-6 rounded-3xl bg-white dark:bg-zinc-950/80 backdrop-blur-xl border border-zinc-200 dark:border-zinc-800 shadow-sm space-y-3">
+          <div className="p-6 rounded-3xl glass-card neu-raised relative overflow-hidden space-y-4 iso-hardware-card">
             <div className="flex items-center justify-between">
               <span className="text-xs font-mono font-bold uppercase text-slate-400">
                 FINAL SPOKEN INTERVENTION

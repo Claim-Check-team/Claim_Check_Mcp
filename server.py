@@ -246,9 +246,12 @@ async def check_claim(request: CheckRequest):
         total_ms = sum(t.get("latency_ms", 0) for t in mcp_trace)
         unopt_calls = max(total_claims + 2, 5)
 
+        is_custom = not request.preset_id or request.preset_id == "custom_check"
         live_result = {
-            "preset_id": request.preset_id or "custom_check",
-            "title": target_preset.get("title") if target_preset else "Live Voice Fact-Check",
+            "preset_id": "custom_check" if is_custom else request.preset_id,
+            "title": "Live Voice Claim Verification" if is_custom else (target_preset.get("title") if target_preset else "Live Voice Fact-Check"),
+            "red_team_vector": "Interactive User Custom Input" if is_custom else (target_preset.get("red_team_vector") if target_preset else "Custom Speech Input"),
+            "attack_description": "Arbitrary voice utterance evaluated live via FastMCP against external Wikipedia knowledge base." if is_custom else (target_preset.get("attack_description") if target_preset else "Real-time epistemic analysis of custom utterance."),
             "query_context": query_context,
             "original_text": response_text,
             "total_claims": total_claims,
