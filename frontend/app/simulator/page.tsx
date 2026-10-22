@@ -204,7 +204,7 @@ export default function EchoShowSimulator() {
         <div className="flex items-center justify-between mb-3 px-1">
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span>
-            <span className="text-xs uppercase tracking-wider font-extrabold text-slate-700">
+            <span className="text-xs uppercase tracking-wider font-extrabold text-aubergine-900">
               Amazon Alexa+ Production Telemetry & Unit Economics
             </span>
           </div>
@@ -225,7 +225,7 @@ export default function EchoShowSimulator() {
                 TTFA Voice Latency
               </span>
               <div className="flex items-baseline gap-1 mt-0.5">
-                <span className="font-display font-extrabold text-lg text-slate-800">
+                <span className="font-display font-extrabold text-lg text-aubergine-950">
                   {(sla.ttfa_latency_ms / 1000).toFixed(2)}s
                 </span>
                 <span className="text-[10px] text-slate-400">({sla.ttfa_latency_ms}ms)</span>
@@ -243,7 +243,7 @@ export default function EchoShowSimulator() {
                 LLM Batch Efficiency
               </span>
               <div className="flex items-baseline gap-1 mt-0.5">
-                <span className="font-display font-extrabold text-lg text-slate-800">
+                <span className="font-display font-extrabold text-lg text-aubergine-950">
                   {sla.batched_llm_calls} Calls
                 </span>
                 <span className="text-[10px] text-slate-400">vs {sla.unoptimized_llm_calls} unopt</span>
@@ -276,7 +276,7 @@ export default function EchoShowSimulator() {
               <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">
                 Red-Team Suite Accuracy
               </span>
-              <span className="font-display font-extrabold text-lg text-slate-800 block mt-0.5">
+              <span className="font-display font-extrabold text-lg text-aubergine-950 block mt-0.5">
                 100% (17/17)
               </span>
             </div>
@@ -290,7 +290,7 @@ export default function EchoShowSimulator() {
       {/* QUICK PRESET SELECTOR WITH RED-TEAM ATTACK BADGES */}
       <div className="neu-raised p-3 md:p-4 mb-4 border border-white/80">
         <div className="flex items-center justify-between mb-2 px-1">
-          <span className="text-xs uppercase tracking-wider font-bold text-slate-500">
+          <span className="text-xs uppercase tracking-wider font-bold text-silver-500">
             Adversarial Red-Team & Presets (6 Attack Vectors)
           </span>
           <span className="text-[11px] text-slate-400 font-medium">
@@ -325,7 +325,7 @@ export default function EchoShowSimulator() {
                     {st.replace('_', ' ').toUpperCase()}
                   </span>
                 </div>
-                <span className="text-xs font-bold text-slate-800 line-clamp-1">
+                <span className="text-xs font-bold text-aubergine-950 line-clamp-1">
                   {sc.title.split('(')[0]}
                 </span>
                 <span className="text-[9px] font-bold text-aubergine-700 line-clamp-1 mt-1">
@@ -349,7 +349,7 @@ export default function EchoShowSimulator() {
             </h3>
             <span className="text-[11px] text-slate-400">• Active Scenario Threat Model</span>
           </div>
-          <p className="text-xs text-slate-600 mt-0.5 leading-relaxed">
+          <p className="text-xs text-silver-700 mt-0.5 leading-relaxed">
             {currentScenario.attack_description}
           </p>
         </div>
@@ -373,13 +373,13 @@ export default function EchoShowSimulator() {
           <div className="flex items-center gap-3">
             <button
               onClick={toggleMute}
-              className="neu-button px-2.5 py-1 text-xs font-semibold flex items-center gap-1.5 text-slate-700 cursor-pointer"
+              className="neu-button px-2.5 py-1 text-xs font-semibold flex items-center gap-1.5 text-aubergine-900 cursor-pointer"
             >
               <span className={`w-2 h-2 rounded-full ${hwMuted ? 'bg-rose-500 animate-pulse' : 'bg-slate-400'}`}></span>
               <span>{hwMuted ? 'Muted' : 'Mic Active'}</span>
             </button>
 
-            <div className="neu-inset px-2 py-0.5 flex items-center gap-1.5 text-xs text-slate-600 font-bold">
+            <div className="neu-inset px-2 py-0.5 flex items-center gap-1.5 text-xs text-silver-700 font-bold">
               <span>VOL</span>
               <button onClick={() => adjustVolume(-0.1)} className="hover:text-marigold-600 px-1 cursor-pointer">-</button>
               <span className="text-[11px] font-mono">{Math.round(volume * 100)}%</span>
@@ -408,18 +408,18 @@ export default function EchoShowSimulator() {
               <span className="text-xs uppercase tracking-widest font-extrabold text-slate-400">
                 Alexa+ Voice Guardrail
               </span>
-              <h2 className="font-display font-extrabold text-base text-slate-800 mt-1">
+              <h2 className="font-display font-extrabold text-base text-aubergine-950 mt-1">
                 {currentScenario.title.split('(')[0]}
               </h2>
 
-              <div className="neu-inset px-3 py-1.5 rounded-full text-xs text-slate-500 mt-2 flex items-center gap-2">
+              <div className="neu-inset px-3 py-1.5 rounded-full text-xs text-silver-500 mt-2 flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-marigold-500 animate-pulse"></span>
                 <span>{statusMessage}</span>
               </div>
 
               {/* INPUT TEXTAREA */}
               <div className="w-full mt-4 text-left">
-                <label className="text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1 block">
+                <label className="text-[11px] font-bold uppercase tracking-wider text-silver-500 mb-1 block">
                   Candidate Voice Response to Verify
                 </label>
                 <div className="relative">
@@ -427,13 +427,13 @@ export default function EchoShowSimulator() {
                     value={inputText}
                     onChange={(e) => setInputText(e.target.value)}
                     rows={3}
-                    className="neu-inset w-full p-3 text-xs md:text-sm text-slate-800 bg-transparent focus:outline-none focus:ring-2 focus:ring-marigold-500 font-medium"
+                    className="neu-inset w-full p-3 text-xs md:text-sm text-aubergine-950 bg-transparent focus:outline-none focus:ring-2 focus:ring-marigold-500 font-medium"
                     placeholder="Type or speak a claim..."
                   />
                   <button
                     onClick={toggleMic}
                     className={`absolute bottom-2 right-2 neu-button p-2 rounded-xl text-xs flex items-center gap-1 cursor-pointer ${
-                      isListening ? 'ring-2 ring-rose-500 text-rose-600 font-bold' : 'text-slate-600'
+                      isListening ? 'ring-2 ring-rose-500 text-rose-600 font-bold' : 'text-silver-700'
                     }`}
                     title="Speak via Web Speech API"
                   >
@@ -446,7 +446,7 @@ export default function EchoShowSimulator() {
               <button
                 onClick={handleVerify}
                 disabled={isChecking}
-                className="neu-button w-full mt-3 py-2.5 px-4 font-bold text-xs md:text-sm text-marigold-800 bg-marigold-50 hover:bg-marigold-100 flex items-center justify-center gap-2 border border-marigold-300 cursor-pointer"
+                className="marigold-btn w-full mt-3 py-2.5 px-4 text-xs md:text-sm font-black flex items-center justify-center gap-2 rounded-xl cursor-pointer"
               >
                 {isChecking ? (
                   <>
@@ -462,7 +462,7 @@ export default function EchoShowSimulator() {
             {/* SPOKEN VERDICT CARD */}
             <div className="glass-screen rounded-3xl p-5 shadow-xl">
               <div className="flex items-center justify-between pb-3 border-b border-slate-200/70 mb-3">
-                <span className="text-xs font-extrabold uppercase tracking-wider text-slate-600">
+                <span className="text-xs font-extrabold uppercase tracking-wider text-silver-700">
                   Epistemic Verdict & Self-Correction
                 </span>
                 <span className={`text-xs font-extrabold px-2.5 py-0.5 rounded-full border ${
@@ -479,11 +479,11 @@ export default function EchoShowSimulator() {
               {/* METRIC BADGES */}
               <div className="grid grid-cols-2 gap-3 mb-3">
                 <div className="neu-inset p-2.5 flex items-center justify-between">
-                  <span className="text-[11px] font-bold text-slate-500 uppercase">Trust Score</span>
-                  <span className="font-display font-extrabold text-sm text-slate-800">{trustScore}%</span>
+                  <span className="text-[11px] font-bold text-silver-500 uppercase">Trust Score</span>
+                  <span className="font-display font-extrabold text-sm text-aubergine-950">{trustScore}%</span>
                 </div>
                 <div className="neu-inset p-2.5 flex items-center justify-between">
-                  <span className="text-[11px] font-bold text-slate-500 uppercase">Abstention</span>
+                  <span className="text-[11px] font-bold text-silver-500 uppercase">Abstention</span>
                   <span className={`text-xs font-extrabold px-2 py-0.5 rounded border ${
                     currentScenario.spoken_verdict.abstained
                       ? 'text-amber-700 bg-amber-50 border-amber-200'
@@ -497,7 +497,7 @@ export default function EchoShowSimulator() {
               {/* AUDIBLE OUTPUT */}
               <div>
                 <div className="flex items-center justify-between mb-1.5">
-                  <label className="text-[11px] font-bold uppercase tracking-wider text-slate-500">
+                  <label className="text-[11px] font-bold uppercase tracking-wider text-silver-500">
                     Grounded Spoken Response (Speaker Audio)
                   </label>
                   <button
@@ -508,12 +508,12 @@ export default function EchoShowSimulator() {
                   </button>
                 </div>
 
-                <div className="neu-inset p-3.5 text-xs md:text-sm text-slate-800 leading-relaxed font-medium min-h-[85px]">
+                <div className="neu-inset p-3.5 text-xs md:text-sm text-aubergine-950 leading-relaxed font-medium min-h-[85px]">
                   {'"' + currentScenario.spoken_verdict.spoken_response + '"'}
                 </div>
 
                 {currentScenario.spoken_verdict.self_correction_diff && (
-                  <div className="mt-3 p-2.5 rounded-xl bg-amber-50/70 border border-amber-200/80 text-xs text-slate-700">
+                  <div className="mt-3 p-2.5 rounded-xl bg-amber-50/70 border border-amber-200/80 text-xs text-aubergine-900">
                     <span className="font-bold text-amber-900 block mb-1">
                       Q3/Q4 Real-Time Self-Correction Diff:
                     </span>
@@ -542,8 +542,8 @@ export default function EchoShowSimulator() {
                     onClick={() => setActiveRightTab('claims')}
                     className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                       activeRightTab === 'claims'
-                        ? 'bg-white text-slate-800 shadow-sm'
-                        : 'text-slate-500 hover:text-slate-700'
+                        ? 'bg-white text-aubergine-950 shadow-sm'
+                        : 'text-silver-500 hover:text-aubergine-900'
                     }`}
                   >
                     1. Atomic Claims ({currentScenario.claims.length})
@@ -563,8 +563,8 @@ export default function EchoShowSimulator() {
                     onClick={() => setActiveRightTab('mcp')}
                     className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                       activeRightTab === 'mcp'
-                        ? 'bg-white text-slate-800 shadow-sm'
-                        : 'text-slate-500 hover:text-slate-700'
+                        ? 'bg-white text-aubergine-950 shadow-sm'
+                        : 'text-silver-500 hover:text-aubergine-900'
                     }`}
                   >
                     3. Live MCP Trace
@@ -573,7 +573,7 @@ export default function EchoShowSimulator() {
 
                 <button
                   onClick={() => setShowJsonModal(true)}
-                  className="neu-button px-2.5 py-1 text-xs font-semibold text-slate-600 hover:text-marigold-600 cursor-pointer"
+                  className="neu-button px-2.5 py-1 text-xs font-semibold text-silver-700 hover:text-marigold-600 cursor-pointer"
                 >
                   Raw JSON
                 </button>
@@ -600,7 +600,7 @@ export default function EchoShowSimulator() {
                       <div key={claim.claim_id} className={`neu-raised p-4 rounded-2xl border border-white/80 ${border}`}>
                         <div className="flex items-start justify-between gap-3">
                           <div className="flex items-center gap-2">
-                            <span className="neu-inset px-2 py-0.5 text-[10px] font-mono font-bold text-slate-600">
+                            <span className="neu-inset px-2 py-0.5 text-[10px] font-mono font-bold text-silver-700">
                               {claim.claim_id}
                             </span>
                             <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
@@ -609,7 +609,7 @@ export default function EchoShowSimulator() {
                           </div>
 
                           <div className="flex items-center gap-2">
-                            <span className="text-[10px] font-mono font-bold text-slate-500">
+                            <span className="text-[10px] font-mono font-bold text-silver-500">
                               {Math.round(claim.confidence * 100)}% Conf
                             </span>
                             <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold border ${badge}`}>
@@ -618,13 +618,13 @@ export default function EchoShowSimulator() {
                           </div>
                         </div>
 
-                        <p className="text-xs md:text-sm font-semibold text-slate-800 mt-2">
+                        <p className="text-xs md:text-sm font-semibold text-aubergine-950 mt-2">
                           {'"' + claim.atomic_text + '"'}
                         </p>
 
-                        <div className="mt-2 pt-2 border-t border-slate-200/60 flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-500">
+                        <div className="mt-2 pt-2 border-t border-slate-200/60 flex flex-wrap items-center justify-between gap-2 text-[11px] text-silver-500">
                           <div>
-                            <strong>Source:</strong> <span className="text-slate-700">{claim.evidence_source}</span>
+                            <strong>Source:</strong> <span className="text-aubergine-900">{claim.evidence_source}</span>
                           </div>
                           <button
                             onClick={() => toggleReasoning(claim.claim_id)}
@@ -636,12 +636,12 @@ export default function EchoShowSimulator() {
 
                         {isExpanded && (
                           <div className="mt-2.5 pt-2 border-t border-dashed border-slate-200">
-                            <div className="p-2 rounded-lg bg-slate-100/80 text-[11px] text-slate-700 italic mb-2">
+                            <div className="p-2 rounded-lg bg-slate-100/80 text-[11px] text-aubergine-900 italic mb-2">
                               {'"' + claim.evidence_snippet + '"'}
                             </div>
                             <ul className="space-y-1 mt-1">
                               {claim.reasoning_steps.map((r, i) => (
-                                <li key={i} className="text-[11px] text-slate-600 flex items-start gap-1.5">
+                                <li key={i} className="text-[11px] text-silver-700 flex items-start gap-1.5">
                                   <span className="text-marigold-600 font-bold">•</span>
                                   <span>{r}</span>
                                 </li>
@@ -664,12 +664,12 @@ export default function EchoShowSimulator() {
               {/* TAB 2: ALEXA APL 2.0 JSON EXPORTER */}
               {activeRightTab === 'apl' && (
                 <div className="flex flex-col h-full">
-                  <div className="flex items-center justify-between mb-3 bg-aubergine-50/80 p-3 rounded-xl border border-aubergine-200/60 flex-wrap gap-2">
+                  <div className="flex items-center justify-between mb-3 bg-gradient-to-r from-aubergine-950 via-aubergine-900 to-aubergine-950 text-white p-3.5 rounded-2xl border border-marigold-400/30 flex-wrap gap-2">
                     <div>
                       <span className="text-xs font-bold text-aubergine-950 block">
                         Official Alexa.Presentation.APL.RenderDocument Directive (v2024.2)
                       </span>
-                      <span className="text-[11px] text-slate-500">
+                      <span className="text-[11px] text-silver-500">
                         Copy-paste directly into Amazon Alexa Developer Console Authoring Tool
                       </span>
                     </div>
@@ -683,7 +683,7 @@ export default function EchoShowSimulator() {
                       </button>
                       <button
                         onClick={downloadAplJson}
-                        className="neu-button px-3 py-1.5 text-xs font-bold text-slate-600 hover:text-slate-800 cursor-pointer"
+                        className="neu-button px-3 py-1.5 text-xs font-bold text-silver-700 hover:text-aubergine-950 cursor-pointer"
                       >
                         Download .json
                       </button>
@@ -691,7 +691,7 @@ export default function EchoShowSimulator() {
                   </div>
 
                   <div className="neu-inset p-4 rounded-xl flex-1 max-h-[460px] overflow-y-auto">
-                    <pre className="font-mono text-[11px] text-slate-800 whitespace-pre-wrap">
+                    <pre className="font-mono text-[11px] text-aubergine-950 whitespace-pre-wrap">
                       {JSON.stringify(currentScenario.apl_directive, null, 2)}
                     </pre>
                   </div>
@@ -702,10 +702,10 @@ export default function EchoShowSimulator() {
               {activeRightTab === 'mcp' && (
                 <div className="space-y-4">
                   <div className="neu-inset p-3 rounded-xl bg-slate-50">
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-slate-600 block mb-1">
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-silver-700 block mb-1">
                       Streamable HTTP Protocol Transport (/mcp)
                     </span>
-                    <p className="text-xs text-slate-500">
+                    <p className="text-xs text-silver-500">
                       Standardized Model Context Protocol endpoint executing sequential tool invocations with strict latency budgets.
                     </p>
                   </div>
@@ -717,7 +717,7 @@ export default function EchoShowSimulator() {
                           <span className="text-[10px] font-mono text-slate-400 block">
                             STEP {step.step} (FastMCP Tool)
                           </span>
-                          <span className="text-sm font-bold text-slate-800 font-mono">{step.tool}</span>
+                          <span className="text-sm font-bold text-aubergine-950 font-mono">{step.tool}</span>
                         </div>
                         <div className="flex items-center gap-3">
                           <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-100 text-emerald-800">
@@ -744,18 +744,18 @@ export default function EchoShowSimulator() {
         <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
           <div className="neu-raised max-w-3xl w-full max-h-[85vh] flex flex-col p-6 rounded-3xl border border-white/80 shadow-2xl">
             <div className="flex items-center justify-between pb-3 border-b border-slate-200">
-              <h3 className="font-display font-extrabold text-base text-slate-800">
+              <h3 className="font-display font-extrabold text-base text-aubergine-950">
                 Unified MCP JSON Payload
               </h3>
               <button
                 onClick={() => setShowJsonModal(false)}
-                className="neu-button w-8 h-8 rounded-full flex items-center justify-center text-slate-600 hover:text-slate-900 cursor-pointer"
+                className="neu-button w-8 h-8 rounded-full flex items-center justify-center text-silver-700 hover:text-slate-900 cursor-pointer"
               >
                 ✕
               </button>
             </div>
 
-            <pre className="neu-inset p-4 my-4 font-mono text-xs text-slate-800 overflow-y-auto flex-1 rounded-xl whitespace-pre-wrap">
+            <pre className="neu-inset p-4 my-4 font-mono text-xs text-aubergine-950 overflow-y-auto flex-1 rounded-xl whitespace-pre-wrap">
               {JSON.stringify(currentScenario, null, 2)}
             </pre>
 
@@ -763,7 +763,7 @@ export default function EchoShowSimulator() {
               <button onClick={copyJson} className="neu-button px-4 py-2 text-xs font-bold text-marigold-700 cursor-pointer">
                 {copyStatus}
               </button>
-              <button onClick={() => setShowJsonModal(false)} className="neu-button px-4 py-2 text-xs font-bold text-slate-600 cursor-pointer">
+              <button onClick={() => setShowJsonModal(false)} className="neu-button px-4 py-2 text-xs font-bold text-silver-700 cursor-pointer">
                 Close
               </button>
             </div>
@@ -778,36 +778,36 @@ export default function EchoShowSimulator() {
             <div className="flex items-center justify-between pb-3 border-b border-slate-200">
               <div className="flex items-center gap-2">
                 <span className="w-3 h-3 rounded-full bg-emerald-500"></span>
-                <h3 className="font-display font-extrabold text-base text-slate-800">
+                <h3 className="font-display font-extrabold text-base text-aubergine-950">
                   Amazon Alexa+ SLA & Cost Math Breakdown
                 </h3>
               </div>
               <button
                 onClick={() => setShowCostModal(false)}
-                className="neu-button w-8 h-8 rounded-full flex items-center justify-center text-slate-600 hover:text-slate-900 cursor-pointer"
+                className="neu-button w-8 h-8 rounded-full flex items-center justify-center text-silver-700 hover:text-slate-900 cursor-pointer"
               >
                 ✕
               </button>
             </div>
 
-            <div className="my-4 space-y-3 text-xs text-slate-700">
+            <div className="my-4 space-y-3 text-xs text-aubergine-900">
               <div className="neu-inset p-3 rounded-xl">
-                <h4 className="font-bold text-slate-800 mb-1">1. Time-to-First-Audio (TTFA) Target: &lt; 1,800ms</h4>
-                <p className="text-slate-500">
+                <h4 className="font-bold text-aubergine-950 mb-1">1. Time-to-First-Audio (TTFA) Target: &lt; 1,800ms</h4>
+                <p className="text-silver-500">
                   Alexa+ voice experience requires audio stream playback to commence within 1.8 seconds. By utilizing parallel Wikipedia REST fetches and Gemini 2.5 Flash batch verification, our measured TTFA is <strong>1,120ms - 1,420ms</strong>, comfortably beating the SLA.
                 </p>
               </div>
 
               <div className="neu-inset p-3 rounded-xl">
-                <h4 className="font-bold text-slate-800 mb-1">2. Batch Optimization (N+2 &rarr; 2 Calls)</h4>
-                <p className="text-slate-500">
+                <h4 className="font-bold text-aubergine-950 mb-1">2. Batch Optimization (N+2 &rarr; 2 Calls)</h4>
+                <p className="text-silver-500">
                   Naive implementations execute 1 extraction call + N individual verification calls + 1 verdict call (5 total calls for 3 claims). Claim-Check MCP batches all atomic claims into a single vectorized verification prompt, slashing network latency and token overhead by <strong>60%</strong>.
                 </p>
               </div>
 
               <div className="neu-inset p-3 rounded-xl">
-                <h4 className="font-bold text-slate-800 mb-1">3. Unit Cost Formula ($0.0017 / 1,000 Queries)</h4>
-                <div className="font-mono text-[11px] bg-white/70 p-2 rounded-lg mt-1 text-slate-800 border border-slate-200">
+                <h4 className="font-bold text-aubergine-950 mb-1">3. Unit Cost Formula ($0.0017 / 1,000 Queries)</h4>
+                <div className="font-mono text-[11px] bg-white/70 p-2 rounded-lg mt-1 text-aubergine-950 border border-slate-200">
                   Cost = (2,200 Input Tokens × $0.075/1M) + (450 Output Tokens × $0.30/1M) = $0.00000165 per query<br />
                   For 1,000 Voice Queries: <strong>~$0.0017 USD</strong> (Fraction of a single US cent)
                 </div>
@@ -815,7 +815,7 @@ export default function EchoShowSimulator() {
             </div>
 
             <div className="flex justify-end">
-              <button onClick={() => setShowCostModal(false)} className="neu-button px-4 py-2 text-xs font-bold text-slate-700 cursor-pointer">
+              <button onClick={() => setShowCostModal(false)} className="neu-button px-4 py-2 text-xs font-bold text-aubergine-900 cursor-pointer">
                 Close
               </button>
             </div>
