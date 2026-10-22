@@ -5,21 +5,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap');
 
 :root {
-  --bg-silver: #edf2f7;
+  --bg-silver: #f1f5f9;
   --shadow-light: #ffffff;
-  --shadow-dark: #cad4e2;
-  --aubergine-deep: #260c2d;
+  --shadow-dark: #cbd5e1;
   --alexa-cyan: #00d2ff;
   --alexa-sapphire: #0284c7;
 }
 
 body {
   background: 
-    radial-gradient(circle at 5% 5%, rgba(66, 22, 77, 0.05) 0%, transparent 40%),
-    radial-gradient(circle at 95% 85%, rgba(0, 210, 255, 0.06) 0%, transparent 45%),
-    linear-gradient(135deg, #f1f5f9 0%, #e8eef5 50%, #eef3f9 100%);
+    radial-gradient(circle at 10% 10%, rgba(0, 210, 255, 0.05) 0%, transparent 40%),
+    radial-gradient(circle at 90% 85%, rgba(2, 132, 199, 0.04) 0%, transparent 45%),
+    linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #e8eef5 100%);
   font-family: 'Plus Jakarta Sans', sans-serif;
-  color: #18071c;
+  color: #0f172a;
   min-height: 100vh;
 }
 
@@ -35,13 +34,13 @@ code, pre, .font-mono {
 .neu-raised {
   background: #edf3f9;
   box-shadow: 6px 6px 14px var(--shadow-dark), -6px -6px 14px var(--shadow-light);
-  border-radius: 18px;
+  border-radius: 20px;
 }
 
 .neu-raised-sm {
   background: #edf3f9;
   box-shadow: 3px 3px 8px var(--shadow-dark), -3px -3px 8px var(--shadow-light);
-  border-radius: 12px;
+  border-radius: 14px;
 }
 
 .neu-inset {
@@ -70,15 +69,6 @@ code, pre, .font-mono {
   transform: translateY(1px);
 }
 
-/* Rich Velvet Aubergine Card with Alexa Cyan Accents */
-.aubergine-card {
-  background: linear-gradient(145deg, #260c2d 0%, #32103b 55%, #18071c 100%);
-  color: #ffffff;
-  border: 1px solid rgba(0, 210, 255, 0.22);
-  box-shadow: 0 16px 36px -10px rgba(24, 7, 28, 0.5), 0 0 25px -10px rgba(0, 210, 255, 0.15);
-  border-radius: 24px;
-}
-
 /* Canonical Alexa Electric Cyan Button */
 .alexa-btn, .marigold-btn {
   background: linear-gradient(135deg, #00d2ff 0%, #0284c7 100%);
@@ -93,30 +83,15 @@ code, pre, .font-mono {
   box-shadow: 0 6px 22px rgba(0, 210, 255, 0.55);
 }
 
-.aubergine-btn {
-  background: linear-gradient(135deg, #32103b 0%, #260c2d 100%);
-  color: #ffffff;
-  border: 1px solid rgba(0, 210, 255, 0.3);
-  box-shadow: 0 4px 14px rgba(24, 7, 28, 0.35);
-  transition: all 0.2s ease;
-}
-
-.aubergine-btn:hover {
-  transform: translateY(-1px);
-  background: linear-gradient(135deg, #3d1448 0%, #32103b 100%);
-  border-color: rgba(0, 210, 255, 0.6);
-  box-shadow: 0 6px 18px rgba(0, 210, 255, 0.2);
-}
-
-/* Echo Show Hardware Chassis (Brushed Platinum/Silver Bezel with Aubergine Body) */
+/* Echo Show Hardware Chassis */
 .echo-hardware-chassis {
   background: linear-gradient(145deg, #f8fafc 0%, #e2e8f0 35%, #cbd5e1 75%, #94a3b8 100%);
   border: 2px solid #ffffff;
   box-shadow: 
-    0 25px 60px -15px rgba(38, 12, 45, 0.25),
-    0 10px 25px -5px rgba(0, 210, 255, 0.15),
+    0 25px 60px -15px rgba(15, 23, 42, 0.2),
+    0 10px 25px -5px rgba(0, 210, 255, 0.12),
     inset 0 2px 4px rgba(255, 255, 255, 0.95),
-    inset 0 -2px 5px rgba(24, 7, 28, 0.2);
+    inset 0 -2px 5px rgba(15, 23, 42, 0.15);
   border-radius: 36px;
   position: relative;
 }
@@ -124,7 +99,7 @@ code, pre, .font-mono {
 .metallic-rim {
   border: 3px solid;
   border-color: #ffffff #cbd5e1 #94a3b8 #e2e8f0;
-  box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.95), 0 3px 8px rgba(38, 12, 45, 0.15);
+  box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.95), 0 3px 8px rgba(15, 23, 42, 0.1);
 }
 
 .speaker-acoustic-grill {
@@ -138,19 +113,19 @@ code, pre, .font-mono {
 
 /* Glassmorphism Layers */
 .glass-screen {
-  background: rgba(255, 255, 255, 0.82);
+  background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.95);
-  box-shadow: 0 14px 40px rgba(38, 12, 45, 0.08);
+  box-shadow: 0 14px 40px rgba(15, 23, 42, 0.06);
 }
 
 .glass-card {
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.88);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border: 1px solid rgba(255, 255, 255, 0.95);
-  box-shadow: 0 6px 20px rgba(38, 12, 45, 0.05);
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.04);
 }
 
 .glass-specular-glare {
@@ -179,11 +154,11 @@ code, pre, .font-mono {
   width: 58px;
   height: 58px;
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, #e0f2fe 0%, #38bdf8 28%, #0284c7 55%, #32103b 85%, #18071c 100%);
+  background: radial-gradient(circle at 35% 35%, #e0f2fe 0%, #38bdf8 30%, #0284c7 60%, #1e1b4b 85%, #0f172a 100%);
   box-shadow: 
     0 0 25px rgba(0, 210, 255, 0.8),
     0 0 50px rgba(2, 132, 199, 0.45),
-    inset -4px -4px 10px rgba(24, 7, 28, 0.7),
+    inset -4px -4px 10px rgba(15, 23, 42, 0.7),
     inset 4px 4px 10px rgba(255, 255, 255, 0.85);
   position: relative;
   animation: pulse-orb-cyan 2.8s infinite ease-in-out;
@@ -215,7 +190,7 @@ code, pre, .font-mono {
   100% { transform: scale(1.4); opacity: 0; }
 }
 
-/* Authentic Alexa Light Bar (Echo Show 10 / 15 Bottom Edge LED Bar) */
+/* Authentic Alexa Light Bar */
 .alexa-light-bar {
   height: 4px;
   border-radius: 9999px;
@@ -236,27 +211,13 @@ code, pre, .font-mono {
   }
 }
 
-/* Dynamic Live Audio Equalizer Waveform */
-.sound-wave-bar {
-  display: inline-block;
-  width: 3.5px;
-  border-radius: 9999px;
-  background: linear-gradient(to top, #0284c7, #00d2ff);
-  animation: audio-bounce 1s infinite ease-in-out;
-}
-
-@keyframes audio-bounce {
-  0%, 100% { height: 4px; }
-  50% { height: 22px; }
-}
-
 /* Sidebar Surface */
 .sidebar-glass {
-  background: rgba(244, 248, 253, 0.94);
+  background: rgba(248, 250, 252, 0.94);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border-right: 1px solid rgba(38, 12, 45, 0.08);
-  box-shadow: 6px 0 25px rgba(38, 12, 45, 0.03);
+  border-right: 1px solid rgba(226, 232, 240, 0.8);
+  box-shadow: 6px 0 25px rgba(15, 23, 42, 0.03);
 }
 
 .sidebar-nav-item {
@@ -282,7 +243,7 @@ code, pre, .font-mono {
 }
 
 /* ==========================================================================
-   MIDNIGHT DARK MODE (VELVET AUBERGINE & ALEXA CYAN)
+   MIDNIGHT OBSIDIAN & CYAN DARK MODE (CLEAN ENTERPRISE SAAS)
    ========================================================================== */
 html.dark {
   color-scheme: dark;
@@ -290,118 +251,83 @@ html.dark {
 
 html.dark body {
   background: 
-    radial-gradient(circle at 10% 10%, rgba(88, 31, 102, 0.35) 0%, transparent 45%),
-    radial-gradient(circle at 90% 85%, rgba(0, 210, 255, 0.12) 0%, transparent 45%),
-    linear-gradient(135deg, #09030b 0%, #150618 50%, #09030b 100%) !important;
+    radial-gradient(circle at 10% 10%, rgba(0, 210, 255, 0.08) 0%, transparent 45%),
+    radial-gradient(circle at 90% 85%, rgba(37, 99, 235, 0.07) 0%, transparent 45%),
+    linear-gradient(135deg, #070309 0%, #0e0513 50%, #070309 100%) !important;
   color: #f8fafc !important;
 }
 
 html.dark .neu-raised {
-  background: #17071b !important;
-  box-shadow: 6px 6px 16px #060107, -6px -6px 16px rgba(72, 25, 84, 0.22) !important;
-  border: 1px solid rgba(0, 210, 255, 0.14) !important;
+  background: rgba(18, 7, 24, 0.85) !important;
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.7) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
 }
 
 html.dark .neu-raised-sm {
-  background: #17071b !important;
-  box-shadow: 3px 3px 8px #060107, -3px -3px 8px rgba(72, 25, 84, 0.22) !important;
-  border: 1px solid rgba(0, 210, 255, 0.12) !important;
+  background: rgba(18, 7, 24, 0.85) !important;
+  box-shadow: 0 6px 20px -3px rgba(0, 0, 0, 0.5) !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
 }
 
 html.dark .neu-inset {
-  background: #100313 !important;
-  box-shadow: inset 3px 3px 6px #050106, inset -3px -3px 6px rgba(72, 25, 84, 0.22) !important;
+  background: rgba(10, 3, 14, 0.9) !important;
   border: 1px solid rgba(255, 255, 255, 0.05) !important;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6) !important;
 }
 
 html.dark .neu-button {
-  background: #1c0922 !important;
+  background: rgba(22, 9, 30, 0.85) !important;
   color: #f1f5f9 !important;
-  box-shadow: 4px 4px 10px #060107, -4px -4px 10px rgba(72, 25, 84, 0.22) !important;
-  border: 1px solid rgba(0, 210, 255, 0.18) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4) !important;
 }
 
 html.dark .neu-button:hover {
-  background: #270d2f !important;
+  background: rgba(30, 13, 40, 0.95) !important;
   border-color: rgba(0, 210, 255, 0.45) !important;
   color: #ffffff !important;
-  box-shadow: 0 0 16px rgba(0, 210, 255, 0.25) !important;
 }
 
-html.dark .neu-button:active, html.dark .neu-button.active {
-  background: #120315 !important;
-  box-shadow: inset 3px 3px 6px #050106, inset -3px -3px 6px rgba(72, 25, 84, 0.25) !important;
-}
-
-/* Typography & Contrast in Dark Mode */
-html.dark .text-aubergine-950,
-html.dark .text-aubergine-900,
-html.dark .text-aubergine-850,
-html.dark .text-aubergine-800 {
-  color: #f8fafc !important;
-}
-
-html.dark .text-silver-700,
-html.dark .text-silver-600,
-html.dark .text-silver-500 {
-  color: #cbd5e1 !important;
-}
-
-html.dark .border-aubergine-900\/10,
-html.dark .border-aubergine-900\/20,
-html.dark .border-silver-200,
-html.dark .border-silver-300,
-html.dark .border-silver-300\/60 {
-  border-color: rgba(0, 210, 255, 0.16) !important;
-}
-
-/* Header, Sidebar, and Panels in Dark Mode */
 html.dark header {
-  background-color: rgba(16, 5, 20, 0.8) !important;
-  border-color: rgba(0, 210, 255, 0.16) !important;
+  background-color: rgba(10, 3, 14, 0.8) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
 }
 
 html.dark .sidebar-glass {
-  background: rgba(16, 5, 20, 0.96) !important;
-  border-right: 1px solid rgba(0, 210, 255, 0.16) !important;
+  background: rgba(10, 3, 14, 0.95) !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
   box-shadow: 6px 0 25px rgba(0, 0, 0, 0.5) !important;
 }
 
 html.dark .echo-hardware-chassis {
-  background: linear-gradient(145deg, #260c2d 0%, #17071b 35%, #100313 75%, #08020a 100%) !important;
-  border-color: rgba(0, 210, 255, 0.25) !important;
-  box-shadow: 
-    0 25px 60px -15px rgba(0, 0, 0, 0.85),
-    0 10px 25px -5px rgba(0, 210, 255, 0.15),
-    inset 0 2px 4px rgba(0, 210, 255, 0.2),
-    inset 0 -2px 5px rgba(0, 0, 0, 0.7) !important;
+  background: linear-gradient(145deg, #1c0a24 0%, #120518 35%, #0a030d 100%) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.85) !important;
 }
 
 html.dark .metallic-rim {
-  border-color: #3d1448 #260c2d #100313 #32103b !important;
-  box-shadow: inset 0 1px 3px rgba(0, 210, 255, 0.2), 0 3px 8px rgba(0, 0, 0, 0.7) !important;
+  border-color: #2b1136 #1c0a24 #0a030d #1f0b29 !important;
 }
 
 html.dark .speaker-acoustic-grill {
-  background-color: #17071b !important;
-  background-image: radial-gradient(#3d1448 18%, transparent 20%), radial-gradient(#3d1448 18%, transparent 20%) !important;
+  background-color: #120518 !important;
+  background-image: radial-gradient(#2b1136 18%, transparent 20%), radial-gradient(#2b1136 18%, transparent 20%) !important;
 }
 
 html.dark .glass-screen {
-  background: rgba(16, 5, 20, 0.9) !important;
-  border-color: rgba(0, 210, 255, 0.2) !important;
-  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.55) !important;
+  background: rgba(12, 4, 16, 0.9) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
 }
 
 html.dark .glass-card {
-  background: rgba(23, 7, 27, 0.88) !important;
-  border-color: rgba(0, 210, 255, 0.16) !important;
+  background: rgba(18, 7, 24, 0.88) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
 }
 
 html.dark select,
 html.dark input,
 html.dark textarea {
-  background-color: #17071b !important;
+  background-color: #120518 !important;
   color: #f8fafc !important;
-  border-color: rgba(0, 210, 255, 0.22) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
 }
