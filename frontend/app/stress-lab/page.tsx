@@ -89,14 +89,14 @@ export default function StressLabPage() {
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-2 mb-1">
-              <span className="w-8 h-8 rounded-xl bg-gradient-to-br from-amber-400 to-orange-600 flex items-center justify-center text-white font-bold text-sm shadow-md shadow-amber-500/30">
+              <span className="w-8 h-8 rounded-xl bg-gradient-to-br from-marigold-400 via-marigold-500 to-aubergine-900 flex items-center justify-center text-white font-bold text-sm shadow-md shadow-amber-500/30">
                 S
               </span>
-              <h1 className="font-display font-extrabold text-xl text-slate-800">
+              <h1 className="font-display font-extrabold text-xl text-aubergine-950">
                 Stress Test Laboratory
               </h1>
             </div>
-            <p className="text-xs text-slate-500 font-medium ml-10">
+            <p className="text-xs text-silver-700 font-medium ml-10">
               Batch execute all 6 preset scenarios through the MCP pipeline and validate epistemic safety invariants.
             </p>
           </div>
@@ -107,12 +107,12 @@ export default function StressLabPage() {
             className={`neu-button px-5 py-2.5 text-sm font-bold flex items-center gap-2 transition-all ${
               isRunning
                 ? 'text-slate-400 cursor-not-allowed opacity-60'
-                : 'text-amber-800 hover:text-amber-900'
+                : 'text-aubergine-950 font-extrabold hover:text-marigold-600'
             }`}
           >
             {isRunning ? (
               <>
-                <span className="w-3 h-3 rounded-full border-2 border-amber-400 border-t-transparent animate-spin" />
+                <span className="w-3 h-3 rounded-full border-2 border-marigold-400 border-t-transparent animate-spin" />
                 Running {Math.round(progress)}%...
               </>
             ) : (
@@ -125,7 +125,7 @@ export default function StressLabPage() {
         {isRunning && (
           <div className="mt-4 neu-inset p-1 rounded-full">
             <div
-              className="h-2 rounded-full bg-gradient-to-r from-amber-400 via-orange-500 to-rose-500 transition-all duration-500"
+              className="h-2 rounded-full bg-gradient-to-r from-marigold-400 via-marigold-500 to-aubergine-700 transition-all duration-500"
               style={{ width: `${progress}%` }}
             />
           </div>
@@ -137,7 +137,7 @@ export default function StressLabPage() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
           <div className="neu-raised p-4 border border-white/80 flex flex-col items-center">
             <TrustGauge score={avgTrust} size={90} />
-            <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mt-2">
+            <span className="text-[10px] font-bold text-silver-700 uppercase tracking-wider mt-2">
               Avg Trust Score
             </span>
           </div>
@@ -173,11 +173,11 @@ export default function StressLabPage() {
           </div>
 
           <div className="neu-raised p-4 border border-white/80 flex flex-col items-center justify-center">
-            <span className="font-display font-extrabold text-3xl text-slate-700">
+            <span className="font-display font-extrabold text-3xl text-aubergine-900">
               {avgLatency}
               <span className="text-base font-bold text-slate-400">ms</span>
             </span>
-            <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mt-1">
+            <span className="text-[10px] font-bold text-silver-700 uppercase tracking-wider mt-1">
               Avg Latency
             </span>
             <span className="text-[10px] text-slate-400 mt-1">
@@ -204,7 +204,7 @@ export default function StressLabPage() {
               key={scenario.preset_id}
               className={`neu-raised p-4 border transition-all duration-300 ${
                 isActive
-                  ? 'border-amber-400 ring-2 ring-amber-300/50 animate-pulse'
+                  ? 'border-marigold-400 ring-2 ring-marigold-300/50 animate-pulse'
                   : testResult
                   ? testResult.passed
                     ? 'border-emerald-300/80'
@@ -218,7 +218,7 @@ export default function StressLabPage() {
                   <span className="text-[10px] font-mono font-bold text-slate-400">
                     #{idx + 1}
                   </span>
-                  <h3 className="text-sm font-bold text-slate-800 line-clamp-1">
+                  <h3 className="text-sm font-bold text-aubergine-950 line-clamp-1">
                     {scenario.title.split('(')[0].trim()}
                   </h3>
                 </div>
@@ -233,7 +233,7 @@ export default function StressLabPage() {
                     {testResult.passed ? 'PASS' : 'FAIL'}
                   </span>
                 ) : isActive ? (
-                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800 border border-amber-300 animate-pulse">
+                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-marigold-100 text-aubergine-950 font-extrabold border border-marigold-300 animate-pulse">
                     RUNNING
                   </span>
                 ) : (
@@ -244,7 +244,7 @@ export default function StressLabPage() {
               </div>
 
               {/* Scenario details */}
-              <p className="text-[11px] text-slate-500 mb-3 line-clamp-2">
+              <p className="text-[11px] text-silver-700 mb-3 line-clamp-2">
                 {scenario.original_text}
               </p>
 
@@ -270,15 +270,15 @@ export default function StressLabPage() {
 
               {/* Result footer */}
               {testResult && (
-                <div className="flex items-center justify-between text-[10px] text-slate-500 pt-2 border-t border-slate-200/60">
+                <div className="flex items-center justify-between text-[10px] text-silver-700 pt-2 border-t border-slate-200/60">
                   <span>
-                    Trust: <strong className="text-slate-700">{testResult.scenario.spoken_verdict.overall_trust_score}%</strong>
+                    Trust: <strong className="text-aubergine-900">{testResult.scenario.spoken_verdict.overall_trust_score}%</strong>
                   </span>
                   <span>
-                    Status: <strong className="text-slate-700">{testResult.scenario.spoken_verdict.status.replace(/_/g, ' ')}</strong>
+                    Status: <strong className="text-aubergine-900">{testResult.scenario.spoken_verdict.status.replace(/_/g, ' ')}</strong>
                   </span>
                   <span>
-                    Latency: <strong className="text-slate-700">{Math.round(testResult.latencyMs)}ms</strong>
+                    Latency: <strong className="text-aubergine-900">{Math.round(testResult.latencyMs)}ms</strong>
                   </span>
                 </div>
               )}

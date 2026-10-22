@@ -210,7 +210,7 @@ export default function EchoShowSimulator() {
           </div>
           <button
             onClick={() => setShowCostModal(true)}
-            className="text-[11px] font-bold text-cyan-600 hover:text-cyan-700 flex items-center gap-1 cursor-pointer"
+            className="text-[11px] font-bold text-marigold-600 hover:text-marigold-700 flex items-center gap-1 cursor-pointer"
           >
             <span>Math Formula & SLA Breakdown</span>
             <span>&rarr;</span>
@@ -249,7 +249,7 @@ export default function EchoShowSimulator() {
                 <span className="text-[10px] text-slate-400">vs {sla.unoptimized_llm_calls} unopt</span>
               </div>
             </div>
-            <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-cyan-100 text-cyan-800 border border-cyan-300">
+            <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-marigold-100 text-marigold-800 border border-marigold-400">
               -{sla.calls_reduction_pct}% Calls
             </span>
           </div>
@@ -257,7 +257,7 @@ export default function EchoShowSimulator() {
           {/* Metric 3: Cost / 1k Queries */}
           <div
             onClick={() => setShowCostModal(true)}
-            className="neu-inset p-3 rounded-xl flex items-center justify-between cursor-pointer hover:ring-1 hover:ring-cyan-400 transition-all"
+            className="neu-inset p-3 rounded-xl flex items-center justify-between cursor-pointer hover:ring-1 hover:ring-marigold-400 transition-all"
           >
             <div>
               <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">
@@ -267,7 +267,7 @@ export default function EchoShowSimulator() {
                 ${sla.est_cost_per_1k_queries_usd.toFixed(4)}
               </span>
             </div>
-            <span className="text-[10px] font-bold text-cyan-600 underline">Breakdown</span>
+            <span className="text-[10px] font-bold text-marigold-600 underline">Breakdown</span>
           </div>
 
           {/* Metric 4: Benchmark Accuracy */}
@@ -302,7 +302,7 @@ export default function EchoShowSimulator() {
           {scenarios.map((sc, i) => {
             const isActive = sc.preset_id === currentScenario.preset_id;
             const st = sc.spoken_verdict.status;
-            let badgeColor = 'bg-cyan-100 text-cyan-800 border-cyan-300';
+            let badgeColor = 'bg-marigold-100 text-marigold-800 border-marigold-400';
             if (st === 'verified_safe') {
               badgeColor = 'bg-emerald-100 text-emerald-800 border-emerald-300';
             } else if (st === 'abstained') {
@@ -316,7 +316,7 @@ export default function EchoShowSimulator() {
                 key={sc.preset_id}
                 onClick={() => selectScenario(sc.preset_id)}
                 className={`neu-button p-2 text-left flex flex-col justify-between rounded-xl border border-white/60 transition-all hover:scale-[1.02] ${
-                  isActive ? 'active ring-2 ring-cyan-500' : ''
+                  isActive ? 'active ring-2 ring-marigold-500' : ''
                 }`}
               >
                 <div className="flex items-center justify-between w-full mb-1">
@@ -328,7 +328,7 @@ export default function EchoShowSimulator() {
                 <span className="text-xs font-bold text-slate-800 line-clamp-1">
                   {sc.title.split('(')[0]}
                 </span>
-                <span className="text-[9px] font-bold text-indigo-600 line-clamp-1 mt-1">
+                <span className="text-[9px] font-bold text-aubergine-700 line-clamp-1 mt-1">
                   {sc.red_team_vector}
                 </span>
               </button>
@@ -338,13 +338,13 @@ export default function EchoShowSimulator() {
       </div>
 
       {/* ADVERSARIAL RED-TEAM VECTOR EXPLANATION CALLOUT */}
-      <div className="neu-inset p-3.5 mb-6 rounded-2xl border border-indigo-200/60 bg-gradient-to-r from-indigo-50/60 via-sky-50/40 to-white flex items-start gap-3">
-        <span className="px-2.5 py-1 rounded-lg text-xs font-extrabold bg-indigo-600 text-white shrink-0 mt-0.5">
+      <div className="neu-inset p-3.5 mb-6 rounded-2xl border border-aubergine-200/60 bg-gradient-to-r from-aubergine-50/60 via-sky-50/40 to-white flex items-start gap-3">
+        <span className="px-2.5 py-1 rounded-lg text-xs font-extrabold bg-aubergine-900 text-white shrink-0 mt-0.5">
           RED-TEAM VECTOR
         </span>
         <div className="flex-1">
           <div className="flex items-center gap-2">
-            <h3 className="text-xs font-bold text-indigo-950 uppercase tracking-wider">
+            <h3 className="text-xs font-bold text-aubergine-950 uppercase tracking-wider">
               {currentScenario.red_team_vector}
             </h3>
             <span className="text-[11px] text-slate-400">• Active Scenario Threat Model</span>
@@ -381,9 +381,9 @@ export default function EchoShowSimulator() {
 
             <div className="neu-inset px-2 py-0.5 flex items-center gap-1.5 text-xs text-slate-600 font-bold">
               <span>VOL</span>
-              <button onClick={() => adjustVolume(-0.1)} className="hover:text-cyan-600 px-1 cursor-pointer">-</button>
+              <button onClick={() => adjustVolume(-0.1)} className="hover:text-marigold-600 px-1 cursor-pointer">-</button>
               <span className="text-[11px] font-mono">{Math.round(volume * 100)}%</span>
-              <button onClick={() => adjustVolume(0.1)} className="hover:text-cyan-600 px-1 cursor-pointer">+</button>
+              <button onClick={() => adjustVolume(0.1)} className="hover:text-marigold-600 px-1 cursor-pointer">+</button>
             </div>
           </div>
         </div>
@@ -413,7 +413,7 @@ export default function EchoShowSimulator() {
               </h2>
 
               <div className="neu-inset px-3 py-1.5 rounded-full text-xs text-slate-500 mt-2 flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-cyan-500 animate-pulse"></span>
+                <span className="w-2 h-2 rounded-full bg-marigold-500 animate-pulse"></span>
                 <span>{statusMessage}</span>
               </div>
 
@@ -427,7 +427,7 @@ export default function EchoShowSimulator() {
                     value={inputText}
                     onChange={(e) => setInputText(e.target.value)}
                     rows={3}
-                    className="neu-inset w-full p-3 text-xs md:text-sm text-slate-800 bg-transparent focus:outline-none focus:ring-2 focus:ring-cyan-500 font-medium"
+                    className="neu-inset w-full p-3 text-xs md:text-sm text-slate-800 bg-transparent focus:outline-none focus:ring-2 focus:ring-marigold-500 font-medium"
                     placeholder="Type or speak a claim..."
                   />
                   <button
@@ -446,11 +446,11 @@ export default function EchoShowSimulator() {
               <button
                 onClick={handleVerify}
                 disabled={isChecking}
-                className="neu-button w-full mt-3 py-2.5 px-4 font-bold text-xs md:text-sm text-cyan-800 bg-cyan-50 hover:bg-cyan-100 flex items-center justify-center gap-2 border border-cyan-200 cursor-pointer"
+                className="neu-button w-full mt-3 py-2.5 px-4 font-bold text-xs md:text-sm text-marigold-800 bg-marigold-50 hover:bg-marigold-100 flex items-center justify-center gap-2 border border-marigold-300 cursor-pointer"
               >
                 {isChecking ? (
                   <>
-                    <span className="w-3.5 h-3.5 rounded-full border-2 border-cyan-600 border-t-transparent animate-spin"></span>
+                    <span className="w-3.5 h-3.5 rounded-full border-2 border-marigold-600 border-t-transparent animate-spin"></span>
                     <span>Decomposing & Grounding Claims...</span>
                   </>
                 ) : (
@@ -502,7 +502,7 @@ export default function EchoShowSimulator() {
                   </label>
                   <button
                     onClick={() => speakText(currentScenario.spoken_verdict.spoken_response)}
-                    className="text-xs font-semibold text-cyan-600 hover:text-cyan-700 flex items-center gap-1 cursor-pointer"
+                    className="text-xs font-semibold text-marigold-600 hover:text-marigold-700 flex items-center gap-1 cursor-pointer"
                   >
                     Audio Listen
                   </button>
@@ -552,12 +552,12 @@ export default function EchoShowSimulator() {
                     onClick={() => setActiveRightTab('apl')}
                     className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1 cursor-pointer ${
                       activeRightTab === 'apl'
-                        ? 'bg-indigo-600 text-white shadow-sm'
-                        : 'text-indigo-600 hover:text-indigo-800'
+                        ? 'bg-aubergine-900 text-white shadow-sm'
+                        : 'text-aubergine-700 hover:text-indigo-800'
                     }`}
                   >
                     <span>2. Alexa APL 2.0 JSON</span>
-                    <span className="px-1.5 py-0.2 rounded text-[9px] bg-indigo-500 text-white">NEW</span>
+                    <span className="px-1.5 py-0.2 rounded text-[9px] bg-marigold-500 text-white">NEW</span>
                   </button>
                   <button
                     onClick={() => setActiveRightTab('mcp')}
@@ -573,7 +573,7 @@ export default function EchoShowSimulator() {
 
                 <button
                   onClick={() => setShowJsonModal(true)}
-                  className="neu-button px-2.5 py-1 text-xs font-semibold text-slate-600 hover:text-cyan-600 cursor-pointer"
+                  className="neu-button px-2.5 py-1 text-xs font-semibold text-slate-600 hover:text-marigold-600 cursor-pointer"
                 >
                   Raw JSON
                 </button>
@@ -628,7 +628,7 @@ export default function EchoShowSimulator() {
                           </div>
                           <button
                             onClick={() => toggleReasoning(claim.claim_id)}
-                            className="text-cyan-600 hover:text-cyan-700 font-bold text-[11px] flex items-center gap-1 cursor-pointer"
+                            className="text-marigold-600 hover:text-marigold-700 font-bold text-[11px] flex items-center gap-1 cursor-pointer"
                           >
                             <span>Judge Reasoning</span> <span>{isExpanded ? '▲' : '▼'}</span>
                           </button>
@@ -642,7 +642,7 @@ export default function EchoShowSimulator() {
                             <ul className="space-y-1 mt-1">
                               {claim.reasoning_steps.map((r, i) => (
                                 <li key={i} className="text-[11px] text-slate-600 flex items-start gap-1.5">
-                                  <span className="text-cyan-600 font-bold">•</span>
+                                  <span className="text-marigold-600 font-bold">•</span>
                                   <span>{r}</span>
                                 </li>
                               ))}
@@ -664,9 +664,9 @@ export default function EchoShowSimulator() {
               {/* TAB 2: ALEXA APL 2.0 JSON EXPORTER */}
               {activeRightTab === 'apl' && (
                 <div className="flex flex-col h-full">
-                  <div className="flex items-center justify-between mb-3 bg-indigo-50/80 p-3 rounded-xl border border-indigo-200/60 flex-wrap gap-2">
+                  <div className="flex items-center justify-between mb-3 bg-aubergine-50/80 p-3 rounded-xl border border-aubergine-200/60 flex-wrap gap-2">
                     <div>
-                      <span className="text-xs font-bold text-indigo-950 block">
+                      <span className="text-xs font-bold text-aubergine-950 block">
                         Official Alexa.Presentation.APL.RenderDocument Directive (v2024.2)
                       </span>
                       <span className="text-[11px] text-slate-500">
@@ -677,7 +677,7 @@ export default function EchoShowSimulator() {
                     <div className="flex items-center gap-2">
                       <button
                         onClick={copyAplJson}
-                        className="neu-button px-3 py-1.5 text-xs font-bold text-indigo-700 bg-white hover:bg-indigo-50 border border-indigo-200 cursor-pointer"
+                        className="neu-button px-3 py-1.5 text-xs font-bold text-aubergine-800 bg-white hover:bg-aubergine-50 border border-aubergine-200 cursor-pointer"
                       >
                         {copyAplStatus}
                       </button>
@@ -723,7 +723,7 @@ export default function EchoShowSimulator() {
                           <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-100 text-emerald-800">
                             {step.status.toUpperCase()}
                           </span>
-                          <span className="px-3 py-1 rounded text-xs font-mono font-bold bg-cyan-100 text-cyan-800">
+                          <span className="px-3 py-1 rounded text-xs font-mono font-bold bg-marigold-100 text-marigold-800">
                             {step.latency_ms}ms
                           </span>
                         </div>
@@ -760,7 +760,7 @@ export default function EchoShowSimulator() {
             </pre>
 
             <div className="flex justify-end gap-2">
-              <button onClick={copyJson} className="neu-button px-4 py-2 text-xs font-bold text-cyan-700 cursor-pointer">
+              <button onClick={copyJson} className="neu-button px-4 py-2 text-xs font-bold text-marigold-700 cursor-pointer">
                 {copyStatus}
               </button>
               <button onClick={() => setShowJsonModal(false)} className="neu-button px-4 py-2 text-xs font-bold text-slate-600 cursor-pointer">

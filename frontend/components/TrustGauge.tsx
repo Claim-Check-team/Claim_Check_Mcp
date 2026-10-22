@@ -14,18 +14,22 @@ export default function TrustGauge({ score, size = 120, label }: TrustGaugeProps
   const progress = (score / 100) * circumference;
   const remaining = circumference - progress;
 
-  let color = '#10b981';
-  let glowColor = 'rgba(16, 185, 129, 0.4)';
-  let statusLabel = 'HIGH TRUST';
+  let color = '#f59e0b'; // Marigold glowing primary
+  let glowColor = 'rgba(245, 158, 11, 0.45)';
+  let statusLabel = 'VERIFIED';
 
   if (score < 50) {
     color = '#ef4444';
     glowColor = 'rgba(239, 68, 68, 0.4)';
     statusLabel = 'LOW TRUST';
   } else if (score < 75) {
-    color = '#f59e0b';
-    glowColor = 'rgba(245, 158, 11, 0.4)';
-    statusLabel = 'MODERATE';
+    color = '#d97706';
+    glowColor = 'rgba(217, 119, 6, 0.4)';
+    statusLabel = 'CAUTION';
+  } else if (score >= 90) {
+    color = '#10b981';
+    glowColor = 'rgba(16, 185, 129, 0.4)';
+    statusLabel = 'HIGH TRUST';
   }
 
   return (
@@ -37,17 +41,17 @@ export default function TrustGauge({ score, size = 120, label }: TrustGaugeProps
           viewBox={`0 0 ${size} ${size}`}
           className="transform -rotate-90"
         >
-          {/* Background track */}
+          {/* Background track (Silver) */}
           <circle
             cx={size / 2}
             cy={size / 2}
             r={radius}
             fill="none"
-            stroke="#e2e8f0"
+            stroke="#cbd5e1"
             strokeWidth="8"
-            opacity="0.5"
+            opacity="0.6"
           />
-          {/* Progress arc */}
+          {/* Progress arc (Marigold / Status) */}
           <circle
             cx={size / 2}
             cy={size / 2}
@@ -63,16 +67,16 @@ export default function TrustGauge({ score, size = 120, label }: TrustGaugeProps
             }}
           />
         </svg>
-        {/* Center label */}
+        {/* Center label (Aubergine) */}
         <div className="absolute inset-0 flex flex-col items-center justify-center">
           <span
-            className="font-display font-extrabold text-slate-800 leading-none"
+            className="font-display font-black text-aubergine-950 leading-none"
             style={{ fontSize: size * 0.25 }}
           >
             {score}
           </span>
           <span
-            className="font-bold text-slate-400 uppercase tracking-wider"
+            className="font-bold text-silver-700 uppercase tracking-wider"
             style={{ fontSize: size * 0.08 }}
           >
             {statusLabel}
@@ -80,7 +84,7 @@ export default function TrustGauge({ score, size = 120, label }: TrustGaugeProps
         </div>
       </div>
       {label && (
-        <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">
+        <span className="text-[10px] font-bold text-aubergine-900 uppercase tracking-wider">
           {label}
         </span>
       )}

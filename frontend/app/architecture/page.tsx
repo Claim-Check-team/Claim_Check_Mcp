@@ -11,10 +11,10 @@ interface TechItem {
 
 const TECH_STACK: TechItem[] = [
   { name: 'Next.js 15', role: 'Frontend framework (App Router)', owner: 'Dev B', color: 'from-slate-700 to-slate-900' },
-  { name: 'Tailwind CSS', role: 'Utility-first styling + custom morphism', owner: 'Dev B', color: 'from-cyan-400 to-blue-500' },
-  { name: 'Web Speech API', role: 'Voice input (STT) + TTS synthesis', owner: 'Dev B', color: 'from-violet-400 to-purple-600' },
+  { name: 'Tailwind CSS', role: 'Utility-first styling + custom morphism', owner: 'Dev B', color: 'from-marigold-400 to-marigold-600' },
+  { name: 'Web Speech API', role: 'Voice input (STT) + TTS synthesis', owner: 'Dev B', color: 'from-aubergine-600 to-aubergine-900' },
   { name: 'Python FastAPI', role: 'REST + MCP server on port 8000', owner: 'Dev A', color: 'from-emerald-400 to-teal-600' },
-  { name: 'FastMCP SDK', role: 'MCP Streamable HTTP transport', owner: 'Dev A', color: 'from-amber-400 to-orange-500' },
+  { name: 'FastMCP SDK', role: 'MCP Streamable HTTP transport', owner: 'Dev A', color: 'from-marigold-500 to-marigold-700' },
   { name: 'Wikipedia API', role: 'Evidence retrieval for claim verification', owner: 'Dev A', color: 'from-blue-400 to-indigo-600' },
 ];
 
@@ -24,14 +24,14 @@ const PIPELINE_STEPS = [
     title: 'User Query',
     description: 'Voice or text input captured via Echo Show simulator. Speech Recognition API converts audio to text.',
     icon: 'Q',
-    color: 'from-cyan-400 to-blue-500',
+    color: 'from-marigold-400 to-marigold-600',
   },
   {
     step: 2,
     title: 'Claim Extraction',
     description: 'FActScore-style atomic decomposition splits compound statements into individually verifiable claims.',
     icon: 'E',
-    color: 'from-violet-400 to-purple-600',
+    color: 'from-aubergine-600 to-aubergine-900',
   },
   {
     step: 3,
@@ -45,7 +45,7 @@ const PIPELINE_STEPS = [
     title: 'Spoken Verdict',
     description: 'Aggregated trust score triggers: verified_safe pass-through, self_corrected rewrite, or calibrated abstention.',
     icon: 'S',
-    color: 'from-amber-400 to-orange-500',
+    color: 'from-marigold-500 to-marigold-700',
   },
 ];
 
@@ -84,14 +84,14 @@ export default function ArchitecturePage() {
       {/* HEADER */}
       <div className="neu-raised p-5 md:p-6 mb-6 border border-white/80">
         <div className="flex items-center gap-2 mb-1">
-          <span className="w-8 h-8 rounded-xl bg-gradient-to-br from-indigo-400 to-blue-700 flex items-center justify-center text-white font-bold text-sm shadow-md shadow-indigo-500/30">
+          <span className="w-8 h-8 rounded-xl bg-gradient-to-br from-marigold-400 via-marigold-500 to-aubergine-900 flex items-center justify-center text-white font-bold text-sm shadow-md shadow-indigo-500/30">
             A
           </span>
-          <h1 className="font-display font-extrabold text-xl text-slate-800">
+          <h1 className="font-display font-extrabold text-xl text-aubergine-950">
             System Architecture
           </h1>
         </div>
-        <p className="text-xs text-slate-500 font-medium ml-10">
+        <p className="text-xs text-silver-700 font-medium ml-10">
           End-to-end epistemic safety pipeline for Alexa+ voice responses over MCP Streamable HTTP.
         </p>
       </div>
@@ -104,8 +104,8 @@ export default function ArchitecturePage() {
             onClick={() => setActiveTab(tab)}
             className={`flex-1 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all ${
               activeTab === tab
-                ? 'neu-inset text-indigo-700 bg-white/40'
-                : 'text-slate-500 hover:text-slate-700 hover:bg-white/20'
+                ? 'neu-inset text-aubergine-950 font-extrabold bg-white/40'
+                : 'text-silver-700 hover:text-aubergine-900 hover:bg-white/20'
             }`}
           >
             {tab === 'pipeline' ? 'Pipeline Flow' : tab === 'stack' ? 'Tech Stack' : 'Friction Log'}
@@ -118,7 +118,7 @@ export default function ArchitecturePage() {
         <div className="space-y-4">
           {/* Architecture Diagram */}
           <div className="neu-raised p-6 border border-white/80">
-            <h2 className="font-display font-bold text-sm text-slate-700 uppercase tracking-wider mb-4">
+            <h2 className="font-display font-bold text-sm text-aubergine-900 uppercase tracking-wider mb-4">
               MCP Tool Chain Architecture
             </h2>
 
@@ -144,9 +144,9 @@ export default function ArchitecturePage() {
                       <span className="text-[10px] font-mono font-bold text-slate-400">
                         STEP {step.step}
                       </span>
-                      <h3 className="text-sm font-bold text-slate-800">{step.title}</h3>
+                      <h3 className="text-sm font-bold text-aubergine-950">{step.title}</h3>
                     </div>
-                    <p className="text-xs text-slate-500 leading-relaxed">
+                    <p className="text-xs text-silver-700 leading-relaxed">
                       {step.description}
                     </p>
                     {step.step <= 1 && (
@@ -174,7 +174,7 @@ export default function ArchitecturePage() {
 
           {/* Q3/Q4 Self-Correction Flow */}
           <div className="neu-raised p-6 border border-white/80">
-            <h2 className="font-display font-bold text-sm text-slate-700 uppercase tracking-wider mb-4">
+            <h2 className="font-display font-bold text-sm text-aubergine-900 uppercase tracking-wider mb-4">
               Q3/Q4 Self-Correction Decision Tree
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -182,8 +182,8 @@ export default function ArchitecturePage() {
                 <div className="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center mb-2">
                   <span className="text-emerald-700 font-bold text-sm">P</span>
                 </div>
-                <h3 className="text-sm font-bold text-slate-800 mb-1">Pass-Through</h3>
-                <p className="text-[11px] text-slate-500">
+                <h3 className="text-sm font-bold text-aubergine-950 mb-1">Pass-Through</h3>
+                <p className="text-[11px] text-silver-700">
                   Trust score &ge; 85%. All claims supported. Original response spoken unchanged.
                 </p>
                 <div className="mt-2 px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 text-[10px] font-bold inline-block">
@@ -195,8 +195,8 @@ export default function ArchitecturePage() {
                 <div className="w-8 h-8 rounded-lg bg-rose-100 flex items-center justify-center mb-2">
                   <span className="text-rose-700 font-bold text-sm">C</span>
                 </div>
-                <h3 className="text-sm font-bold text-slate-800 mb-1">Self-Correct</h3>
-                <p className="text-[11px] text-slate-500">
+                <h3 className="text-sm font-bold text-aubergine-950 mb-1">Self-Correct</h3>
+                <p className="text-[11px] text-silver-700">
                   Contradicted claim detected. Harmful claim removed and correction injected into spoken output.
                 </p>
                 <div className="mt-2 px-2 py-0.5 rounded-full bg-rose-100 text-rose-700 text-[10px] font-bold inline-block">
@@ -208,8 +208,8 @@ export default function ArchitecturePage() {
                 <div className="w-8 h-8 rounded-lg bg-amber-100 flex items-center justify-center mb-2">
                   <span className="text-amber-700 font-bold text-sm">A</span>
                 </div>
-                <h3 className="text-sm font-bold text-slate-800 mb-1">Abstain</h3>
-                <p className="text-[11px] text-slate-500">
+                <h3 className="text-sm font-bold text-aubergine-950 mb-1">Abstain</h3>
+                <p className="text-[11px] text-silver-700">
                   Trust score below threshold or insufficient evidence. System declines to answer with explanation.
                 </p>
                 <div className="mt-2 px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 text-[10px] font-bold inline-block">
@@ -224,7 +224,7 @@ export default function ArchitecturePage() {
       {/* TECH STACK TAB */}
       {activeTab === 'stack' && (
         <div className="neu-raised p-6 border border-white/80">
-          <h2 className="font-display font-bold text-sm text-slate-700 uppercase tracking-wider mb-4">
+          <h2 className="font-display font-bold text-sm text-aubergine-900 uppercase tracking-wider mb-4">
             Technology Stack
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -239,8 +239,8 @@ export default function ArchitecturePage() {
                   {tech.name.charAt(0)}
                 </div>
                 <div>
-                  <h3 className="text-sm font-bold text-slate-800">{tech.name}</h3>
-                  <p className="text-[11px] text-slate-500 mt-0.5">{tech.role}</p>
+                  <h3 className="text-sm font-bold text-aubergine-950">{tech.name}</h3>
+                  <p className="text-[11px] text-silver-700 mt-0.5">{tech.role}</p>
                   <span
                     className={`mt-1.5 inline-block px-2 py-0.5 rounded-full text-[9px] font-bold border ${
                       tech.owner === 'Dev B'
@@ -256,8 +256,8 @@ export default function ArchitecturePage() {
           </div>
 
           {/* Ownership Boundary */}
-          <div className="mt-6 glass-card p-4 rounded-2xl border border-indigo-200/60">
-            <h3 className="text-sm font-bold text-slate-800 mb-2">
+          <div className="mt-6 glass-card p-4 rounded-2xl border border-marigold-300/60">
+            <h3 className="text-sm font-bold text-aubergine-950 mb-2">
               File Ownership Boundary (Zero Conflict Rule)
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -313,18 +313,18 @@ export default function ArchitecturePage() {
                 <span className="text-[10px] font-mono font-bold text-slate-400">
                   {fp.id}
                 </span>
-                <h3 className="text-sm font-bold text-slate-800">{fp.title}</h3>
+                <h3 className="text-sm font-bold text-aubergine-950">{fp.title}</h3>
               </div>
-              <p className="text-xs text-slate-500 leading-relaxed">
+              <p className="text-xs text-silver-700 leading-relaxed">
                 {fp.description}
               </p>
             </div>
           ))}
 
-          <div className="glass-card p-4 rounded-2xl border border-indigo-200/60 text-center">
-            <p className="text-xs text-slate-500">
+          <div className="glass-card p-4 rounded-2xl border border-marigold-300/60 text-center">
+            <p className="text-xs text-silver-700">
               Full friction log with recommendations available in{' '}
-              <span className="font-mono font-bold text-indigo-600">FRICTION_LOG.md</span>
+              <span className="font-mono font-bold text-marigold-600">FRICTION_LOG.md</span>
             </p>
           </div>
         </div>

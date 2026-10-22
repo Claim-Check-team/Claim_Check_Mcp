@@ -84,21 +84,21 @@ export default function ProtocolPage() {
       {/* HEADER */}
       <div className="neu-raised p-5 md:p-6 mb-6 border border-white/80">
         <div className="flex items-center gap-2 mb-1">
-          <span className="w-8 h-8 rounded-xl bg-gradient-to-br from-violet-400 to-purple-700 flex items-center justify-center text-white font-bold text-sm shadow-md shadow-violet-500/30">
+          <span className="w-8 h-8 rounded-xl bg-gradient-to-br from-marigold-400 via-marigold-500 to-aubergine-900 flex items-center justify-center text-white font-bold text-sm shadow-md shadow-violet-500/30">
             P
           </span>
-          <h1 className="font-display font-extrabold text-xl text-slate-800">
+          <h1 className="font-display font-extrabold text-xl text-aubergine-950">
             MCP Protocol Inspector
           </h1>
         </div>
-        <p className="text-xs text-slate-500 font-medium ml-10">
+        <p className="text-xs text-silver-700 font-medium ml-10">
           Visualize JSON-RPC 2.0 request/response cycles over MCP Streamable HTTP transport (/mcp endpoint).
         </p>
       </div>
 
       {/* SCENARIO SELECTOR */}
       <div className="neu-raised p-4 mb-6 border border-white/80">
-        <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500 block mb-2">
+        <span className="text-[10px] font-bold uppercase tracking-wider text-silver-700 block mb-2">
           Select Scenario for Trace Inspection
         </span>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
@@ -110,8 +110,8 @@ export default function ProtocolPage() {
                 onClick={() => setSelectedScenario(sc)}
                 className={`neu-button p-2 text-left rounded-xl border transition-all text-xs font-bold truncate ${
                   isActive
-                    ? 'active ring-2 ring-violet-500 text-violet-700 border-violet-200'
-                    : 'text-slate-700 border-white/60 hover:scale-[1.02]'
+                    ? 'active ring-2 ring-marigold-500 text-marigold-600 font-extrabold border-marigold-300'
+                    : 'text-aubergine-900 border-white/60 hover:scale-[1.02]'
                 }`}
               >
                 {sc.title.split('(')[0].trim()}
@@ -124,19 +124,19 @@ export default function ProtocolPage() {
       {/* PROTOCOL OVERVIEW CARDS */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
         <div className="neu-raised p-3 border border-white/80 text-center">
-          <span className="font-display font-extrabold text-2xl text-violet-600">
+          <span className="font-display font-extrabold text-2xl text-marigold-600">
             {selectedScenario.mcp_trace.length}
           </span>
-          <span className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mt-0.5">
+          <span className="block text-[10px] font-bold text-silver-700 uppercase tracking-wider mt-0.5">
             Tool Calls
           </span>
         </div>
         <div className="neu-raised p-3 border border-white/80 text-center">
-          <span className="font-display font-extrabold text-2xl text-slate-700">
+          <span className="font-display font-extrabold text-2xl text-aubergine-900">
             {totalLatency}
             <span className="text-sm text-slate-400">ms</span>
           </span>
-          <span className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mt-0.5">
+          <span className="block text-[10px] font-bold text-silver-700 uppercase tracking-wider mt-0.5">
             Total Latency
           </span>
         </div>
@@ -144,7 +144,7 @@ export default function ProtocolPage() {
           <span className="font-display font-extrabold text-2xl text-cyan-600">
             HTTP
           </span>
-          <span className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mt-0.5">
+          <span className="block text-[10px] font-bold text-silver-700 uppercase tracking-wider mt-0.5">
             Transport
           </span>
         </div>
@@ -152,7 +152,7 @@ export default function ProtocolPage() {
           <span className="font-display font-extrabold text-2xl text-emerald-600">
             2.0
           </span>
-          <span className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mt-0.5">
+          <span className="block text-[10px] font-bold text-silver-700 uppercase tracking-wider mt-0.5">
             JSON-RPC Version
           </span>
         </div>
@@ -160,7 +160,7 @@ export default function ProtocolPage() {
 
       {/* WATERFALL TIMELINE */}
       <div className="neu-raised p-5 mb-6 border border-white/80">
-        <h2 className="font-display font-bold text-sm text-slate-700 uppercase tracking-wider mb-4">
+        <h2 className="font-display font-bold text-sm text-aubergine-900 uppercase tracking-wider mb-4">
           Latency Waterfall Timeline
         </h2>
 
@@ -177,9 +177,9 @@ export default function ProtocolPage() {
                   60;
 
             const colors = [
-              'from-cyan-400 to-blue-500',
-              'from-violet-400 to-purple-600',
-              'from-amber-400 to-orange-500',
+              'from-marigold-400 to-marigold-600',
+              'from-aubergine-600 to-aubergine-900',
+              'from-marigold-500 to-marigold-700',
             ];
             const isExpanded =
               expandedPayload?.scenarioId === selectedScenario.preset_id &&
@@ -198,7 +198,7 @@ export default function ProtocolPage() {
                     <span className="w-6 h-6 rounded-md bg-slate-200 flex items-center justify-center text-[10px] font-bold text-slate-600">
                       {step.step}
                     </span>
-                    <span className="text-xs font-bold text-slate-700 truncate">
+                    <span className="text-xs font-bold text-aubergine-900 truncate">
                       {step.tool}
                     </span>
                   </div>
@@ -230,14 +230,14 @@ export default function ProtocolPage() {
                 {isExpanded && (
                   <div className="ml-[140px] mt-2 mb-1 neu-inset p-3 rounded-xl">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-violet-600">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-marigold-600">
                         JSON-RPC 2.0 Request Payload
                       </span>
                       <span className="text-[9px] font-mono text-slate-400">
                         POST /mcp HTTP/1.1
                       </span>
                     </div>
-                    <pre className="text-[11px] font-mono text-slate-700 whitespace-pre-wrap bg-white/50 p-2.5 rounded-lg border border-slate-200/60">
+                    <pre className="text-[11px] font-mono text-aubergine-900 whitespace-pre-wrap bg-white/50 p-2.5 rounded-lg border border-slate-200/60">
                       {JSON.stringify(
                         generateJsonRpc(step, selectedScenario),
                         null,
@@ -255,19 +255,19 @@ export default function ProtocolPage() {
       {/* FULL PAYLOAD VIEWER */}
       <div className="neu-raised p-5 border border-white/80">
         <div className="flex items-center justify-between mb-3">
-          <h2 className="font-display font-bold text-sm text-slate-700 uppercase tracking-wider">
+          <h2 className="font-display font-bold text-sm text-aubergine-900 uppercase tracking-wider">
             Full Scenario Payload
           </h2>
           <button
             onClick={() => setShowFullPayload(!showFullPayload)}
-            className="neu-button px-3 py-1 text-[11px] font-bold text-violet-600"
+            className="neu-button px-3 py-1 text-[11px] font-bold text-marigold-600"
           >
             {showFullPayload ? 'Collapse' : 'Expand'} JSON
           </button>
         </div>
 
         {showFullPayload && (
-          <pre className="neu-inset p-4 rounded-xl text-[11px] font-mono text-slate-700 max-h-[500px] overflow-y-auto whitespace-pre-wrap">
+          <pre className="neu-inset p-4 rounded-xl text-[11px] font-mono text-aubergine-900 max-h-[500px] overflow-y-auto whitespace-pre-wrap">
             {JSON.stringify(selectedScenario, null, 2)}
           </pre>
         )}
@@ -279,7 +279,7 @@ export default function ProtocolPage() {
                 <span className="block text-slate-400 font-bold uppercase tracking-wider text-[9px] mb-0.5">
                   Preset ID
                 </span>
-                <span className="font-mono font-bold text-slate-700">
+                <span className="font-mono font-bold text-aubergine-900">
                   {selectedScenario.preset_id}
                 </span>
               </div>
@@ -287,7 +287,7 @@ export default function ProtocolPage() {
                 <span className="block text-slate-400 font-bold uppercase tracking-wider text-[9px] mb-0.5">
                   Claims
                 </span>
-                <span className="font-bold text-slate-700">
+                <span className="font-bold text-aubergine-900">
                   {selectedScenario.total_claims} atomic claims
                 </span>
               </div>
@@ -295,7 +295,7 @@ export default function ProtocolPage() {
                 <span className="block text-slate-400 font-bold uppercase tracking-wider text-[9px] mb-0.5">
                   Trust Score
                 </span>
-                <span className="font-bold text-slate-700">
+                <span className="font-bold text-aubergine-900">
                   {selectedScenario.spoken_verdict.overall_trust_score}%
                 </span>
               </div>
@@ -303,7 +303,7 @@ export default function ProtocolPage() {
                 <span className="block text-slate-400 font-bold uppercase tracking-wider text-[9px] mb-0.5">
                   Status
                 </span>
-                <span className="font-bold text-slate-700">
+                <span className="font-bold text-aubergine-900">
                   {selectedScenario.spoken_verdict.status.replace(/_/g, ' ')}
                 </span>
               </div>
