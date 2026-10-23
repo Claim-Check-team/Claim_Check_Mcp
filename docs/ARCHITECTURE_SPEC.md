@@ -259,44 +259,49 @@ The browser-based HTML simulator emulates an **Amazon Echo Show / Alexa+ multimo
 ## 10. Repository Structure & Quickstart
 
 ```text
-claim-check-mcp/
-├── server.py                  # Streamable HTTP MCP Server (/mcp) + Demo UI host
-├── tools/
+Claim_Check_Mcp/
+├── server.py                  # FastMCP Streamable HTTP Server (/mcp) + REST API (/api/check)
+├── tools/                     # Modular FastMCP Epistemic Safety Tools
 │   ├── extract.py             # FActScore-style atomic claim decomposition
-│   ├── verify.py              # Step-by-step grounded judge + Wikipedia lookup
-│   └── verdict.py             # Voice abstention + Q3/Q4 self-correction synthesis
+│   ├── verify.py              # Step-by-step grounded judge + Wikipedia REST lookup
+│   ├── verdict.py             # Voice abstention + Q3/Q4 self-correction synthesis
+│   └── apl_generator.py       # Amazon Alexa APL 2.0 Karaoke Document Renderer
+├── alexa_skill/               # Production AWS Lambda Skill Handler (ask-sdk-core)
+│   ├── lambda_function.py     # Python AWS Lambda Handler
+│   └── interaction_model.json # Skill interaction schema
+├── frontend/                  # Next.js 14 Multimodal Hardware Simulator
 ├── data/
-│   └── preset_cache.json      # Deterministic fallback cache for the 6 demo cases
-├── static/
-│   └── index.html             # Echo Show / Alexa+ Multimodal Simulator UI
-├── requirements.txt           # Dependencies (mcp, fastapi, uvicorn, google-genai, httpx)
-├── FRICTION_LOG.md            # Developer Product Feedback & Friction Log (Bonus)
+│   └── preset_cache.json      # Deterministic fallback cache for benchmark cases
+├── docs/                      # Architectural specifications & audit reports
+├── FRICTION_LOG.md            # Developer Friction Log & Feedback for Amazon Teams
 ├── LICENSE                    # MIT Open-Source License
-└── README.md                  # Master documentation
+└── README.md                  # Master documentation & live links
 ```
+
+### Production Live Deployment (HTTPS)
+- **Web Simulator:** [https://claimcheck.165.99.219.253.sslip.io/](https://claimcheck.165.99.219.253.sslip.io/)
+- **FastMCP SSE Wire:** [https://claimcheck.165.99.219.253.sslip.io/mcp/](https://claimcheck.165.99.219.253.sslip.io/mcp/)
+- **API Health Endpoint:** [https://claimcheck.165.99.219.253.sslip.io/api/check](https://claimcheck.165.99.219.253.sslip.io/api/check)
 
 ### Run Locally in 60 Seconds
 
 ```bash
 # 1. Clone the repository
-git clone [https://github.com/](https://github.com/)<your-username>/claim-check-mcp.git
-cd claim-check-mcp
+git clone https://github.com/Israt-Jahan-Eshita/Claim_Check_Mcp.git
+cd Claim_Check_Mcp
 
-# 2. Create virtual environment & install dependencies
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+# 2. Install Python dependencies and launch FastMCP backend
 pip install -r requirements.txt
-
-# 3. (Optional) Set Gemini API Key for live arbitrary queries
-# Note: All 6 preset demos work out-of-the-box via deterministic cache even without a key!
-export GEMINI_API_KEY="your_api_key_here"
-
-# 4. Start the MCP Server & Simulator
 python server.py
+
+# 3. Launch Next.js Hardware Simulator (in another terminal)
+cd frontend
+npm install
+npm run dev
 ```
 
 * **MCP Streamable HTTP Endpoint:** `http://localhost:8000/mcp`
-* **Interactive Alexa+ Simulator UI:** `http://localhost:8000/`
+* **Interactive Alexa+ Simulator UI:** `http://localhost:3000/`
 
 ---
 
