@@ -17,17 +17,17 @@
 
 <br/>
 
-### 🌟 Live Interactive Deployments (HTTPS Verified)
+### Live Interactive Deployments (HTTPS Verified)
 
-[![Live Web Application](https://img.shields.io/badge/🌐_Live_Web_App-Light%2FDark_Mode-00d2ff?style=flat-square)](https://claimcheck.165.99.219.253.sslip.io/)
-[![Hardware Simulator](https://img.shields.io/badge/📱_Echo_Show_15-Hardware_Simulator-ff9900?style=flat-square)](https://claimcheck.165.99.219.253.sslip.io/simulator)
-[![Adversarial Stress Lab](https://img.shields.io/badge/🧪_Stress_Lab-Batch_Failure_Runner-ef4444?style=flat-square)](https://claimcheck.165.99.219.253.sslip.io/stress-lab)
-[![MCP Wire Inspector](https://img.shields.io/badge/📡_MCP_Wire_Protocol-Streamable_HTTP_SSE-8b5cf6?style=flat-square)](https://claimcheck.165.99.219.253.sslip.io/protocol)
-[![Architecture Overview](https://img.shields.io/badge/🏛️_System_Architecture-AWS_Lambda_Bridge-10b981?style=flat-square)](https://claimcheck.165.99.219.253.sslip.io/architecture)
+[![Live Web Application](https://img.shields.io/badge/Live_Web_App-Light%2FDark_Mode-00d2ff?style=flat-square)](https://claimcheck.165.99.219.253.sslip.io/)
+[![Hardware Simulator](https://img.shields.io/badge/Echo_Show_15-Hardware_Simulator-ff9900?style=flat-square)](https://claimcheck.165.99.219.253.sslip.io/simulator)
+[![Adversarial Stress Lab](https://img.shields.io/badge/Stress_Lab-Batch_Failure_Runner-ef4444?style=flat-square)](https://claimcheck.165.99.219.253.sslip.io/stress-lab)
+[![MCP Wire Inspector](https://img.shields.io/badge/MCP_Wire_Protocol-Streamable_HTTP_SSE-8b5cf6?style=flat-square)](https://claimcheck.165.99.219.253.sslip.io/protocol)
+[![Architecture Overview](https://img.shields.io/badge/System_Architecture-AWS_Lambda_Bridge-10b981?style=flat-square)](https://claimcheck.165.99.219.253.sslip.io/architecture)
 
 <br/>
 
-[📖 Technical Whitepaper](docs/ARCHITECTURE_SPEC.md) • [📋 99/100 Audit Report](docs/AUDIT_REPORT.md) • [🔌 API & Wire Reference](docs/API_REFERENCE.md) • [💡 Developer Friction Log](FRICTION_LOG.md) • [🏆 Devpost Submission](docs/DEVPOST_SUBMISSION.md) • [🤝 Contributing](CONTRIBUTING.md)
+[Technical Whitepaper](docs/ARCHITECTURE_SPEC.md) • [99/100 Audit Report](docs/AUDIT_REPORT.md) • [API & Wire Reference](docs/API_REFERENCE.md) • [Developer Friction Log](FRICTION_LOG.md) • [Devpost Submission](docs/DEVPOST_SUBMISSION.md) • [Contributing](CONTRIBUTING.md)
 
 </div>
 
