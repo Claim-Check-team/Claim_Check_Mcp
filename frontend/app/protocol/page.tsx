@@ -202,25 +202,25 @@ export default function ProtocolPage() {
                 >
                   {/* Step label */}
                   <div className="w-36 shrink-0 flex items-center gap-2">
-                    <span className="w-6 h-6 rounded-md bg-zinc-800 flex items-center justify-center text-[10px] font-bold text-neon-emerald border border-emerald-500/30">
+                    <span className="w-6 h-6 rounded-md bg-slate-200 dark:bg-zinc-800 flex items-center justify-center text-[10px] font-black text-emerald-800 dark:text-neon-emerald border border-slate-300 dark:border-emerald-500/30">
                       0{step.step}
                     </span>
-                    <span className="text-xs font-bold text-zinc-200 truncate">
+                    <span className="text-xs font-extrabold text-slate-900 dark:text-zinc-200 truncate">
                       {step.tool}
                     </span>
                   </div>
 
                   {/* Waterfall bar */}
-                  <div className="flex-1 relative h-8 neu-inset rounded-lg overflow-hidden bg-zinc-950 border border-zinc-800">
+                  <div className="flex-1 relative h-8 rounded-lg overflow-hidden bg-slate-200 dark:bg-zinc-950 border border-slate-300 dark:border-zinc-800">
                     <div
-                      className="absolute top-1 bottom-1 rounded-md bg-gradient-to-r from-neon-emerald to-emerald-700 shadow-sm transition-all duration-700 group-hover:opacity-90"
+                      className="absolute top-1 bottom-1 rounded-md bg-gradient-to-r from-emerald-500 to-emerald-700 dark:from-neon-emerald dark:to-emerald-700 shadow-sm transition-all duration-700 group-hover:opacity-90"
                       style={{
                         left: `${offsetPct}%`,
                         width: `${widthPct}%`,
                       }}
                     />
                     <span
-                      className="absolute top-1/2 -translate-y-1/2 text-[10px] font-mono font-bold text-black drop-shadow-sm ml-2"
+                      className="absolute top-1/2 -translate-y-1/2 text-[10px] font-mono font-bold text-slate-900 dark:text-white drop-shadow-sm ml-2"
                       style={{ left: `${offsetPct}%` }}
                     >
                       {step.latency_ms}ms
@@ -228,23 +228,23 @@ export default function ProtocolPage() {
                   </div>
 
                   {/* Status */}
-                  <span className="w-20 shrink-0 text-right text-[10px] font-bold text-neon-gold uppercase">
+                  <span className="w-20 shrink-0 text-right text-[10px] font-extrabold text-amber-800 dark:text-neon-gold uppercase">
                     {step.status}
                   </span>
                 </div>
 
                 {/* Expanded JSON-RPC payload */}
                 {isExpanded && (
-                  <div className="ml-[152px] mt-2 mb-1 neu-inset p-3.5 rounded-xl bg-zinc-950 border border-emerald-500/30">
+                  <div className="ml-[152px] mt-2 mb-1 p-3.5 rounded-xl bg-slate-100 dark:bg-zinc-950 border border-slate-300 dark:border-emerald-500/30">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-neon-emerald">
+                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-emerald-800 dark:text-neon-emerald">
                         JSON-RPC 2.0 Request Payload
                       </span>
-                      <span className="text-[9px] font-mono text-zinc-500">
+                      <span className="text-[9px] font-mono text-slate-500 dark:text-zinc-500">
                         POST /mcp HTTP/1.1
                       </span>
                     </div>
-                    <pre className="text-[11px] font-mono text-zinc-300 whitespace-pre-wrap bg-black/60 p-2.5 rounded-lg border border-zinc-800">
+                    <pre className="text-[11px] font-mono text-slate-800 dark:text-zinc-300 whitespace-pre-wrap bg-white dark:bg-black/60 p-2.5 rounded-lg border border-slate-300 dark:border-zinc-800">
                       {JSON.stringify(
                         generateJsonRpc(step, selectedScenario),
                         null,
@@ -274,7 +274,7 @@ export default function ProtocolPage() {
         </div>
 
         {showFullPayload && (
-          <pre className="neu-inset p-4 rounded-xl text-[11px] font-mono text-zinc-300 bg-zinc-950 border border-zinc-800 max-h-[500px] overflow-y-auto whitespace-pre-wrap">
+          <pre className="p-4 rounded-xl text-[11px] font-mono text-slate-800 dark:text-zinc-300 bg-slate-100 dark:bg-zinc-950 border border-slate-300 dark:border-zinc-800 max-h-[500px] overflow-y-auto whitespace-pre-wrap">
             {JSON.stringify(selectedScenario, null, 2)}
           </pre>
         )}

@@ -716,17 +716,17 @@ export default function EchoShowSimulator() {
                   <div className="flex items-center gap-2 pt-1">
                     <button
                       onClick={() => rotateWheel('prev')}
-                      className="px-3 py-1.5 rounded-lg text-xs font-mono neu-button text-zinc-300 hover:text-white flex items-center gap-1 cursor-pointer"
+                      className="px-3.5 py-1.5 rounded-xl text-xs font-mono font-bold bg-zinc-800 hover:bg-zinc-700 text-zinc-200 hover:text-white border border-zinc-700/80 hover:border-emerald-500/50 transition-all flex items-center gap-1.5 cursor-pointer shadow-sm"
                     >
                       <span>⟵</span> Prev
                     </button>
                     <button
                       onClick={() => rotateWheel('next')}
-                      className="px-3 py-1.5 rounded-lg text-xs font-mono neu-button text-zinc-300 hover:text-white flex items-center gap-1 cursor-pointer"
+                      className="px-3.5 py-1.5 rounded-xl text-xs font-mono font-bold bg-zinc-800 hover:bg-zinc-700 text-zinc-200 hover:text-white border border-zinc-700/80 hover:border-emerald-500/50 transition-all flex items-center gap-1.5 cursor-pointer shadow-sm"
                     >
                       Next <span>⟶</span>
                     </button>
-                    <span className="text-[11px] font-mono text-zinc-500 ml-auto hidden sm:inline">
+                    <span className="text-[11px] font-mono text-zinc-400 ml-auto hidden sm:inline">
                       Tip: Latest custom items are prepended at the top (#1)
                     </span>
                   </div>
