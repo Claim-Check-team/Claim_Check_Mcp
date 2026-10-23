@@ -14,7 +14,7 @@
   *Enterprise Epistemic Safety & Atomic Fact Verification Guardrail for Amazon Alexa+ over FastMCP Streamable HTTP with native APL 2.0 Karaoke rendering.*
 - **Target Track:** Alexa+ Track (Self-hosted MCP Server)
 - **Live URL:** [https://claimcheck.165.99.219.253.sslip.io/](https://claimcheck.165.99.219.253.sslip.io/)
-- **GitHub Repository:** [https://github.com/Israt-Jahan-Eshita/Claim_Check_Mcp](https://github.com/Israt-Jahan-Eshita/Claim_Check_Mcp)
+- **GitHub Repository:** [https://github.com/Claim-Check-team/Claim_Check_Mcp](https://github.com/Claim-Check-team/Claim_Check_Mcp)
 
 ---
 
@@ -85,7 +85,7 @@ curl -X POST https://claimcheck.165.99.219.253.sslip.io/mcp/ \
 
 ### Option 3: Local Repository Execution
 ```bash
-git clone https://github.com/Israt-Jahan-Eshita/Claim_Check_Mcp.git
+git clone https://github.com/Claim-Check-team/Claim_Check_Mcp.git
 cd Claim_Check_Mcp
 pip install -r requirements.txt
 python server.py
@@ -104,5 +104,5 @@ python tests/test_audit_comprehensive.py
 | **Self-Hosted MCP Server** | Live FastMCP server on Streamable HTTP (2025-11-25) | [x] **READY** (`https://claimcheck.165.99.219.253.sslip.io/mcp/`) |
 | **GitHub Access** | Repository is either Public OR shared with `testing@devpost.com` and Amazon reviewers (`knmeiss`, `giolaq`, `anishamalde`, `mosesroth`, `emersonsklar`) | **ACTION NEEDED:** Make repo Public or invite collaborators |
 | **Demo Video** | Public video (<3 minutes) showing Echo simulator, voice check, and MCP tools | **ACTION NEEDED:** Record and paste YouTube/Loom link |
-| **Friction Log (10% Bonus)** | Link to [FRICTION_LOG.md](https://github.com/Israt-Jahan-Eshita/Claim_Check_Mcp/blob/main/FRICTION_LOG.md) | [x] **READY** |
+| **Friction Log (10% Bonus)** | Link to [FRICTION_LOG.md](https://github.com/Claim-Check-team/Claim_Check_Mcp/blob/main/FRICTION_LOG.md) | [x] **READY** |
 | **Testing Instructions** | Clear instructions with live URL | [x] **READY** |

@@ -194,7 +194,7 @@ Claim_Check_Mcp/
 ### Step 1: Launch Backend FastMCP Daemon
 ```bash
 # Clone the repository
-git clone https://github.com/Israt-Jahan-Eshita/Claim_Check_Mcp.git
+git clone https://github.com/Claim-Check-team/Claim_Check_Mcp.git
 cd Claim_Check_Mcp
 
 # Install Python dependencies
@@ -286,6 +286,6 @@ If you use Claim-Check MCP in your research or voice AI safety architecture, ple
   year = {2026},
   publisher = {GitHub},
   journal = {GitHub repository},
-  url = {https://github.com/Israt-Jahan-Eshita/Claim_Check_Mcp}
+  url = {https://github.com/Claim-Check-team/Claim_Check_Mcp}
 }
 ```

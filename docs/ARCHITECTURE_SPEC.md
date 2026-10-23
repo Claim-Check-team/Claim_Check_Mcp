@@ -287,7 +287,7 @@ Claim_Check_Mcp/
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/Israt-Jahan-Eshita/Claim_Check_Mcp.git
+git clone https://github.com/Claim-Check-team/Claim_Check_Mcp.git
 cd Claim_Check_Mcp
 
 # 2. Install Python dependencies and launch FastMCP backend

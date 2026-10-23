@@ -16,7 +16,7 @@ We are committed to providing a friendly, safe, and welcoming environment for al
 
 ### 1. Fork and Clone
 ```bash
-git clone https://github.com/Israt-Jahan-Eshita/Claim_Check_Mcp.git
+git clone https://github.com/Claim-Check-team/Claim_Check_Mcp.git
 cd Claim_Check_Mcp
 ```
 
