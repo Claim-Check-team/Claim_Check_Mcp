@@ -4,7 +4,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { PRESET_SCENARIOS, Scenario, Claim } from '../../lib/presets';
 
 export default function EchoShowSimulator() {
-  const [scenarios] = useState<Scenario[]>(PRESET_SCENARIOS);
+  const [customScenarios, setCustomScenarios] = useState<Scenario[]>([]);
+  const [filterMode, setFilterMode] = useState<'all' | 'custom' | 'benchmarks'>('all');
   const [currentScenario, setCurrentScenario] = useState<Scenario>(PRESET_SCENARIOS[0]);
   const [inputText, setInputText] = useState<string>(PRESET_SCENARIOS[0].original_text);
   const [expandedReasoning, setExpandedReasoning] = useState<Record<string, boolean>>({});
@@ -33,13 +34,97 @@ export default function EchoShowSimulator() {
     { label: 'Regulatory Myth (Federal Reserve)', text: 'The Federal Reserve will phase out physical paper cash by November and mandate biometric tokens.' },
   ];
 
-  const activeScenarioIndex = Math.max(0, scenarios.findIndex((s) => s.preset_id === currentScenario.preset_id));
+  const [judgePrompts, setJudgePrompts] = useState(JUDGE_TEST_PROMPTS);
+
+  // Derived scenarios list ordered latest custom first
+  const displayedScenarios = React.useMemo(() => {
+    if (filterMode === 'custom') return customScenarios;
+    if (filterMode === 'benchmarks') return PRESET_SCENARIOS;
+    return [...customScenarios, ...PRESET_SCENARIOS];
+  }, [customScenarios, filterMode]);
+
+  const activeScenarioIndex = Math.max(
+    0,
+    displayedScenarios.findIndex((s) => s.preset_id === currentScenario.preset_id)
+  );
 
   const rotateWheel = (direction: 'next' | 'prev') => {
-    const nextIdx = direction === 'next'
-      ? (activeScenarioIndex + 1) % scenarios.length
-      : (activeScenarioIndex - 1 + scenarios.length) % scenarios.length;
-    selectScenario(scenarios[nextIdx].preset_id);
+    if (displayedScenarios.length === 0) return;
+    const nextIdx =
+      direction === 'next'
+        ? (activeScenarioIndex + 1) % displayedScenarios.length
+        : (activeScenarioIndex - 1 + displayedScenarios.length) % displayedScenarios.length;
+    selectScenario(displayedScenarios[nextIdx].preset_id);
+  };
+
+  // Load custom scenarios on mount from API and localStorage
+  useEffect(() => {
+    const fetchCustom = async () => {
+      try {
+        const res = await fetch('/api/custom-scenarios');
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data) && data.length > 0) {
+            setCustomScenarios(data);
+            return;
+          }
+        }
+      } catch (err) {
+        console.warn('API custom fetch failed:', err);
+      }
+      try {
+        const local = localStorage.getItem('claimcheck_custom_scenarios');
+        if (local) {
+          const parsed = JSON.parse(local);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            setCustomScenarios(parsed);
+          }
+        }
+      } catch (err) {}
+    };
+    fetchCustom();
+  }, []);
+
+  const selectScenario = (id: string) => {
+    const allPool = [...customScenarios, ...PRESET_SCENARIOS];
+    const s = allPool.find((p) => p.preset_id === id) || allPool[0];
+    if (s) {
+      setCurrentScenario(s);
+      setInputText(s.original_text);
+      const isCust = s.is_custom || s.preset_id?.startsWith('custom');
+      setStatusMessage(
+        isCust
+          ? `Loaded custom scenario: ${s.title.slice(0, 36)}...`
+          : `Loaded benchmark scenario: ${s.title.split('(')[0]}`
+      );
+      if (!hwMuted && s.spoken_verdict?.spoken_response) {
+        speakText(s.spoken_verdict.spoken_response);
+      }
+    }
+  };
+
+  const handleDeleteCustomScenario = async (presetId: string, e?: React.MouseEvent) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    try {
+      await fetch(`/api/custom-scenarios/${presetId}`, { method: 'DELETE' });
+    } catch (err) {
+      console.warn('API delete failed, updating local state:', err);
+    }
+    const updated = customScenarios.filter((s) => s.preset_id !== presetId);
+    setCustomScenarios(updated);
+    try {
+      localStorage.setItem('claimcheck_custom_scenarios', JSON.stringify(updated));
+    } catch (err) {}
+
+    if (currentScenario.preset_id === presetId) {
+      const fallback = updated.length > 0 ? updated[0] : PRESET_SCENARIOS[0];
+      setCurrentScenario(fallback);
+      setInputText(fallback.original_text);
+    }
+    setStatusMessage('Custom scenario removed.');
   };
 
   useEffect(() => {
@@ -75,17 +160,6 @@ export default function EchoShowSimulator() {
       }
     }
   }, []);
-
-  const selectScenario = (id: string) => {
-    setMode('presets');
-    const s = scenarios.find((p) => p.preset_id === id) || scenarios[0];
-    setCurrentScenario(s);
-    setInputText(s.original_text);
-    setStatusMessage('Loaded benchmark scenario: ' + s.title.split('(')[0]);
-    if (!hwMuted) {
-      speakText(s.spoken_verdict.spoken_response);
-    }
-  };
 
   const loadJudgePrompt = (text: string) => {
     setMode('custom');
@@ -183,6 +257,21 @@ export default function EchoShowSimulator() {
         if (!hwMuted && data.spoken_verdict?.spoken_response) {
           speakText(data.spoken_verdict.spoken_response);
         }
+
+        // Auto-save to customScenarios state (latest first)
+        if (data.is_custom || isCustom) {
+          setCustomScenarios((prev) => {
+            const filtered = prev.filter(
+              (s) => s.preset_id !== data.preset_id && s.original_text !== data.original_text
+            );
+            const nextList = [data, ...filtered].slice(0, 50);
+            try {
+              localStorage.setItem('claimcheck_custom_scenarios', JSON.stringify(nextList));
+            } catch (err) {}
+            return nextList;
+          });
+        }
+
         setIsChecking(false);
         return;
       } else {
@@ -335,7 +424,7 @@ export default function EchoShowSimulator() {
           <div>
             <div className="flex items-center gap-2">
               <span className="text-xs uppercase tracking-wider font-extrabold text-zinc-950 dark:text-white">
-                Verification Mode
+                Verification Stream
               </span>
               <span className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-bold border ${
                 mode === 'custom'
@@ -348,19 +437,19 @@ export default function EchoShowSimulator() {
             <p className="text-[11px] text-zinc-500 dark:text-zinc-400 mt-0.5">
               {mode === 'custom'
                 ? 'Type or speak ANY custom statement to test real-time Wikipedia grounding & FastMCP epistemic safety.'
-                : 'Select from 6 adversarial red-team benchmarks evaluated against Amazon Alexa+ safety guardrails.'}
+                : 'Adversarial benchmark scenarios and verified custom queries evaluated against Amazon Alexa+ safety guardrails.'}
             </p>
           </div>
 
           <div className="flex items-center gap-2 shrink-0">
             {mode === 'presets' && (
-              <div className="flex items-center bg-zinc-900/40 p-0.5 rounded-xl border border-emerald-500/20 text-xs">
+              <div className="flex items-center bg-slate-200 dark:bg-zinc-900/80 p-0.5 rounded-xl border border-slate-300 dark:border-white/10 text-xs">
                 <button
                   onClick={() => setSelectorView('wheel')}
                   className={`px-2.5 py-1 rounded-lg font-mono text-[11px] transition-all cursor-pointer ${
                     selectorView === 'wheel'
-                      ? 'bg-emerald-500/20 text-neon-emerald font-bold border border-emerald-500/40 shadow-sm'
-                      : 'text-zinc-400 hover:text-zinc-200'
+                      ? 'bg-white dark:bg-emerald-500/20 text-emerald-800 dark:text-neon-emerald font-extrabold border border-slate-300 dark:border-emerald-500/40 shadow-sm'
+                      : 'text-zinc-700 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-200'
                   }`}
                 >
                   ◎ ROTARY WHEEL
@@ -369,8 +458,8 @@ export default function EchoShowSimulator() {
                   onClick={() => setSelectorView('grid')}
                   className={`px-2.5 py-1 rounded-lg font-mono text-[11px] transition-all cursor-pointer ${
                     selectorView === 'grid'
-                      ? 'bg-emerald-500/20 text-neon-emerald font-bold border border-emerald-500/40 shadow-sm'
-                      : 'text-zinc-400 hover:text-zinc-200'
+                      ? 'bg-white dark:bg-emerald-500/20 text-emerald-800 dark:text-neon-emerald font-extrabold border border-slate-300 dark:border-emerald-500/40 shadow-sm'
+                      : 'text-zinc-700 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-200'
                   }`}
                 >
                   ☵ MATRIX GRID
@@ -383,34 +472,110 @@ export default function EchoShowSimulator() {
                 setInputText(currentScenario.original_text);
                 setStatusMessage('Switched to Curated Benchmarks');
               }}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-extrabold transition-all cursor-pointer ${
                 mode === 'presets'
-                  ? 'neu-raised text-emerald-400 border border-emerald-500/40 shadow-sm'
-                  : 'neu-button text-zinc-600 dark:text-zinc-400'
+                  ? 'neu-raised text-emerald-700 dark:text-emerald-400 border border-emerald-500/40 shadow-sm'
+                  : 'neu-button text-zinc-800 dark:text-zinc-300'
               }`}
             >
-              ⚡ 6 Red-Team Benchmarks
+              ⚡ Explore Scenarios
             </button>
             <button
               onClick={() => {
                 setMode('custom');
                 setStatusMessage('Switched to Live Judges Playground. Type or speak any statement.');
               }}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-extrabold transition-all flex items-center gap-1.5 cursor-pointer ${
                 mode === 'custom'
-                  ? 'neu-raised text-emerald-400 border border-emerald-400/40 shadow-sm'
-                  : 'neu-button text-zinc-600 dark:text-zinc-400'
+                  ? 'neu-raised text-emerald-700 dark:text-emerald-400 border border-emerald-400/40 shadow-sm'
+                  : 'neu-button text-zinc-800 dark:text-zinc-300'
               }`}
             >
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
               <span>🎙️ Live Judges Playground</span>
             </button>
           </div>
         </div>
 
+        {/* FILTERING STRIP (ALL / LATEST CUSTOM / BENCHMARKS) */}
+        {mode === 'presets' && (
+          <div className="flex flex-wrap items-center justify-between gap-2 mb-3 px-1">
+            <div className="flex items-center gap-1.5 bg-slate-200/90 dark:bg-zinc-900/60 p-1 rounded-xl border border-slate-300 dark:border-white/10 text-xs">
+              <span className="text-[10px] font-mono font-black uppercase tracking-wider text-zinc-700 dark:text-zinc-400 px-2">
+                FILTER:
+              </span>
+              <button
+                onClick={() => setFilterMode('all')}
+                className={`px-3 py-1 rounded-lg font-mono text-[11px] font-extrabold transition-all cursor-pointer flex items-center gap-1.5 ${
+                  filterMode === 'all'
+                    ? 'bg-white dark:bg-emerald-500/20 text-emerald-800 dark:text-neon-emerald border border-slate-300 dark:border-emerald-500/40 shadow-sm'
+                    : 'text-zinc-700 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-200'
+                }`}
+              >
+                <span>ALL</span>
+                <span className="px-1.5 py-0.2 rounded-full text-[9px] bg-slate-300 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-200 font-bold">
+                  {customScenarios.length + PRESET_SCENARIOS.length}
+                </span>
+              </button>
+              <button
+                onClick={() => setFilterMode('custom')}
+                className={`px-3 py-1 rounded-lg font-mono text-[11px] font-extrabold transition-all cursor-pointer flex items-center gap-1.5 ${
+                  filterMode === 'custom'
+                    ? 'bg-white dark:bg-emerald-500/20 text-emerald-800 dark:text-neon-emerald border border-slate-300 dark:border-emerald-500/40 shadow-sm'
+                    : 'text-zinc-700 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-200'
+                }`}
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                <span>LATEST CUSTOM</span>
+                <span className="px-1.5 py-0.2 rounded-full text-[9px] bg-emerald-100 text-emerald-900 dark:bg-emerald-950/80 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800 font-bold">
+                  {customScenarios.length}
+                </span>
+              </button>
+              <button
+                onClick={() => setFilterMode('benchmarks')}
+                className={`px-3 py-1 rounded-lg font-mono text-[11px] font-extrabold transition-all cursor-pointer flex items-center gap-1.5 ${
+                  filterMode === 'benchmarks'
+                    ? 'bg-white dark:bg-amber-500/20 text-amber-800 dark:text-neon-gold border border-slate-300 dark:border-amber-500/40 shadow-sm'
+                    : 'text-zinc-700 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-200'
+                }`}
+              >
+                <span>⚡ BENCHMARKS</span>
+                <span className="px-1.5 py-0.2 rounded-full text-[9px] bg-amber-100 text-amber-900 dark:bg-amber-950/80 dark:text-neon-gold border border-amber-300 dark:border-amber-800 font-bold">
+                  {PRESET_SCENARIOS.length}
+                </span>
+              </button>
+            </div>
+
+            {customScenarios.length > 0 && (
+              <span className="text-[10px] font-mono font-bold text-emerald-800 dark:text-emerald-400 flex items-center gap-1">
+                <span>✦</span>
+                <span>Latest custom checks ordered first (#1) • Delete anytime via ✕</span>
+              </span>
+            )}
+          </div>
+        )}
+
         {/* IF IN PRESETS MODE: ROTARY WHEEL OR COMPACT MATRIX */}
         {mode === 'presets' ? (
-          selectorView === 'wheel' ? (
+          displayedScenarios.length === 0 ? (
+            /* EMPTY STATE WHEN FILTERING CUSTOM WITH NONE RECORDED */
+            <div className="p-8 text-center rounded-2xl border border-dashed border-emerald-500/30 bg-slate-100/90 dark:bg-zinc-950/50 my-2">
+              <span className="text-3xl block mb-2">🎙️</span>
+              <h4 className="text-sm font-black text-zinc-950 dark:text-zinc-100">No Custom Scenarios Recorded Yet</h4>
+              <p className="text-xs text-zinc-700 dark:text-zinc-300 max-w-md mx-auto mt-1 mb-4 leading-relaxed font-medium">
+                When you verify any custom statement via the Live Playground or Alexa Skill, it automatically saves right here at the top (#1).
+              </p>
+              <button
+                onClick={() => {
+                  setMode('custom');
+                  loadJudgePrompt(JUDGE_TEST_PROMPTS[0].text);
+                }}
+                className="px-4 py-2 rounded-xl text-xs font-bold neu-button border border-emerald-500/40 text-emerald-800 dark:text-emerald-300 hover:bg-emerald-50 dark:hover:bg-emerald-500/20 cursor-pointer"
+              >
+                Open Playground & Run Sample Test
+              </button>
+            </div>
+          ) : selectorView === 'wheel' ? (
             /* INTERACTIVE ROTATING WHEEL DIAL */
             <div className="p-4 rounded-2xl border border-emerald-500/30 bg-slate-900 dark:bg-gradient-to-br dark:from-emerald-950/30 dark:via-zinc-950/50 dark:to-amber-950/20 text-white shadow-xl">
               <div className="flex flex-col lg:flex-row items-center gap-6 justify-between">
@@ -439,52 +604,66 @@ export default function EchoShowSimulator() {
                   </button>
 
                   {/* Rotating Carousel Drum */}
-                  <div
-                    className="relative w-full h-full transition-transform duration-700 ease-out"
-                    style={{ transform: `rotate(${-activeScenarioIndex * 60}deg)` }}
-                  >
-                    {scenarios.map((sc, i) => {
-                      const angle = i * 60 - 90; // Start at top 12 o'clock
-                      const rad = (angle * Math.PI) / 180;
-                      const radius = 105; // radius in px
-                      const x = Math.round(radius * Math.cos(rad));
-                      const y = Math.round(radius * Math.sin(rad));
-                      const isActive = sc.preset_id === currentScenario.preset_id;
-                      const isCorrected = sc.spoken_verdict.status === 'self_corrected';
-                      const isAbstained = sc.spoken_verdict.status === 'abstained';
+                  {(() => {
+                    const wheelItems = displayedScenarios.slice(0, 8);
+                    const stepAngle = 360 / Math.max(wheelItems.length, 1);
+                    return (
+                      <div
+                        className="relative w-full h-full transition-transform duration-700 ease-out"
+                        style={{ transform: `rotate(${-activeScenarioIndex * stepAngle}deg)` }}
+                      >
+                        {wheelItems.map((sc, i) => {
+                          const isCust = sc.is_custom || sc.preset_id?.startsWith('custom');
+                          const angle = i * stepAngle - 90;
+                          const rad = (angle * Math.PI) / 180;
+                          const radius = 105;
+                          const x = Math.round(radius * Math.cos(rad));
+                          const y = Math.round(radius * Math.sin(rad));
+                          const isActive = sc.preset_id === currentScenario.preset_id;
+                          const isCorrected = sc.spoken_verdict.status === 'self_corrected';
+                          const isAbstained = sc.spoken_verdict.status === 'abstained';
 
-                      return (
-                        <button
-                          key={sc.preset_id}
-                          onClick={() => selectScenario(sc.preset_id)}
-                          style={{
-                            transform: `translate(${x}px, ${y}px) rotate(${activeScenarioIndex * 60}deg)`,
-                          }}
-                          className={`absolute top-1/2 left-1/2 -mt-6 -ml-6 w-12 h-12 rounded-xl flex flex-col items-center justify-center transition-all duration-300 cursor-pointer group ${
-                            isActive
-                              ? 'bg-zinc-950 border-2 border-neon-emerald shadow-emerald-glow scale-125 z-20'
-                              : 'bg-zinc-900/80 border border-zinc-700/60 hover:border-emerald-500/60 hover:scale-110 opacity-75 hover:opacity-100'
-                          }`}
-                        >
-                          <span className={`text-[10px] font-mono font-black ${isActive ? 'text-neon-emerald' : 'text-zinc-400'}`}>
-                            0{i + 1}
-                          </span>
-                          <span
-                            className={`w-2 h-2 rounded-full mt-0.5 ${
-                              isCorrected ? 'bg-rose-500' : isAbstained ? 'bg-amber-400' : 'bg-emerald-400'
-                            }`}
-                          />
-                        </button>
-                      );
-                    })}
-                  </div>
+                          return (
+                            <button
+                              key={sc.preset_id}
+                              onClick={() => selectScenario(sc.preset_id)}
+                              style={{
+                                transform: `translate(${x}px, ${y}px) rotate(${activeScenarioIndex * stepAngle}deg)`,
+                              }}
+                              className={`absolute top-1/2 left-1/2 -mt-6 -ml-6 w-12 h-12 rounded-xl flex flex-col items-center justify-center transition-all duration-300 cursor-pointer group ${
+                                isActive
+                                  ? 'bg-zinc-950 border-2 border-neon-emerald shadow-emerald-glow scale-125 z-20'
+                                  : 'bg-zinc-900/80 border border-zinc-700/60 hover:border-emerald-500/60 hover:scale-110 opacity-75 hover:opacity-100'
+                              }`}
+                            >
+                              <div className="flex items-center gap-0.5">
+                                <span className={`text-[10px] font-mono font-black ${isActive ? 'text-neon-emerald' : 'text-zinc-400'}`}>
+                                  0{i + 1}
+                                </span>
+                                {isCust && (
+                                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" title="Custom user scenario" />
+                                )}
+                              </div>
+                              <span
+                                className={`w-2 h-2 rounded-full mt-0.5 ${
+                                  isCorrected ? 'bg-rose-500' : isAbstained ? 'bg-amber-400' : 'bg-emerald-400'
+                                }`}
+                              />
+                            </button>
+                          );
+                        })}
+                      </div>
+                    );
+                  })()}
 
                   {/* Wheel Center Core (HUD status) */}
-                  <div className="absolute inset-16 rounded-full bg-zinc-950/90 border border-emerald-500/40 p-4 flex flex-col items-center justify-center text-center shadow-inner pointer-events-none">
-                    <span className="text-[9px] font-mono font-bold tracking-widest text-emerald-400 uppercase">
-                      BENCHMARK 0{activeScenarioIndex + 1}/06
+                  <div className="absolute inset-16 rounded-full bg-zinc-950/90 border border-emerald-500/40 p-3 flex flex-col items-center justify-center text-center shadow-inner pointer-events-none">
+                    <span className="text-[8px] font-mono font-bold tracking-widest text-emerald-400 uppercase">
+                      {currentScenario.is_custom || currentScenario.preset_id?.startsWith('custom')
+                        ? `CUSTOM 0${activeScenarioIndex + 1}`
+                        : `BENCHMARK 0${activeScenarioIndex + 1}/06`}
                     </span>
-                    <span className="text-xs font-black text-white line-clamp-1 mt-0.5">
+                    <span className="text-[11px] font-black text-white line-clamp-1 mt-0.5">
                       {currentScenario.title.split('(')[0]}
                     </span>
                     <span className="text-[8px] font-mono uppercase tracking-wider text-amber-400 mt-1 px-1.5 py-0.5 rounded border border-amber-500/30 bg-amber-500/10">
@@ -497,16 +676,34 @@ export default function EchoShowSimulator() {
                 <div className="flex-1 w-full flex flex-col gap-2.5">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-500/20 text-neon-emerald border border-emerald-500/40">
-                        ACTIVE BENCHMARK 0{activeScenarioIndex + 1}
+                      <span className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold border ${
+                        currentScenario.is_custom || currentScenario.preset_id?.startsWith('custom')
+                          ? 'bg-emerald-500/20 text-neon-emerald border-emerald-500/40'
+                          : 'bg-amber-500/20 text-neon-gold border-amber-500/40'
+                      }`}>
+                        {currentScenario.is_custom || currentScenario.preset_id?.startsWith('custom')
+                          ? '✨ LATEST CUSTOM SCENARIO'
+                          : `BENCHMARK 0${activeScenarioIndex + 1}`}
                       </span>
-                      <span className="text-xs font-mono text-zinc-400">
+                      <span className="text-xs font-mono text-zinc-400 truncate max-w-[140px]">
                         {currentScenario.preset_id}
                       </span>
                     </div>
-                    <span className="text-[11px] font-mono text-amber-400 font-bold">
-                      {currentScenario.red_team_vector}
-                    </span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-[11px] font-mono text-amber-400 font-bold hidden sm:inline">
+                        {currentScenario.red_team_vector}
+                      </span>
+                      {(currentScenario.is_custom || currentScenario.preset_id?.startsWith('custom')) && (
+                        <button
+                          onClick={(e) => handleDeleteCustomScenario(currentScenario.preset_id, e)}
+                          className="px-2.5 py-0.5 rounded-lg text-xs font-mono font-bold bg-rose-500/20 text-rose-400 border border-rose-500/40 hover:bg-rose-500 hover:text-white transition-all cursor-pointer flex items-center gap-1 shadow-sm"
+                          title="Delete this custom scenario"
+                        >
+                          <span>🗑️</span>
+                          <span>Delete</span>
+                        </button>
+                      )}
+                    </div>
                   </div>
 
                   <div className="p-3 rounded-xl bg-zinc-900/60 border border-white/10 text-xs text-zinc-200 leading-relaxed font-sans">
@@ -521,90 +718,164 @@ export default function EchoShowSimulator() {
                       onClick={() => rotateWheel('prev')}
                       className="px-3 py-1.5 rounded-lg text-xs font-mono neu-button text-zinc-300 hover:text-white flex items-center gap-1 cursor-pointer"
                     >
-                      <span>⟵</span> Prev Vector
+                      <span>⟵</span> Prev
                     </button>
                     <button
                       onClick={() => rotateWheel('next')}
                       className="px-3 py-1.5 rounded-lg text-xs font-mono neu-button text-zinc-300 hover:text-white flex items-center gap-1 cursor-pointer"
                     >
-                      Next Vector <span>⟶</span>
+                      Next <span>⟶</span>
                     </button>
                     <span className="text-[11px] font-mono text-zinc-500 ml-auto hidden sm:inline">
-                      Tip: Click any satellite orb on the dial to rotate directly
+                      Tip: Latest custom items are prepended at the top (#1)
                     </span>
                   </div>
                 </div>
               </div>
             </div>
           ) : (
-            /* COMPACT MATRIX GRID VIEW */
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5">
-              {scenarios.map((sc, i) => {
+            /* COMPACT MATRIX GRID VIEW WITH INDIVIDUAL DELETE CROSS BUTTONS */
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 max-h-[380px] overflow-y-auto pr-1">
+              {displayedScenarios.map((sc, i) => {
                 const isActive = sc.preset_id === currentScenario.preset_id;
+                const isCust = sc.is_custom || sc.preset_id?.startsWith('custom');
                 const st = sc.spoken_verdict.status;
-                let badgeColor = 'bg-zinc-800 text-zinc-300 border-zinc-600/40';
+                let badgeColor = 'bg-slate-200 text-slate-800 border-slate-300 dark:bg-zinc-800 dark:text-zinc-300 dark:border-zinc-600/40';
                 if (st === 'verified_safe') {
-                  badgeColor = 'bg-emerald-950/60 text-emerald-300 border-emerald-700/60';
+                  badgeColor = 'bg-emerald-100 text-emerald-800 border-emerald-300 dark:bg-emerald-950/70 dark:text-emerald-300 dark:border-emerald-700/60';
                 } else if (st === 'abstained') {
-                  badgeColor = 'bg-amber-950/60 text-amber-300 border-amber-700/60';
+                  badgeColor = 'bg-amber-100 text-amber-900 border-amber-300 dark:bg-amber-950/70 dark:text-amber-300 dark:border-amber-700/60';
                 } else if (st === 'self_corrected') {
-                  badgeColor = 'bg-rose-950/60 text-rose-300 border-rose-700/60';
+                  badgeColor = 'bg-rose-100 text-rose-800 border-rose-300 dark:bg-rose-950/70 dark:text-rose-300 dark:border-rose-700/60';
                 }
 
                 return (
-                  <button
+                  <div
                     key={sc.preset_id}
                     onClick={() => selectScenario(sc.preset_id)}
-                    className={`neu-button p-2 text-left flex flex-col justify-between rounded-xl border border-white/10 transition-all hover:scale-[1.02] cursor-pointer ${
-                      isActive ? 'active ring-2 ring-emerald-400 shadow-emerald-glow' : ''
+                    className={`p-2.5 text-left flex flex-col justify-between rounded-2xl bg-white/95 dark:bg-zinc-900/90 border border-slate-300 dark:border-white/10 transition-all hover:scale-[1.02] cursor-pointer relative group shadow-sm ${
+                      isActive ? 'active ring-2 ring-emerald-500 shadow-emerald-glow' : ''
                     }`}
                   >
-                    <div className="flex items-center justify-between w-full mb-1">
-                      <span className="text-[10px] font-mono font-bold text-zinc-400">#{i + 1}</span>
-                      <span className={`text-[8px] px-1.5 py-0.2 rounded-full font-bold border ${badgeColor}`}>
-                        {st.replace('_', ' ').toUpperCase()}
-                      </span>
+                    <div className="flex items-center justify-between w-full mb-1.5">
+                      <div className="flex items-center gap-1">
+                        <span className="text-[10px] font-mono font-black text-zinc-700 dark:text-zinc-400">#{i + 1}</span>
+                        {isCust && (
+                          <span className="text-[8px] font-mono font-extrabold px-1.5 py-0.2 rounded bg-emerald-100 text-emerald-800 dark:bg-emerald-500/20 dark:text-neon-emerald border border-emerald-300 dark:border-emerald-500/40">
+                            NEW
+                          </span>
+                        )}
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <span className={`text-[8px] px-1.5 py-0.5 rounded-full font-extrabold border ${badgeColor}`}>
+                          {st.replace('_', ' ').toUpperCase()}
+                        </span>
+                        {isCust && (
+                          <button
+                            onClick={(e) => handleDeleteCustomScenario(sc.preset_id, e)}
+                            title="Delete this scenario"
+                            className="w-4 h-4 rounded-full bg-rose-100 hover:bg-rose-600 text-rose-700 hover:text-white dark:bg-rose-950 dark:hover:bg-rose-600 dark:text-rose-300 dark:hover:text-white flex items-center justify-center text-[10px] font-black transition-colors cursor-pointer shadow-sm ml-0.5"
+                          >
+                            ✕
+                          </button>
+                        )}
+                      </div>
                     </div>
-                    <span className="text-xs font-bold text-zinc-100 line-clamp-1">
+                    <span className="text-xs font-extrabold text-zinc-950 dark:text-zinc-100 line-clamp-1">
                       {sc.title.split('(')[0]}
                     </span>
-                    <span className="text-[9px] font-bold text-emerald-400 line-clamp-1 mt-1">
+                    <span className="text-[9px] font-extrabold text-emerald-700 dark:text-emerald-400 line-clamp-1 mt-1">
                       {sc.red_team_vector}
                     </span>
-                  </button>
+                  </div>
                 );
               })}
             </div>
           )
         ) : (
-          /* IF IN CUSTOM PLAYGROUND MODE: 1-CLICK TEST CHIPS */
+          /* IF IN CUSTOM PLAYGROUND MODE: HIGH CONTRAST CHIPS & INDIVIDUAL CROSS DELETES */
           <div>
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-[11px] font-bold uppercase tracking-wider text-zinc-400 font-mono">
-                1-Click Judge Test Prompts (Instant Custom Claims):
+            <div className="flex items-center justify-between mb-2.5">
+              <span className="text-[11px] font-mono font-extrabold uppercase tracking-wider text-zinc-800 dark:text-zinc-200">
+                1-Click Test Prompts (Click to Load / ✕ to Dismiss):
               </span>
-              <button
-                onClick={() => {
-                  setInputText('');
-                  setStatusMessage('Cleared candidate response. Type or speak your own query.');
-                }}
-                className="text-[11px] font-semibold text-rose-400 hover:text-rose-300 cursor-pointer"
-              >
-                Clear Input
-              </button>
             </div>
-            <div className="flex flex-wrap gap-2">
-              {JUDGE_TEST_PROMPTS.map((prompt, idx) => (
-                <button
+            <div className="flex flex-wrap gap-2 mb-3">
+              {judgePrompts.map((prompt, idx) => (
+                <div
                   key={idx}
-                  onClick={() => loadJudgePrompt(prompt.text)}
-                  className="px-2.5 py-1.5 rounded-xl text-xs font-medium neu-button hover:border-emerald-500/60 text-zinc-200 transition-all flex items-center gap-1.5 cursor-pointer"
+                  className="px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 hover:bg-emerald-50 dark:bg-zinc-900 dark:hover:bg-zinc-850 border border-slate-300 dark:border-white/10 hover:border-emerald-500 text-zinc-950 dark:text-zinc-100 transition-all flex items-center gap-2 shadow-sm"
                 >
-                  <span className="text-neon-emerald font-bold">›</span>
-                  <span>{prompt.label}</span>
-                </button>
+                  <button
+                    onClick={() => loadJudgePrompt(prompt.text)}
+                    className="flex items-center gap-1.5 cursor-pointer text-zinc-950 dark:text-zinc-100 hover:text-emerald-700 dark:hover:text-neon-emerald"
+                  >
+                    <span className="text-emerald-600 dark:text-neon-emerald font-black">›</span>
+                    <span>{prompt.label}</span>
+                  </button>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setJudgePrompts((prev) => prev.filter((_, i) => i !== idx));
+                    }}
+                    title="Dismiss this test prompt"
+                    className="w-4 h-4 rounded-full bg-slate-300 hover:bg-rose-500 hover:text-white dark:bg-zinc-800 dark:hover:bg-rose-600 text-zinc-700 hover:text-white dark:text-zinc-400 flex items-center justify-center text-[10px] font-black cursor-pointer transition-colors"
+                  >
+                    ✕
+                  </button>
+                </div>
               ))}
             </div>
+
+            {/* SAVED CUSTOM VERIFICATION HISTORY (LATEST FIRST) */}
+            {customScenarios.length > 0 && (
+              <div className="pt-3 border-t border-slate-200 dark:border-white/10">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-[11px] font-mono font-extrabold uppercase tracking-wider text-emerald-800 dark:text-emerald-400">
+                    Saved Custom Scenarios (Latest First - Click to Reload / ✕ to Delete):
+                  </span>
+                  <span className="text-[10px] font-mono font-bold text-zinc-600 dark:text-zinc-400">
+                    {customScenarios.length} saved
+                  </span>
+                </div>
+                <div className="flex flex-wrap gap-2 max-h-36 overflow-y-auto pr-1">
+                  {customScenarios.map((cs) => (
+                    <div
+                      key={cs.preset_id}
+                      className="px-3 py-1.5 rounded-xl flex items-center gap-2 text-xs bg-white dark:bg-zinc-900 border border-slate-300 dark:border-white/10 shadow-sm"
+                    >
+                      <button
+                        onClick={() => {
+                          setCurrentScenario(cs);
+                          setInputText(cs.original_text);
+                          setStatusMessage(`Loaded custom query: ${cs.title}`);
+                        }}
+                        className="text-left text-zinc-950 dark:text-zinc-100 hover:text-emerald-700 dark:hover:text-neon-emerald font-extrabold truncate max-w-[220px] cursor-pointer"
+                        title={cs.original_text}
+                      >
+                        {cs.original_text}
+                      </button>
+                      <span className={`text-[8px] px-1.5 py-0.5 rounded-full font-extrabold border ${
+                        cs.spoken_verdict.status === 'verified_safe'
+                          ? 'bg-emerald-100 text-emerald-800 border-emerald-300 dark:bg-emerald-950/60 dark:text-emerald-300 dark:border-emerald-800'
+                          : cs.spoken_verdict.status === 'self_corrected'
+                          ? 'bg-rose-100 text-rose-800 border-rose-300 dark:bg-rose-950/60 dark:text-rose-300 dark:border-rose-800'
+                          : 'bg-amber-100 text-amber-900 border-amber-300 dark:bg-amber-950/60 dark:text-amber-300 dark:border-amber-800'
+                      }`}>
+                        {cs.spoken_verdict.status.replace('_', ' ').toUpperCase()}
+                      </span>
+                      <button
+                        onClick={(e) => handleDeleteCustomScenario(cs.preset_id, e)}
+                        title="Delete this custom scenario"
+                        className="w-5 h-5 rounded-full bg-rose-100 hover:bg-rose-600 text-rose-700 hover:text-white dark:bg-rose-950 dark:hover:bg-rose-600 dark:text-rose-300 dark:hover:text-white flex items-center justify-center text-[10px] font-black cursor-pointer transition-all shadow-sm ml-1 shrink-0"
+                      >
+                        ✕
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         )}
       </div>

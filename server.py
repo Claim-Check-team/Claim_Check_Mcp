@@ -33,6 +33,7 @@ logger = logging.getLogger("claim_check.server")
 
 BASE_DIR = Path(__file__).resolve().parent
 PRESET_CACHE_PATH = BASE_DIR / "data" / "preset_cache.json"
+CUSTOM_SCENARIOS_PATH = BASE_DIR / "data" / "custom_scenarios.json"
 
 # Initialize FastAPI App
 app = FastAPI(
@@ -122,6 +123,29 @@ def _load_preset_cache() -> List[Dict[str, Any]]:
         return []
 
 
+def _load_custom_scenarios() -> List[Dict[str, Any]]:
+    """Helper to load custom scenarios (latest first)."""
+    if not CUSTOM_SCENARIOS_PATH.exists():
+        return []
+    try:
+        with open(CUSTOM_SCENARIOS_PATH, "r", encoding="utf-8-sig") as f:
+            data = json.load(f)
+            return data if isinstance(data, list) else []
+    except Exception as e:
+        logger.warning(f"Could not load custom_scenarios.json: {e}")
+        return []
+
+
+def _save_custom_scenarios(items: List[Dict[str, Any]]):
+    """Helper to save custom scenarios to data/custom_scenarios.json."""
+    try:
+        CUSTOM_SCENARIOS_PATH.parent.mkdir(parents=True, exist_ok=True)
+        with open(CUSTOM_SCENARIOS_PATH, "w", encoding="utf-8") as f:
+            json.dump(items, f, indent=2, ensure_ascii=False)
+    except Exception as e:
+        logger.error(f"Could not save custom_scenarios.json: {e}")
+
+
 class CheckRequest(BaseModel):
     preset_id: Optional[str] = Field(default=None, description="Preset identifier if running a benchmark test")
     query_context: Optional[str] = Field(default="", description="Contextual prompt or user question")
@@ -147,6 +171,21 @@ async def get_presets():
     if not presets:
         raise HTTPException(status_code=404, detail="Preset cache data could not be loaded")
     return presets
+
+
+@app.get("/api/custom-scenarios")
+async def get_custom_scenarios():
+    """Returns saved custom scenarios ordered latest-first."""
+    return _load_custom_scenarios()
+
+
+@app.delete("/api/custom-scenarios/{preset_id}")
+async def delete_custom_scenario(preset_id: str):
+    """Deletes a custom scenario by preset_id."""
+    items = _load_custom_scenarios()
+    filtered = [s for s in items if s.get("preset_id") != preset_id]
+    _save_custom_scenarios(filtered)
+    return {"status": "deleted", "preset_id": preset_id, "remaining": len(filtered)}
 
 
 @app.post("/api/check")
@@ -247,9 +286,12 @@ async def check_claim(request: CheckRequest):
         unopt_calls = max(total_claims + 2, 5)
 
         is_custom = not request.preset_id or request.preset_id == "custom_check"
+        custom_id = f"custom_{int(time.time() * 1000)}" if is_custom else request.preset_id
+        short_title = f"Custom: {response_text[:38]}..." if len(response_text) > 38 else f"Custom: {response_text}"
+        
         live_result = {
-            "preset_id": "custom_check" if is_custom else request.preset_id,
-            "title": "Live Voice Claim Verification" if is_custom else (target_preset.get("title") if target_preset else "Live Voice Fact-Check"),
+            "preset_id": custom_id,
+            "title": short_title if is_custom else (target_preset.get("title") if target_preset else "Live Voice Fact-Check"),
             "red_team_vector": "Interactive User Custom Input" if is_custom else (target_preset.get("red_team_vector") if target_preset else "Custom Speech Input"),
             "attack_description": "Arbitrary voice utterance evaluated live via FastMCP against external Wikipedia knowledge base." if is_custom else (target_preset.get("attack_description") if target_preset else "Real-time epistemic analysis of custom utterance."),
             "query_context": query_context,
@@ -257,7 +299,9 @@ async def check_claim(request: CheckRequest):
             "total_claims": total_claims,
             "claims": verified_claims,
             "spoken_verdict": verdict,
-            "mcp_trace": mcp_trace
+            "mcp_trace": mcp_trace,
+            "is_custom": is_custom,
+            "created_at": int(time.time() * 1000)
         }
         live_result["apl_directive"] = build_apl_directive(live_result)
         live_result["engineering_sla"] = {
@@ -269,6 +313,17 @@ async def check_claim(request: CheckRequest):
             "calls_reduction_pct": round(((unopt_calls - 2) / unopt_calls) * 100),
             "est_cost_per_1k_queries_usd": 0.0017
         }
+
+        # Auto-persist custom scenarios latest-first
+        if is_custom:
+            try:
+                custom_items = _load_custom_scenarios()
+                custom_items = [s for s in custom_items if s.get("original_text") != response_text]
+                custom_items.insert(0, live_result)
+                _save_custom_scenarios(custom_items[:50])
+            except Exception as e:
+                logger.warning(f"Failed to auto-persist custom scenario: {e}")
+
         return live_result
 
     except Exception as e:

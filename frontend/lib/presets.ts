@@ -52,6 +52,8 @@ export interface Scenario {
   claims: Claim[];
   spoken_verdict: SpokenVerdict;
   mcp_trace: McpTraceStep[];
+  is_custom?: boolean;
+  created_at?: number;
 }
 
 export const PRESET_SCENARIOS: Scenario[] = [
