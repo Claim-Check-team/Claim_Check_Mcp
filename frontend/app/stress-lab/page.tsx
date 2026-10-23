@@ -58,7 +58,7 @@ export default function StressLabPage() {
     <div className="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto space-y-6 blueprint-grid min-h-screen">
       
       {/* HUD HEADER WITH STRATEGIC KEYWORDS: VOICE • RECORD • STRESS • LABORATORY • ECHO • ARCHITECTURE */}
-      <div className="p-6 rounded-3xl neu-raised relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border border-slate-300 dark:border-emerald-500/30">
+      <div className="p-6 rounded-3xl tactical-glass relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border border-slate-300 dark:border-emerald-500/30 shadow-md">
         <div>
           <div className="flex items-center gap-3 mb-2 flex-wrap">
             <span className="skew-hud px-2.5 py-0.5 rounded text-[10px] font-mono font-black bg-emerald-100 text-emerald-800 dark:bg-neon-emerald/20 dark:text-neon-emerald border border-emerald-300 dark:border-neon-emerald/50">
@@ -67,7 +67,7 @@ export default function StressLabPage() {
             <span className="px-2 py-0.5 rounded text-[10px] font-mono text-amber-800 dark:text-neon-gold border border-amber-300 dark:border-amber-500/30 bg-amber-50 dark:bg-amber-500/10 font-bold">
               ECHO RECORD AUDIT
             </span>
-            <span className="px-2 py-0.5 rounded text-[10px] font-mono text-slate-600 dark:text-zinc-400 border border-slate-300 dark:border-zinc-700 bg-slate-100 dark:bg-zinc-900">
+            <span className="px-2 py-0.5 rounded text-[10px] font-mono text-slate-700 dark:text-zinc-400 border border-slate-300 dark:border-zinc-700 bg-slate-100 dark:bg-zinc-900">
               VOICE ARCHITECTURE
             </span>
           </div>
@@ -78,7 +78,7 @@ export default function StressLabPage() {
             </span>
           </h1>
           <p className="text-xs text-slate-600 dark:text-zinc-400 font-mono mt-1">
-            Isolate voice statements, audit verification proofs, and simulate ChatGPT-grade reasoning resonance.
+            Isolate voice statements, audit verification proofs, and simulate real-time epistemic reasoning resonance.
           </p>
         </div>
 
@@ -86,11 +86,11 @@ export default function StressLabPage() {
           <button
             onClick={runEvaluation}
             disabled={isEvaluating}
-            className="px-5 py-2.5 rounded-xl font-bold font-mono text-xs neu-button text-emerald-800 dark:text-neon-emerald border border-emerald-400 dark:border-emerald-500/40 hover:border-emerald-600 dark:hover:border-neon-emerald shadow-emerald-glow flex items-center gap-2 cursor-pointer disabled:opacity-50 tracking-wider"
+            className="px-5 py-2.5 rounded-xl font-bold font-mono text-xs bg-emerald-600 text-white dark:bg-zinc-950 dark:text-neon-emerald border border-emerald-500 dark:border-emerald-500/40 hover:bg-emerald-700 dark:hover:border-neon-emerald shadow-emerald-glow flex items-center gap-2 cursor-pointer disabled:opacity-50 tracking-wider"
           >
             {isEvaluating ? (
               <>
-                <span className="w-3.5 h-3.5 rounded-full border-2 border-emerald-600 dark:border-neon-emerald border-t-transparent animate-spin" />
+                <span className="w-3.5 h-3.5 rounded-full border-2 border-white dark:border-neon-emerald border-t-transparent animate-spin" />
                 <span>RESONATING TRACE...</span>
               </>
             ) : (
@@ -103,33 +103,33 @@ export default function StressLabPage() {
         </div>
       </div>
 
-      {/* CHATGPT-STYLE EPISTEMIC REASONING RESONANCE BAR */}
-      <div className="p-4 rounded-2xl bg-slate-900 dark:bg-zinc-950/90 border border-emerald-500/30 shadow-xl relative overflow-hidden text-white">
+      {/* EPISTEMIC REASONING RESONANCE BAR */}
+      <div className="p-4 rounded-2xl bg-white dark:bg-zinc-950/90 border border-emerald-500/40 shadow-xl relative overflow-hidden text-slate-900 dark:text-white">
         <div className="flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="chatgpt-resonance flex items-center gap-1.5 h-5 px-2 rounded-lg bg-emerald-500/10 border border-emerald-500/30">
-              <span className="w-1.5 h-4 bg-neon-emerald rounded-full animate-pulse" />
-              <span className="w-1.5 h-2.5 bg-neon-emerald rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-              <span className="w-1.5 h-3.5 bg-neon-emerald rounded-full animate-pulse" style={{ animationDelay: '300ms' }} />
-              <span className="w-1.5 h-2 bg-neon-emerald rounded-full animate-bounce" style={{ animationDelay: '75ms' }} />
+            <div className="epistemic-resonance flex items-center gap-1.5 h-5 px-2 rounded-lg bg-emerald-100 dark:bg-emerald-500/10 border border-emerald-300 dark:border-emerald-500/30">
+              <span className="w-1.5 h-4 bg-emerald-600 dark:bg-neon-emerald rounded-full animate-pulse" />
+              <span className="w-1.5 h-2.5 bg-emerald-600 dark:bg-neon-emerald rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+              <span className="w-1.5 h-3.5 bg-emerald-600 dark:bg-neon-emerald rounded-full animate-pulse" style={{ animationDelay: '300ms' }} />
+              <span className="w-1.5 h-2 bg-emerald-600 dark:bg-neon-emerald rounded-full animate-bounce" style={{ animationDelay: '75ms' }} />
             </div>
             <div>
-              <span className="text-[11px] font-mono font-bold text-neon-emerald tracking-wider uppercase block">
+              <span className="text-[11px] font-mono font-bold text-emerald-800 dark:text-neon-emerald tracking-wider uppercase block">
                 {isEvaluating ? 'RESONATING EPISTEMIC THINKING ENGINE' : 'REASONING TRACE LOCKED (1,340ms SLA)'}
               </span>
-              <span className="text-[10px] font-mono text-zinc-300">
+              <span className="text-[10px] font-mono text-slate-500 dark:text-zinc-300">
                 Grounded via FastMCP tools &bull; Wikipedia REST &bull; Wolfram Knowledge Engine
               </span>
             </div>
           </div>
 
           <div className="flex items-center gap-2">
-            <span className="text-[10px] font-mono text-neon-gold hidden sm:inline">
+            <span className="text-[10px] font-mono text-amber-700 dark:text-neon-gold font-bold hidden sm:inline">
               PHASE: {activeReasoningStep === 4 ? 'CALIBRATED' : `STEP 0${activeReasoningStep}/04`}
             </span>
             <button
               onClick={() => setThinkingExpanded(!thinkingExpanded)}
-              className="text-xs font-mono px-3 py-1 rounded-lg bg-zinc-900 border border-zinc-700 hover:border-emerald-500 text-zinc-300 hover:text-neon-emerald cursor-pointer"
+              className="text-xs font-mono px-3 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 border border-slate-300 dark:bg-zinc-900 dark:border-zinc-700 dark:hover:border-emerald-500 text-slate-700 dark:text-zinc-300 hover:text-emerald-700 dark:hover:text-neon-emerald cursor-pointer"
             >
               {thinkingExpanded ? '[-] Minimize Trace' : '[+] Open Full Trace'}
             </button>
@@ -137,21 +137,21 @@ export default function StressLabPage() {
         </div>
 
         {thinkingExpanded && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mt-4 pt-3 border-t border-zinc-800">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mt-4 pt-3 border-t border-slate-200 dark:border-zinc-800">
             {/* STEP 1 */}
             <div
               onClick={() => setActiveReasoningStep(1)}
               className={`p-3 rounded-xl border transition-all cursor-pointer ${
                 activeReasoningStep >= 1
-                  ? 'bg-zinc-900/90 border-emerald-500/50 text-white'
-                  : 'bg-zinc-950/60 border-zinc-800/80 text-zinc-500'
+                  ? 'bg-emerald-50/80 border-emerald-500 text-slate-900 dark:bg-zinc-900/90 dark:border-emerald-500/50 dark:text-white'
+                  : 'bg-slate-50 border-slate-200 text-slate-400 dark:bg-zinc-950/60 dark:border-zinc-800/80 dark:text-zinc-500'
               }`}
             >
               <div className="flex items-center justify-between text-[10px] font-mono font-bold mb-1">
-                <span className="text-neon-emerald">01. SVO PARSING</span>
-                <span className="text-zinc-500">T+120ms</span>
+                <span className="text-emerald-700 dark:text-neon-emerald">01. SVO PARSING</span>
+                <span className="text-slate-500 dark:text-zinc-500">T+120ms</span>
               </div>
-              <p className="text-xs text-zinc-300 font-sans leading-tight">
+              <p className="text-xs text-slate-700 dark:text-zinc-300 font-sans leading-tight">
                 Decompose multi-clause utterance into {totalClaims} isolated atomic subject-verb-object claims.
               </p>
             </div>
@@ -161,15 +161,15 @@ export default function StressLabPage() {
               onClick={() => setActiveReasoningStep(2)}
               className={`p-3 rounded-xl border transition-all cursor-pointer ${
                 activeReasoningStep >= 2
-                  ? 'bg-zinc-900/90 border-emerald-500/50 text-white'
-                  : 'bg-zinc-950/60 border-zinc-800/80 text-zinc-500'
+                  ? 'bg-emerald-50/80 border-emerald-500 text-slate-900 dark:bg-zinc-900/90 dark:border-emerald-500/50 dark:text-white'
+                  : 'bg-slate-50 border-slate-200 text-slate-400 dark:bg-zinc-950/60 dark:border-zinc-800/80 dark:text-zinc-500'
               }`}
             >
               <div className="flex items-center justify-between text-[10px] font-mono font-bold mb-1">
-                <span className="text-neon-emerald">02. KNOWLEDGE SEARCH</span>
-                <span className="text-zinc-500">T+480ms</span>
+                <span className="text-emerald-700 dark:text-neon-emerald">02. KNOWLEDGE SEARCH</span>
+                <span className="text-slate-500 dark:text-zinc-500">T+480ms</span>
               </div>
-              <p className="text-xs text-zinc-300 font-sans leading-tight">
+              <p className="text-xs text-slate-700 dark:text-zinc-300 font-sans leading-tight">
                 REST queries dispatched to authoritative knowledge corpora ({scenario.claims[0]?.evidence_source.split('(')[0] || 'Wikipedia'}).
               </p>
             </div>
@@ -179,15 +179,15 @@ export default function StressLabPage() {
               onClick={() => setActiveReasoningStep(3)}
               className={`p-3 rounded-xl border transition-all cursor-pointer ${
                 activeReasoningStep >= 3
-                  ? 'bg-zinc-900/90 border-emerald-500/50 text-white'
-                  : 'bg-zinc-950/60 border-zinc-800/80 text-zinc-500'
+                  ? 'bg-amber-50/80 border-amber-500 text-slate-900 dark:bg-zinc-900/90 dark:border-amber-500/50 dark:text-white'
+                  : 'bg-slate-50 border-slate-200 text-slate-400 dark:bg-zinc-950/60 dark:border-zinc-800/80 dark:text-zinc-500'
               }`}
             >
               <div className="flex items-center justify-between text-[10px] font-mono font-bold mb-1">
-                <span className="text-neon-gold">03. EVIDENCE AUDIT</span>
-                <span className="text-zinc-500">T+890ms</span>
+                <span className="text-amber-700 dark:text-neon-gold">03. EVIDENCE AUDIT</span>
+                <span className="text-slate-500 dark:text-zinc-500">T+890ms</span>
               </div>
-              <p className="text-xs text-zinc-300 font-sans leading-tight">
+              <p className="text-xs text-slate-700 dark:text-zinc-300 font-sans leading-tight">
                 Audited {supportedCount} supported, {contradictedCount} contradicted, {unsureCount} speculative claims.
               </p>
             </div>
@@ -197,15 +197,15 @@ export default function StressLabPage() {
               onClick={() => setActiveReasoningStep(4)}
               className={`p-3 rounded-xl border transition-all cursor-pointer ${
                 activeReasoningStep >= 4
-                  ? 'bg-zinc-900/90 border-neon-emerald text-white shadow-emerald-glow'
-                  : 'bg-zinc-950/60 border-zinc-800/80 text-zinc-500'
+                  ? 'bg-emerald-50/80 border-emerald-600 text-slate-900 shadow-md dark:bg-zinc-900/90 dark:border-neon-emerald dark:text-white dark:shadow-emerald-glow'
+                  : 'bg-slate-50 border-slate-200 text-slate-400 dark:bg-zinc-950/60 dark:border-zinc-800/80 dark:text-zinc-500'
               }`}
             >
               <div className="flex items-center justify-between text-[10px] font-mono font-bold mb-1">
-                <span className="text-neon-emerald">04. VERDICT CALIBRATION</span>
-                <span className="text-zinc-500">T+1,340ms</span>
+                <span className="text-emerald-700 dark:text-neon-emerald">04. VERDICT CALIBRATION</span>
+                <span className="text-slate-500 dark:text-zinc-500">T+1,340ms</span>
               </div>
-              <p className="text-xs text-zinc-300 font-sans leading-tight">
+              <p className="text-xs text-slate-700 dark:text-zinc-300 font-sans leading-tight">
                 {scenario.spoken_verdict.status === 'self_corrected'
                   ? 'Hazard intercepted! Clinical safe substitute synthesized for Echo speaker.'
                   : scenario.spoken_verdict.status === 'abstained'
@@ -218,7 +218,7 @@ export default function StressLabPage() {
       </div>
 
       {/* ONE SCENARIO AT A TIME SELECTOR BAR */}
-      <div className="p-3 rounded-2xl neu-inset overflow-x-auto">
+      <div className="p-3 rounded-2xl tactical-glass overflow-x-auto shadow-sm">
         <div className="flex items-center gap-2 min-w-max">
           <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-slate-500 dark:text-zinc-400 px-2">
             SELECT SCENARIO:
@@ -235,8 +235,8 @@ export default function StressLabPage() {
                 }}
                 className={`px-3.5 py-2 rounded-xl text-xs font-mono font-bold transition-all flex items-center gap-2 cursor-pointer ${
                   isSelected
-                    ? 'bg-emerald-100 text-emerald-950 border-2 border-emerald-500 dark:bg-zinc-950 dark:text-neon-emerald dark:border-neon-emerald shadow-emerald-glow'
-                    : 'bg-slate-100 text-slate-700 border border-slate-300 dark:bg-zinc-900/60 dark:text-zinc-300 dark:border-zinc-700/60 hover:border-emerald-500/50'
+                    ? 'bg-emerald-600 text-white border-2 border-emerald-500 shadow-md dark:bg-zinc-950 dark:text-neon-emerald dark:border-neon-emerald dark:shadow-emerald-glow'
+                    : 'bg-white text-slate-700 border border-slate-300 hover:border-emerald-500/50 dark:bg-zinc-900/60 dark:text-zinc-300 dark:border-zinc-700/60'
                 }`}
               >
                 <span>0{idx + 1}</span>
@@ -265,7 +265,7 @@ export default function StressLabPage() {
         <div className="lg:col-span-7 space-y-6">
           
           {/* QUERY OVERVIEW CARD */}
-          <div className="p-5 rounded-3xl neu-raised border border-slate-300 dark:border-emerald-500/20 space-y-3">
+          <div className="p-5 rounded-3xl tactical-glass border border-slate-300 dark:border-emerald-500/20 space-y-3 shadow-md">
             <div className="flex items-center justify-between">
               <span className="skew-hud px-2.5 py-0.5 rounded text-[10px] font-mono font-bold bg-slate-100 text-emerald-800 dark:bg-zinc-900 dark:text-neon-emerald border border-slate-300 dark:border-emerald-500/30">
                 VECTOR: {scenario.red_team_vector}
@@ -279,7 +279,7 @@ export default function StressLabPage() {
               {scenario.title}
             </h2>
 
-            <div className="p-3.5 rounded-2xl bg-slate-100 dark:bg-zinc-950/80 border border-slate-300 dark:border-zinc-800">
+            <div className="p-3.5 rounded-2xl bg-slate-100/90 dark:bg-zinc-950/80 border border-slate-300 dark:border-zinc-800">
               <span className="text-[10px] font-mono text-slate-500 dark:text-zinc-400 uppercase font-bold block mb-1">
                 RAW CANDIDATE VOICE UTTERANCE
               </span>
@@ -290,7 +290,7 @@ export default function StressLabPage() {
           </div>
 
           {/* ATOMIC CLAIMS INTERACTIVE INSPECTOR */}
-          <div className="p-5 rounded-3xl neu-raised border border-slate-300 dark:border-emerald-500/20 space-y-4">
+          <div className="p-5 rounded-3xl tactical-glass border border-slate-300 dark:border-emerald-500/20 space-y-4 shadow-md">
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="font-display font-bold text-sm text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
@@ -312,8 +312,8 @@ export default function StressLabPage() {
                     onClick={() => setSelectedClaimIdx(idx)}
                     className={`p-3.5 rounded-2xl transition-all cursor-pointer border ${
                       isSelected
-                        ? 'bg-emerald-50 border-emerald-500 shadow-emerald-glow dark:bg-zinc-950 dark:border-neon-emerald'
-                        : 'bg-slate-50 border-slate-300 dark:bg-zinc-900/60 dark:border-zinc-800 hover:border-slate-400 dark:hover:border-zinc-700'
+                        ? 'bg-emerald-50/90 border-2 border-emerald-500 shadow-md dark:bg-zinc-950 dark:border-neon-emerald'
+                        : 'bg-white border-slate-300 hover:border-slate-400 dark:bg-zinc-900/60 dark:border-zinc-800 dark:hover:border-zinc-700'
                     }`}
                   >
                     <div className="flex items-center justify-between mb-1.5">
@@ -338,7 +338,7 @@ export default function StressLabPage() {
                     </p>
 
                     {isSelected && (
-                      <div className="mt-2.5 p-3 rounded-xl bg-white dark:bg-zinc-900/90 border border-emerald-400 dark:border-emerald-500/30 text-xs text-slate-800 dark:text-zinc-200 font-sans space-y-1">
+                      <div className="mt-2.5 p-3 rounded-xl bg-slate-50 dark:bg-zinc-900/90 border-2 border-emerald-400 dark:border-emerald-500/30 text-xs text-slate-800 dark:text-zinc-200 font-sans space-y-1 shadow-sm">
                         <div className="flex items-center justify-between text-[10px] font-mono text-amber-700 dark:text-neon-gold font-bold">
                           <span>SOURCE: {claim.evidence_source}</span>
                           <span>CHECK-WORTHINESS: {claim.check_worthiness.toUpperCase()}</span>
@@ -359,8 +359,8 @@ export default function StressLabPage() {
         <div className="lg:col-span-5 space-y-6">
           
           {/* STRUCTURED TRUST SCORE RUBRICS CARD */}
-          <div className="p-6 rounded-3xl neu-raised border border-slate-300 dark:border-emerald-500/20 space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-300 dark:border-zinc-800">
+          <div className="p-6 rounded-3xl tactical-glass border border-slate-300 dark:border-emerald-500/20 space-y-4 shadow-md">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-zinc-800">
               <span className="text-xs font-mono font-bold uppercase text-slate-500 dark:text-zinc-400">
                 TRUST SCORE RUBRIC EVALUATION
               </span>
@@ -375,9 +375,9 @@ export default function StressLabPage() {
             </div>
 
             {/* INTERACTIVE SAFETY THRESHOLD SLIDER ACTIVITY */}
-            <div className="p-3.5 rounded-2xl bg-slate-100 dark:bg-zinc-900/80 border border-slate-300 dark:border-zinc-800 space-y-2">
+            <div className="p-3.5 rounded-2xl bg-slate-100/90 dark:bg-zinc-900/80 border border-slate-300 dark:border-zinc-800 space-y-2">
               <div className="flex items-center justify-between text-xs font-mono">
-                <span className="text-slate-600 dark:text-zinc-400">Interactive Safety Gate:</span>
+                <span className="text-slate-700 dark:text-zinc-400 font-semibold">Interactive Safety Gate:</span>
                 <span className="font-bold text-amber-700 dark:text-neon-gold">{safetyThreshold}%</span>
               </div>
               <input
@@ -399,35 +399,35 @@ export default function StressLabPage() {
 
             {/* DETAILED RUBRIC BREAKDOWN */}
             <div className="space-y-2 text-xs font-mono">
-              <div className="p-2.5 rounded-xl neu-inset flex items-center justify-between">
+              <div className="p-2.5 rounded-xl bg-slate-100/90 dark:bg-zinc-950/80 border border-slate-200 dark:border-zinc-800 flex items-center justify-between">
                 <span className="text-slate-600 dark:text-zinc-400">1. Grounded Claim Ratio</span>
                 <span className="font-bold text-slate-900 dark:text-white">
                   {supportedCount}/{totalClaims} ({rawRatio}%)
                 </span>
               </div>
 
-              <div className="p-2.5 rounded-xl neu-inset flex items-center justify-between">
+              <div className="p-2.5 rounded-xl bg-slate-100/90 dark:bg-zinc-950/80 border border-slate-200 dark:border-zinc-800 flex items-center justify-between">
                 <span className="text-slate-600 dark:text-zinc-400">2. External Source</span>
                 <span className="font-bold text-slate-900 dark:text-white truncate max-w-[170px]">
                   {scenario.claims[0]?.evidence_source.split('(')[0] || 'Wikipedia REST'}
                 </span>
               </div>
 
-              <div className="p-2.5 rounded-xl neu-inset flex items-center justify-between">
+              <div className="p-2.5 rounded-xl bg-slate-100/90 dark:bg-zinc-950/80 border border-slate-200 dark:border-zinc-800 flex items-center justify-between">
                 <span className="text-slate-600 dark:text-zinc-400">3. Severity Penalty</span>
                 <span className="font-bold text-rose-600 dark:text-rose-400">
                   {severityPenalty > 0 ? `-${severityPenalty}%` : '0%'}
                 </span>
               </div>
 
-              <div className="p-3 rounded-xl bg-slate-50 dark:bg-zinc-950/90 border border-slate-300 dark:border-zinc-800 text-[11px] text-slate-700 dark:text-zinc-300 font-sans leading-relaxed">
+              <div className="p-3 rounded-xl bg-slate-100 dark:bg-zinc-950/90 border border-slate-300 dark:border-zinc-800 text-[11px] text-slate-700 dark:text-zinc-300 font-sans leading-relaxed">
                 <strong>Why this Score?</strong> {severityReason}. The final calibrated trust score is computed at <strong className="text-emerald-700 dark:text-neon-emerald">{calculatedTrust}%</strong>.
               </div>
             </div>
           </div>
 
           {/* SPOKEN VERDICT INTERVENTION CARD */}
-          <div className="p-6 rounded-3xl neu-raised border border-slate-300 dark:border-emerald-500/20 space-y-4">
+          <div className="p-6 rounded-3xl tactical-glass border border-slate-300 dark:border-emerald-500/20 space-y-4 shadow-md">
             <div className="flex items-center justify-between">
               <span className="text-xs font-mono font-bold uppercase text-slate-500 dark:text-zinc-400">
                 FINAL SPOKEN INTERVENTION
@@ -437,7 +437,7 @@ export default function StressLabPage() {
               </span>
             </div>
 
-            <div className="p-4 rounded-2xl bg-slate-900 dark:bg-zinc-950 border border-slate-700 dark:border-zinc-800 text-white space-y-2">
+            <div className="p-4 rounded-2xl bg-slate-900 dark:bg-zinc-950 border border-slate-700 dark:border-zinc-800 text-white space-y-2 shadow-inner">
               <span className="text-[10px] font-mono text-neon-gold uppercase font-bold block">
                 WHAT ALEXA SPEAKS ALOUD:
               </span>

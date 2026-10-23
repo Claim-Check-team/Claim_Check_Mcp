@@ -252,7 +252,7 @@ export default function EchoShowSimulator() {
           </div>
           <button
             onClick={() => setShowCostModal(true)}
-            className="text-[11px] font-bold text-cyan-600 dark:text-cyan-400 hover:underline flex items-center gap-1 cursor-pointer"
+            className="text-[11px] font-bold text-emerald-700 dark:text-neon-emerald hover:underline flex items-center gap-1 cursor-pointer"
           >
             <span>Math Formula & SLA Breakdown</span>
             <span>&rarr;</span>
@@ -291,7 +291,7 @@ export default function EchoShowSimulator() {
                 <span className="text-[10px] text-zinc-500 dark:text-zinc-400">vs {sla.unoptimized_llm_calls} unopt</span>
               </div>
             </div>
-            <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-cyan-100 dark:bg-cyan-950/60 text-cyan-800 dark:text-cyan-200 border border-cyan-300 dark:border-cyan-800">
+            <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-neon-gold border border-amber-300 dark:border-amber-800">
               -{sla.calls_reduction_pct}% Calls
             </span>
           </div>
@@ -299,7 +299,7 @@ export default function EchoShowSimulator() {
           {/* Metric 3: Cost / 1k Queries */}
           <div
             onClick={() => setShowCostModal(true)}
-            className="neu-inset p-3 rounded-2xl flex items-center justify-between cursor-pointer hover:ring-1 hover:ring-cyan-400 transition-all"
+            className="neu-inset p-3 rounded-2xl flex items-center justify-between cursor-pointer hover:ring-1 hover:ring-emerald-400 transition-all"
           >
             <div>
               <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400 block">
@@ -309,7 +309,7 @@ export default function EchoShowSimulator() {
                 ${sla.est_cost_per_1k_queries_usd.toFixed(4)}
               </span>
             </div>
-            <span className="text-[10px] font-bold text-cyan-600 dark:text-cyan-400 underline">Breakdown</span>
+            <span className="text-[10px] font-bold text-emerald-700 dark:text-neon-emerald underline">Breakdown</span>
           </div>
 
           {/* Metric 4: Benchmark Accuracy */}
@@ -340,7 +340,7 @@ export default function EchoShowSimulator() {
               <span className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-bold border ${
                 mode === 'custom'
                   ? 'bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 border-emerald-300 dark:border-emerald-800 animate-pulse'
-                  : 'bg-cyan-100 dark:bg-cyan-950/80 text-cyan-800 dark:text-cyan-300 border-cyan-300 dark:border-cyan-800'
+                  : 'bg-amber-100 dark:bg-amber-950/80 text-amber-800 dark:text-neon-gold border-amber-300 dark:border-amber-800'
               }`}>
                 {mode === 'custom' ? 'LIVE USER PLAYGROUND' : 'CURATED RED-TEAM SUITE'}
               </span>
@@ -645,13 +645,13 @@ export default function EchoShowSimulator() {
           <div className="flex items-center gap-3">
             <button
               onClick={toggleMute}
-              className="neu-button px-2.5 py-1 text-xs font-semibold flex items-center gap-1.5 text-aubergine-900 cursor-pointer"
+              className="neu-button px-2.5 py-1 text-xs font-semibold flex items-center gap-1.5 text-slate-800 dark:text-zinc-200 cursor-pointer"
             >
               <span className={`w-2 h-2 rounded-full ${hwMuted ? 'bg-rose-500 animate-pulse' : 'bg-slate-400'}`}></span>
               <span>{hwMuted ? 'Muted' : 'Mic Active'}</span>
             </button>
 
-            <div className="neu-inset px-2 py-0.5 flex items-center gap-1.5 text-xs text-silver-700 font-bold">
+            <div className="neu-inset px-2 py-0.5 flex items-center gap-1.5 text-xs text-slate-700 dark:text-zinc-300 font-bold">
               <span>VOL</span>
               <button onClick={() => adjustVolume(-0.1)} className="hover:text-emerald-400 px-1 cursor-pointer">-</button>
               <span className="text-[11px] font-mono">{Math.round(volume * 100)}%</span>
@@ -684,12 +684,12 @@ export default function EchoShowSimulator() {
 
               {/* DYNAMIC AUDIO EQUALIZER WHEN SPEAKING */}
               {isSpeaking && (
-                <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-950/40 border border-zinc-600/30 mb-2">
+                <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-950/40 border border-emerald-500/30 mb-2">
                   <div className="flex items-end gap-1 h-4">
                     {[6, 12, 18, 10, 16, 22, 14, 8, 20, 14, 8, 16].map((h, i) => (
                       <span
                         key={i}
-                        className="w-1 rounded-full bg-gradient-to-t from-cyan-500 to-cyan-300 animate-pulse"
+                        className="w-1 rounded-full bg-gradient-to-t from-emerald-500 to-[#00f59b] animate-pulse"
                         style={{
                           height: `${h}px`,
                           animationDuration: `${0.4 + (i % 4) * 0.15}s`,
@@ -698,7 +698,7 @@ export default function EchoShowSimulator() {
                       />
                     ))}
                   </div>
-                  <span className="text-[10px] font-mono font-bold text-cyan-300 uppercase tracking-wider">
+                  <span className="text-[10px] font-mono font-bold text-emerald-400 uppercase tracking-wider">
                     Audio Streaming
                   </span>
                 </div>
@@ -712,7 +712,7 @@ export default function EchoShowSimulator() {
               </h2>
 
               <div className="neu-inset px-3 py-1.5 rounded-full text-xs text-zinc-600 dark:text-zinc-300 mt-2 flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-cyan-500 animate-pulse"></span>
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                 <span>{statusMessage}</span>
               </div>
 
@@ -811,7 +811,7 @@ export default function EchoShowSimulator() {
                   </label>
                   <button
                     onClick={() => speakText(currentScenario.spoken_verdict.spoken_response)}
-                    className="text-xs font-semibold text-cyan-600 dark:text-cyan-400 hover:underline flex items-center gap-1 cursor-pointer"
+                    className="text-xs font-semibold text-emerald-700 dark:text-neon-emerald hover:underline flex items-center gap-1 cursor-pointer"
                   >
                     Audio Listen
                   </button>
@@ -861,7 +861,7 @@ export default function EchoShowSimulator() {
                     onClick={() => setActiveRightTab('apl')}
                     className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1 cursor-pointer ${
                       activeRightTab === 'apl'
-                        ? 'bg-gradient-to-r from-cyan-600 to-sky-600 text-white shadow-sm font-extrabold'
+                        ? 'bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-sm font-extrabold'
                         : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white'
                     }`}
                   >
@@ -882,7 +882,7 @@ export default function EchoShowSimulator() {
 
                 <button
                   onClick={() => setShowJsonModal(true)}
-                  className="neu-button px-3 py-1.5 rounded-xl text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:text-cyan-500 cursor-pointer"
+                  className="neu-button px-3 py-1.5 rounded-xl text-xs font-bold text-zinc-700 dark:text-zinc-300 hover:text-emerald-500 cursor-pointer"
                 >
                   Raw JSON
                 </button>
@@ -933,11 +933,11 @@ export default function EchoShowSimulator() {
 
                         <div className="mt-2 pt-2 border-t border-slate-200/60 dark:border-white/10 flex flex-wrap items-center justify-between gap-2 text-[11px] text-zinc-500 dark:text-zinc-400">
                           <div>
-                            <strong>Source:</strong> <span className="text-cyan-700 dark:text-cyan-300 font-medium">{claim.evidence_source}</span>
+                            <strong>Source:</strong> <span className="text-emerald-700 dark:text-neon-emerald font-medium">{claim.evidence_source}</span>
                           </div>
                           <button
                             onClick={() => toggleReasoning(claim.claim_id)}
-                            className="text-cyan-600 dark:text-cyan-400 hover:underline font-bold text-[11px] flex items-center gap-1 cursor-pointer"
+                            className="text-emerald-700 dark:text-neon-emerald hover:underline font-bold text-[11px] flex items-center gap-1 cursor-pointer"
                           >
                             <span>Judge Reasoning</span> <span>{isExpanded ? '▲' : '▼'}</span>
                           </button>
@@ -951,7 +951,7 @@ export default function EchoShowSimulator() {
                             <ul className="space-y-1 mt-1">
                               {claim.reasoning_steps.map((r, i) => (
                                 <li key={i} className="text-[11px] text-zinc-700 dark:text-zinc-300 flex items-start gap-1.5">
-                                  <span className="text-cyan-500 font-bold">•</span>
+                                  <span className="text-emerald-500 font-bold">•</span>
                                   <span>{r}</span>
                                 </li>
                               ))}
@@ -973,7 +973,7 @@ export default function EchoShowSimulator() {
               {/* TAB 2: ALEXA APL 2.0 JSON EXPORTER */}
               {activeRightTab === 'apl' && (
                 <div className="flex flex-col h-full">
-                  <div className="flex items-center justify-between mb-3 bg-gradient-to-r from-cyan-950 via-zinc-900 to-sky-950 text-white p-3.5 rounded-2xl border border-zinc-700/40 flex-wrap gap-2">
+                  <div className="flex items-center justify-between mb-3 bg-gradient-to-r from-emerald-950 via-zinc-900 to-teal-950 text-white p-3.5 rounded-2xl border border-zinc-700/40 flex-wrap gap-2">
                     <div>
                       <span className="text-xs font-bold text-white block">
                         Official Alexa.Presentation.APL.RenderDocument Directive (v2024.2)
@@ -986,7 +986,7 @@ export default function EchoShowSimulator() {
                     <div className="flex items-center gap-2">
                       <button
                         onClick={copyAplJson}
-                        className="neu-button px-3 py-1.5 text-xs font-bold text-cyan-700 dark:text-cyan-300 bg-white hover:bg-slate-50 border border-cyan-200 cursor-pointer"
+                        className="neu-button px-3 py-1.5 text-xs font-bold text-emerald-700 dark:text-neon-emerald bg-white hover:bg-slate-50 border border-emerald-300 cursor-pointer"
                       >
                         {copyAplStatus}
                       </button>
@@ -1032,7 +1032,7 @@ export default function EchoShowSimulator() {
                           <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-100 dark:bg-emerald-950/70 text-emerald-800 dark:text-emerald-300">
                             {step.status.toUpperCase()}
                           </span>
-                          <span className="px-3 py-1 rounded text-xs font-mono font-bold bg-cyan-100 dark:bg-cyan-950/60 text-cyan-800 dark:text-cyan-200">
+                          <span className="px-3 py-1 rounded text-xs font-mono font-bold bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300">
                             {step.latency_ms}ms
                           </span>
                         </div>
@@ -1069,7 +1069,7 @@ export default function EchoShowSimulator() {
             </pre>
 
             <div className="flex justify-end gap-2">
-              <button onClick={copyJson} className="neu-button px-4 py-2 text-xs font-bold text-cyan-600 dark:text-cyan-400 cursor-pointer">
+              <button onClick={copyJson} className="neu-button px-4 py-2 text-xs font-bold text-emerald-700 dark:text-neon-emerald cursor-pointer">
                 {copyStatus}
               </button>
               <button onClick={() => setShowJsonModal(false)} className="neu-button px-4 py-2 text-xs font-bold text-zinc-600 dark:text-zinc-400 cursor-pointer">

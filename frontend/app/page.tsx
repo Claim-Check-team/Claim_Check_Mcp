@@ -107,118 +107,54 @@ export default function RefinedLandingPage() {
   return (
     <div className="min-h-screen bg-[#070a0e] text-slate-100 selection:bg-emerald-500 selection:text-black relative overflow-x-hidden blueprint-grid">
       {/* 3D HOLOGRAPHIC BACKGROUND ACCENT */}
-      <div className="fixed inset-0 pointer-events-none z-0">
-        <div
-          className="absolute inset-0 bg-cover bg-center opacity-30 mix-blend-screen scale-105"
-          style={{ backgroundImage: "url('/epistemic_3d_bg.jpg')" }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#070a0e]/60 via-[#070a0e]/85 to-[#070a0e]" />
-      </div>
-
-      {/* TOP TACTICAL HUD NAV */}
-      <header className="sticky top-0 z-50 border-b border-emerald-500/20 glass-panel backdrop-blur-2xl">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-6">
-            <Link href="/" className="flex items-center gap-3 group">
-              <div className="w-9 h-9 rounded-xl neu-raised flex items-center justify-center font-mono font-black text-sm tracking-tight border border-emerald-500/30 shadow-emerald-glow bg-[#0a0f16]">
-                <span className="text-[#00f59b]">CC</span>
-              </div>
-              <div className="flex flex-col">
-                <span className="font-extrabold text-sm tracking-tight text-white flex items-center gap-2">
-                  CLAIM-CHECK
-                  <span className="text-[10px] px-1.5 py-0.2 rounded bg-emerald-950/80 border border-emerald-500/40 text-[#00f59b] font-mono">
-                    MCP 2025-11-25
-                  </span>
-                </span>
-                <span className="text-[10px] text-emerald-400/80 font-mono">Epistemic Voice Safety Kernel</span>
-              </div>
-            </Link>
-
-            {/* KEYWORD HUBS */}
-            <nav className="hidden lg:flex items-center gap-1.5 pl-6 border-l border-emerald-500/20 text-xs font-mono">
-              <Link href="/simulator" className="px-3 py-1 rounded-lg border border-transparent hover:border-emerald-500/30 hover:bg-emerald-950/40 text-slate-300 hover:text-[#00f59b] transition-all flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#00f59b]" />
-                <span>ECHO</span>
-              </Link>
-              <Link href="/stress-lab" className="px-3 py-1 rounded-lg border border-transparent hover:border-amber-500/30 hover:bg-amber-950/40 text-slate-300 hover:text-[#fbbf24] transition-all flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#fbbf24]" />
-                <span>STRESS LAB</span>
-              </Link>
-              <Link href="/architecture" className="px-3 py-1 rounded-lg border border-transparent hover:border-emerald-500/30 hover:bg-emerald-950/40 text-slate-300 hover:text-[#00f59b] transition-all flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#00f59b]" />
-                <span>ARCHITECTURE</span>
-              </Link>
-              <Link href="/protocol" className="px-3 py-1 rounded-lg border border-transparent hover:border-emerald-500/30 hover:bg-emerald-950/40 text-slate-300 hover:text-[#00f59b] transition-all flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-slate-400" />
-                <span>PROTOCOL</span>
-              </Link>
-            </nav>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <div className="hidden sm:flex items-center gap-2 px-3 py-1 rounded-full border border-emerald-500/30 bg-emerald-950/50 text-[11px] font-mono text-[#00f59b]">
-              <span className="w-2 h-2 rounded-full bg-[#00f59b] animate-ping" />
-              <span>SLA: 1,340ms Verified</span>
-            </div>
-            <ThemeToggle />
-            <Link
-              href="/simulator"
-              className="px-4 py-1.5 rounded-xl text-xs font-bold bg-gradient-to-r from-emerald-600 to-[#00f59b] text-black hover:opacity-95 transition-all shadow-emerald-glow"
-            >
-              Hardware Console &rarr;
-            </Link>
-          </div>
-        </div>
-      </header>
-
       {/* HERO SECTION */}
-      <section className="relative z-10 pt-12 pb-10 sm:pt-20 sm:pb-14 px-4 sm:px-6 max-w-7xl mx-auto">
+      <section className="relative z-10 pt-8 pb-10 sm:pt-14 sm:pb-14 px-4 sm:px-6 max-w-7xl mx-auto">
         <div className="text-center max-w-4xl mx-auto space-y-6">
 
           {/* SKEWED HUD CHIP */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-xl border border-emerald-500/30 bg-emerald-950/40 text-xs font-mono text-[#00f59b] shadow-hud-glow skew-hud">
-            <span className="font-extrabold text-[#fbbf24] unskew-hud">[VOICE SAFETY KERNEL]</span>
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-xl border border-emerald-500/30 bg-emerald-100 text-emerald-800 dark:bg-emerald-950/40 dark:text-[#00f59b] shadow-hud-glow skew-hud">
+            <span className="font-extrabold text-amber-700 dark:text-[#fbbf24] unskew-hud">[VOICE SAFETY KERNEL]</span>
             <span className="text-emerald-500/40 unskew-hud">|</span>
             <span className="unskew-hud">Pre-TTS Grounding for Amazon Alexa+</span>
           </div>
 
           {/* MAIN HEADLINE */}
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.08]">
+          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.08]">
             Epistemic Safety for <br />
-            <span className="chatgpt-resonance font-mono">Enterprise Voice AI</span>
+            <span className="epistemic-resonance font-mono">Enterprise Voice AI</span>
           </h1>
 
           {/* ULTRA-PUNCHY VALUE PROPOSITION (LESS TEXT, MORE IMPACT) */}
-          <p className="text-base sm:text-xl text-slate-300 font-medium max-w-2xl mx-auto leading-relaxed">
-            Eliminates agentic voice hallucinations in <strong className="text-[#00f59b] font-mono">1,340ms</strong>.
+          <p className="text-base sm:text-xl text-slate-600 dark:text-slate-300 font-medium max-w-2xl mx-auto leading-relaxed">
+            Eliminates agentic voice hallucinations in <strong className="text-emerald-700 dark:text-[#00f59b] font-mono">1,340ms</strong>.
             Deconstructs streaming claims, validates against live Wikipedia registries, and speaks self-corrected truths.
           </p>
 
           {/* POSITIONED KEYWORD HUBS STRIP */}
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 pt-3 max-w-4xl mx-auto">
-            <div className="glass-panel p-2.5 rounded-xl border border-emerald-500/20 text-center hover:border-emerald-500/50 transition-all group">
-              <span className="text-[10px] font-mono font-bold text-emerald-400 block uppercase">01 / VOICE</span>
-              <span className="text-xs font-extrabold text-white group-hover:text-[#00f59b]">Far-Field ASR</span>
+            <div className="tactical-glass p-2.5 rounded-xl border border-emerald-500/30 text-center hover:border-emerald-500/60 transition-all group shadow-sm">
+              <span className="text-[10px] font-mono font-bold text-emerald-700 dark:text-emerald-400 block uppercase">01 / VOICE</span>
+              <span className="text-xs font-extrabold text-slate-900 dark:text-white group-hover:text-emerald-700 dark:group-hover:text-[#00f59b]">Far-Field ASR</span>
             </div>
-            <div className="glass-panel p-2.5 rounded-xl border border-amber-500/20 text-center hover:border-amber-500/50 transition-all group">
-              <span className="text-[10px] font-mono font-bold text-[#fbbf24] block uppercase">02 / RECORD</span>
-              <span className="text-xs font-extrabold text-white group-hover:text-[#fbbf24]">Wiki Registry</span>
+            <div className="tactical-glass p-2.5 rounded-xl border border-amber-500/30 text-center hover:border-amber-500/60 transition-all group shadow-sm">
+              <span className="text-[10px] font-mono font-bold text-amber-700 dark:text-[#fbbf24] block uppercase">02 / RECORD</span>
+              <span className="text-xs font-extrabold text-slate-900 dark:text-white group-hover:text-amber-700 dark:group-hover:text-[#fbbf24]">Wiki Registry</span>
             </div>
-            <div className="glass-panel p-2.5 rounded-xl border border-emerald-500/20 text-center hover:border-emerald-500/50 transition-all group">
-              <span className="text-[10px] font-mono font-bold text-emerald-400 block uppercase">03 / STRESS</span>
-              <span className="text-xs font-extrabold text-white group-hover:text-[#00f59b]">6 Failure Modes</span>
+            <div className="tactical-glass p-2.5 rounded-xl border border-emerald-500/30 text-center hover:border-emerald-500/60 transition-all group shadow-sm">
+              <span className="text-[10px] font-mono font-bold text-emerald-700 dark:text-emerald-400 block uppercase">03 / STRESS</span>
+              <span className="text-xs font-extrabold text-slate-900 dark:text-white group-hover:text-emerald-700 dark:group-hover:text-[#00f59b]">6 Failure Modes</span>
             </div>
-            <div className="glass-panel p-2.5 rounded-xl border border-amber-500/20 text-center hover:border-amber-500/50 transition-all group">
-              <span className="text-[10px] font-mono font-bold text-[#fbbf24] block uppercase">04 / LABORATORY</span>
-              <span className="text-xs font-extrabold text-white group-hover:text-[#fbbf24]">CoT Rubrics</span>
+            <div className="tactical-glass p-2.5 rounded-xl border border-amber-500/30 text-center hover:border-amber-500/60 transition-all group shadow-sm">
+              <span className="text-[10px] font-mono font-bold text-amber-700 dark:text-[#fbbf24] block uppercase">04 / LABORATORY</span>
+              <span className="text-xs font-extrabold text-slate-900 dark:text-white group-hover:text-amber-700 dark:group-hover:text-[#fbbf24]">CoT Rubrics</span>
             </div>
-            <div className="glass-panel p-2.5 rounded-xl border border-emerald-500/20 text-center hover:border-emerald-500/50 transition-all group">
-              <span className="text-[10px] font-mono font-bold text-emerald-400 block uppercase">05 / ECHO</span>
-              <span className="text-xs font-extrabold text-white group-hover:text-[#00f59b]">APL 2.0 Screen</span>
+            <div className="tactical-glass p-2.5 rounded-xl border border-emerald-500/30 text-center hover:border-emerald-500/60 transition-all group shadow-sm">
+              <span className="text-[10px] font-mono font-bold text-emerald-700 dark:text-emerald-400 block uppercase">05 / ECHO</span>
+              <span className="text-xs font-extrabold text-slate-900 dark:text-white group-hover:text-emerald-700 dark:group-hover:text-[#00f59b]">APL 2.0 Screen</span>
             </div>
-            <div className="glass-panel p-2.5 rounded-xl border border-amber-500/20 text-center hover:border-amber-500/50 transition-all group">
-              <span className="text-[10px] font-mono font-bold text-[#fbbf24] block uppercase">06 / ARCHITECTURE</span>
-              <span className="text-xs font-extrabold text-white group-hover:text-[#fbbf24]">Streamable MCP</span>
+            <div className="tactical-glass p-2.5 rounded-xl border border-amber-500/30 text-center hover:border-amber-500/60 transition-all group shadow-sm">
+              <span className="text-[10px] font-mono font-bold text-amber-700 dark:text-[#fbbf24] block uppercase">06 / ARCHITECTURE</span>
+              <span className="text-xs font-extrabold text-slate-900 dark:text-white group-hover:text-amber-700 dark:group-hover:text-[#fbbf24]">Streamable MCP</span>
             </div>
           </div>
 
@@ -233,16 +169,16 @@ export default function RefinedLandingPage() {
             </Link>
             <Link
               href="/stress-lab"
-              className="px-6 py-3.5 rounded-2xl text-sm font-bold border border-emerald-500/40 text-emerald-300 hover:bg-emerald-950/40 transition-all glass-panel cursor-pointer flex items-center gap-2"
+              className="px-6 py-3.5 rounded-2xl text-sm font-bold border border-emerald-500/40 text-emerald-800 dark:text-emerald-300 hover:bg-emerald-100/60 dark:hover:bg-emerald-950/40 transition-all tactical-glass cursor-pointer flex items-center gap-2 shadow-sm"
             >
               <span>Explore Stress Lab</span>
-              <span className="w-2 h-2 rounded-full bg-[#fbbf24] animate-ping" />
+              <span className="w-2 h-2 rounded-full bg-amber-500 animate-ping" />
             </Link>
           </div>
         </div>
 
         {/* INTERACTIVE BLUEPRINT CONSOLE */}
-        <div className="mt-12 max-w-6xl mx-auto rounded-3xl border border-emerald-500/30 glass-panel shadow-2xl overflow-hidden relative">
+        <div className="mt-12 max-w-6xl mx-auto rounded-3xl border border-emerald-500/30 tactical-glass shadow-2xl overflow-hidden relative">
           <div className="glass-specular-glare" />
 
           {/* CONSOLE TOP BAR */}
@@ -307,14 +243,14 @@ export default function RefinedLandingPage() {
                 </span>
               </div>
 
-              <div className="neu-inset p-3.5 rounded-2xl space-y-1.5">
+              <div className="bg-[#0c1420] p-3.5 rounded-2xl border border-emerald-500/20 space-y-1.5">
                 <span className="text-[10px] font-mono text-slate-400 uppercase">User Query:</span>
                 <p className="text-xs text-slate-200 italic">
                   &ldquo;{current.query}&rdquo;
                 </p>
               </div>
 
-              <div className="neu-inset p-3.5 rounded-2xl space-y-1.5">
+              <div className="bg-[#0c1420] p-3.5 rounded-2xl border border-rose-500/20 space-y-1.5">
                 <div className="flex items-center justify-between">
                   <span className="text-[10px] font-mono text-slate-400 uppercase">Unchecked Model Speech:</span>
                   <span className="text-[10px] font-mono text-rose-400 font-bold">HALLUCINATED</span>
@@ -348,7 +284,7 @@ export default function RefinedLandingPage() {
                 {current.svoClaims.map((c, i) => (
                   <div
                     key={i}
-                    className="p-3 rounded-2xl border border-emerald-500/20 neu-inset space-y-1.5 text-xs"
+                    className="p-3 rounded-2xl border border-emerald-500/20 bg-[#0c1420] space-y-1.5 text-xs"
                   >
                     <div className="flex items-center justify-between text-[10px] font-mono">
                       <span className="text-emerald-400/90">{c.source}</span>
@@ -389,7 +325,7 @@ export default function RefinedLandingPage() {
                 </span>
               </div>
 
-              <div className="p-4 rounded-2xl border border-emerald-500/40 neu-raised space-y-2 bg-[#0d141e]">
+              <div className="p-4 rounded-2xl border border-emerald-500/40 space-y-2 bg-[#0d141e]">
                 <div className="flex items-center justify-between text-[11px] font-mono text-emerald-400">
                   <span>Synthesized Safe Audio:</span>
                   <span className="text-[#fbbf24] font-bold">Sub-1.4s</span>

@@ -142,7 +142,7 @@ export default function HarmonizedArchitecturePage() {
     <div className="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto space-y-6 blueprint-grid min-h-screen">
       
       {/* CAD BLUEPRINT HEADER */}
-      <div className="p-6 rounded-3xl neu-raised relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border border-slate-300 dark:border-emerald-500/30">
+      <div className="p-6 rounded-3xl tactical-glass relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border border-slate-300 dark:border-emerald-500/30 shadow-md">
         <div>
           <div className="flex items-center gap-3 mb-2 flex-wrap">
             <span className="skew-hud px-2.5 py-0.5 rounded text-[10px] font-mono font-black bg-emerald-100 text-emerald-800 dark:bg-neon-emerald/20 dark:text-neon-emerald border border-emerald-300 dark:border-neon-emerald/50">

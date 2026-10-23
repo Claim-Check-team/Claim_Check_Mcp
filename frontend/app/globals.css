@@ -35,6 +35,7 @@ code, pre, .font-mono {
   box-shadow: 8px 8px 20px #cbd5e1, -8px -8px 20px #ffffff;
   border: 1px solid rgba(255, 255, 255, 0.85);
   border-radius: 20px;
+  color: #0f172a;
 }
 
 .neu-raised-sm {
@@ -42,6 +43,7 @@ code, pre, .font-mono {
   box-shadow: 4px 4px 12px #cbd5e1, -4px -4px 12px #ffffff;
   border: 1px solid rgba(255, 255, 255, 0.85);
   border-radius: 14px;
+  color: #0f172a;
 }
 
 .neu-inset {
@@ -49,6 +51,7 @@ code, pre, .font-mono {
   box-shadow: inset 4px 4px 8px #cbd5e1, inset -4px -4px 8px #ffffff;
   border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 14px;
+  color: #0f172a;
 }
 
 .neu-button {
@@ -92,6 +95,7 @@ code, pre, .font-mono {
   border: 1px solid rgba(255, 255, 255, 0.95);
   box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.05);
   border-radius: 20px;
+  color: #0f172a;
 }
 
 .glass-specular-glare {
@@ -233,6 +237,40 @@ html.dark .speaker-acoustic-grill {
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.85);
   box-shadow: 0 16px 36px -10px rgba(15, 23, 42, 0.08), inset 0 1px 2px rgba(255, 255, 255, 0.9);
+  color: #0f172a;
+}
+
+/* TACTICAL OBSIDIAN & TITANIUM GLASS (Adaptive contrast in both light and dark) */
+.tactical-glass {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(24px) saturate(190%);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  box-shadow: 0 16px 36px -10px rgba(15, 23, 42, 0.08);
+  color: #0f172a;
+}
+
+.tactical-panel {
+  background: #ffffff;
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.05);
+  color: #0f172a;
+}
+
+html.dark .tactical-glass {
+  background: rgba(10, 15, 22, 0.85) !important;
+  backdrop-filter: blur(24px) saturate(190%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(190%) !important;
+  border: 1px solid rgba(0, 245, 155, 0.25) !important;
+  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.85), inset 0 1px 2px rgba(255, 255, 255, 0.06) !important;
+  color: #f4f4f5 !important;
+}
+
+html.dark .tactical-panel {
+  background: #090e15 !important;
+  border: 1px solid rgba(0, 245, 155, 0.2) !important;
+  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.85) !important;
+  color: #f4f4f5 !important;
 }
 
 html.dark .glass-panel {
@@ -241,13 +279,14 @@ html.dark .glass-panel {
   -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
   border: 1px solid rgba(16, 185, 129, 0.2) !important;
   box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.85), inset 0 1px 2px rgba(255, 255, 255, 0.05) !important;
+  color: #f4f4f5 !important;
 }
 
 .glass-nav {
-  background: rgba(255, 255, 255, 0.75);
+  background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(16px) saturate(180%);
   -webkit-backdrop-filter: blur(16px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(16, 185, 129, 0.3);
 }
 
 html.dark .glass-nav {
@@ -259,11 +298,23 @@ html.dark .glass-nav {
 .blueprint-grid {
   background-size: 28px 28px;
   background-image: 
+    linear-gradient(to right, rgba(100, 116, 139, 0.12) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(100, 116, 139, 0.12) 1px, transparent 1px);
+}
+
+html.dark .blueprint-grid {
+  background-image: 
     linear-gradient(to right, rgba(16, 185, 129, 0.08) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(16, 185, 129, 0.08) 1px, transparent 1px);
 }
 
 .blueprint-frame {
+  background: radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.08), transparent 70%), #ffffff;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  box-shadow: 0 10px 30px -10px rgba(16, 185, 129, 0.15);
+}
+
+html.dark .blueprint-frame {
   background: radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.12), transparent 70%), #0a0f16;
   border: 1px solid rgba(16, 185, 129, 0.3);
   box-shadow: 0 0 35px -10px rgba(0, 245, 155, 0.2), inset 0 1px 2px rgba(255, 255, 255, 0.1);
@@ -303,8 +354,8 @@ html.dark .morphism-badge {
   box-shadow: inset 1px 1px 2px rgba(255, 255, 255, 0.05), 0 2px 5px rgba(0, 0, 0, 0.4) !important;
 }
 
-/* ChatGPT-Style Epistemic Thinking Resonance */
-.chatgpt-resonance {
+/* Epistemic Safety Reasoning Resonance */
+.epistemic-resonance {
   background: linear-gradient(90deg, #00f59b 0%, #fbbf24 50%, #00f59b 100%);
   background-size: 200% auto;
   color: transparent;
