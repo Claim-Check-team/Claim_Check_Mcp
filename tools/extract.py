@@ -54,11 +54,11 @@ def _heuristic_extract(response_text: str) -> Dict[str, Any]:
     
     split_chunks: List[str] = []
     for s in sentences:
-        # Split predicate-based conjunctions (e.g. ", was...", ", and is...", "; ")
+        # Split predicate-based conjunctions, relative pronouns, and semicolons
         raw_clauses = [
             c.strip()
             for c in re.split(
-                r",\s*(?:and\s+)?(?=(?:is|was|are|were|has|have|had|can|should|could|would|will)\b|[A-Z])|;\s*|\s+and\s+(?=[A-Z])",
+                r",\s*(?:and\s+)?(?=(?:is|was|are|were|has|have|had|can|should|could|would|will|who|which|won|invented|created|discovered)\b|[A-Z])|;\s*|\s+and\s+(?=[A-Z])",
                 s
             )
             if c.strip()
@@ -66,17 +66,20 @@ def _heuristic_extract(response_text: str) -> Dict[str, Any]:
         if not raw_clauses:
             continue
 
-        # Extract subject from first clause (e.g. "Aspirin" or "The Great Wall of China")
+        # Extract subject from first clause (e.g. "Marie Curie" or "Aspirin")
         subject_match = re.match(
-            r"^(?:The\s+)?([A-Z][a-zA-Z\s]+?)(?=\s+(?:is|was|are|were|has|have|had|can|should|could|would|will|reduces|creates|causes)\b)",
+            r"^(?:The\s+)?([A-Z][a-zA-Z\s]+?)(?=\s+(?:is|was|are|were|has|have|had|can|should|could|would|will|reduces|creates|causes|won|invented|discovered)\b)",
             raw_clauses[0]
         )
         subject = subject_match.group(0) if subject_match else raw_clauses[0].split()[0]
 
         for idx, clause in enumerate(raw_clauses):
             cleaned = clause.strip().rstrip(".,")
-            if idx > 0 and re.match(r"^(?:is|was|are|were|has|have|had|can|should|could|would|will)\b", cleaned, re.IGNORECASE):
-                cleaned = f"{subject} {cleaned}"
+            if idx > 0:
+                if re.match(r"^(?:who|which)\s+", cleaned, re.IGNORECASE):
+                    cleaned = re.sub(r"^(?:who|which)\s+", f"{subject} ", cleaned, flags=re.IGNORECASE)
+                elif re.match(r"^(?:is|was|are|were|has|have|had|can|should|could|would|will|won|invented|created|discovered)\b", cleaned, re.IGNORECASE):
+                    cleaned = f"{subject} {cleaned}"
             if len(cleaned) > 5:
                 split_chunks.append(cleaned + ".")
 

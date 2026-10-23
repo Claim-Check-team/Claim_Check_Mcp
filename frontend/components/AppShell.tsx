@@ -3,6 +3,7 @@
 import React from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
+import { LayoutDashboard, Radio, FlaskConical, Cpu, Terminal } from 'lucide-react';
 import ThemeToggle from './ThemeToggle';
 
 interface DockTab {
@@ -10,15 +11,15 @@ interface DockTab {
   code: string;
   title: string;
   subtitle: string;
-  icon: string;
+  icon: React.ReactNode;
 }
 
 const DOCK_TABS: DockTab[] = [
-  { href: '/', code: '01', title: 'OVERVIEW', subtitle: 'Hologram & Live Eval', icon: '⚡' },
-  { href: '/simulator', code: '02', title: 'SIMULATOR', subtitle: 'Echo Rotary Dial', icon: '◎' },
-  { href: '/stress-lab', code: '03', title: 'STRESS LAB', subtitle: 'Epistemic Trace', icon: '🔬' },
-  { href: '/architecture', code: '04', title: 'BLUEPRINT CAD', subtitle: 'Single-Frame Schematic', icon: '📐' },
-  { href: '/protocol', code: '05', title: 'PROTOCOL', subtitle: 'Wire JSON-RPC 2.0', icon: '☵' },
+  { href: '/', code: '01', title: 'OVERVIEW', subtitle: 'Hologram & Live Eval', icon: <LayoutDashboard className="w-3.5 h-3.5" /> },
+  { href: '/simulator', code: '02', title: 'SIMULATOR', subtitle: 'Echo Rotary Dial', icon: <Radio className="w-3.5 h-3.5" /> },
+  { href: '/stress-lab', code: '03', title: 'STRESS LAB', subtitle: 'Epistemic Trace', icon: <FlaskConical className="w-3.5 h-3.5" /> },
+  { href: '/architecture', code: '04', title: 'BLUEPRINT CAD', subtitle: 'Single-Frame Schematic', icon: <Cpu className="w-3.5 h-3.5" /> },
+  { href: '/protocol', code: '05', title: 'PROTOCOL', subtitle: 'Wire JSON-RPC 2.0', icon: <Terminal className="w-3.5 h-3.5" /> },
 ];
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
@@ -83,9 +84,9 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
         {children}
       </main>
 
-      {/* FLOATING CYBERNETIC MISSION CONTROL DOCK - COMPACT SLEEK CAPSULE */}
+      {/* FLOATING MISSION CONTROL DOCK - COMPACT SLEEK CAPSULE */}
       <nav className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 pointer-events-auto">
-        <div className="px-2 py-1.5 rounded-2xl tactical-glass shadow-2xl border border-slate-300 dark:border-emerald-500/40 backdrop-blur-2xl flex items-center gap-1">
+        <div className="px-2 py-1.5 rounded-2xl bg-white/90 dark:bg-[#0b1017]/90 shadow-xl border border-slate-200 dark:border-slate-800 backdrop-blur-2xl flex items-center gap-1">
           {DOCK_TABS.map((tab) => {
             const isActive = pathname === tab.href;
             return (
@@ -94,16 +95,16 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                 href={tab.href}
                 className={`relative px-3 py-1.5 rounded-xl transition-all flex items-center gap-1.5 select-none text-xs font-mono font-bold whitespace-nowrap ${
                   isActive
-                    ? 'bg-emerald-600 text-white dark:bg-emerald-500/20 dark:text-[#00f59b] border border-emerald-700 dark:border-emerald-500/60 shadow-sm z-10'
-                    : 'text-slate-600 dark:text-zinc-400 hover:text-slate-950 dark:hover:text-white hover:bg-slate-200/60 dark:hover:bg-zinc-800/60'
+                    ? 'bg-emerald-600 text-white dark:bg-emerald-500/20 dark:text-[#00f59b] border border-emerald-600 dark:border-emerald-500/60 shadow-sm z-10'
+                    : 'text-slate-600 dark:text-zinc-400 hover:text-slate-950 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-zinc-800/60'
                 }`}
               >
                 {/* Active Indicator Micro-Beacon */}
                 {isActive && (
-                  <span className="absolute -top-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-white dark:bg-[#00f59b] shadow-emerald-glow animate-pulse" />
+                  <span className="absolute -top-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-white dark:bg-[#00f59b] shadow-sm animate-pulse" />
                 )}
 
-                <span className="text-sm">{tab.icon}</span>
+                <span className="shrink-0 flex items-center justify-center">{tab.icon}</span>
                 <span className="tracking-tight">{tab.title}</span>
               </Link>
             );

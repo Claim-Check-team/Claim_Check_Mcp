@@ -142,16 +142,16 @@ export default function HarmonizedArchitecturePage() {
     <div className="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto space-y-6 blueprint-grid min-h-screen">
       
       {/* CAD BLUEPRINT HEADER */}
-      <div className="p-6 rounded-3xl tactical-glass relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border border-slate-300 dark:border-emerald-500/30 shadow-md">
+      <div className="p-6 rounded-3xl bg-white dark:bg-[#0b1017] relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border border-slate-200 dark:border-slate-800 shadow-sm">
         <div>
-          <div className="flex items-center gap-3 mb-2 flex-wrap">
-            <span className="skew-hud px-2.5 py-0.5 rounded text-[10px] font-mono font-black bg-emerald-100 text-emerald-800 dark:bg-neon-emerald/20 dark:text-neon-emerald border border-emerald-300 dark:border-neon-emerald/50">
-              BLUEPRINT // CAD SCHEMATIC
+          <div className="flex items-center gap-2.5 mb-2.5 flex-wrap">
+            <span className="px-2.5 py-1 rounded-md text-[10px] font-mono font-bold bg-emerald-50 text-emerald-800 dark:bg-emerald-950/40 dark:text-neon-emerald border border-emerald-200 dark:border-emerald-800/60">
+              BLUEPRINT // ARCHITECTURE SCHEMATIC
             </span>
-            <span className="px-2 py-0.5 rounded text-[10px] font-mono text-amber-800 dark:text-neon-gold border border-amber-300 dark:border-amber-500/30 bg-amber-50 dark:bg-amber-500/10 font-bold">
-              VOICE • RECORD • STRESS • LABORATORY • ECHO • ARCHITECTURE
+            <span className="px-2.5 py-1 rounded-md text-[10px] font-mono text-amber-800 dark:text-neon-gold border border-amber-200 dark:border-amber-500/30 bg-amber-50/80 dark:bg-amber-500/10 font-bold">
+              VOICE • RECORD • STRESS • LABORATORY • ECHO
             </span>
-            <span className="px-2 py-0.5 rounded text-[10px] font-mono text-slate-600 dark:text-zinc-400 border border-slate-300 dark:border-zinc-700 bg-slate-100 dark:bg-zinc-900">
+            <span className="px-2.5 py-1 rounded-md text-[10px] font-mono text-slate-600 dark:text-zinc-400 border border-slate-200 dark:border-zinc-800 bg-slate-100 dark:bg-zinc-900">
               FAST-MCP SPEC 2025-11-25
             </span>
           </div>
@@ -173,13 +173,13 @@ export default function HarmonizedArchitecturePage() {
             onClick={() => setIsPlaying(!isPlaying)}
             className={`px-4 py-2 rounded-xl font-bold flex items-center gap-2 cursor-pointer transition-all border ${
               isPlaying
-                ? 'bg-emerald-100 text-emerald-900 dark:bg-zinc-950 dark:text-neon-emerald border-emerald-400 dark:border-neon-emerald shadow-emerald-glow'
-                : 'bg-slate-100 text-slate-800 dark:bg-zinc-900 dark:text-zinc-300 border-slate-300 dark:border-zinc-700 hover:border-emerald-500'
+                ? 'bg-emerald-600 text-white dark:bg-emerald-500 dark:text-black border-emerald-600 dark:border-emerald-400 shadow-sm'
+                : 'bg-white text-slate-800 dark:bg-zinc-900 dark:text-zinc-300 border-slate-300 dark:border-zinc-700 hover:border-emerald-500 shadow-sm'
             }`}
           >
             {isPlaying ? (
               <>
-                <span className="w-2 h-2 rounded-full bg-emerald-600 dark:bg-neon-emerald animate-ping" />
+                <span className="w-2 h-2 rounded-full bg-white dark:bg-black animate-ping" />
                 <span>PAUSE AUTO-RUN</span>
               </>
             ) : (
@@ -213,74 +213,74 @@ export default function HarmonizedArchitecturePage() {
       </div>
 
       {/* VIEW TABS */}
-      <div className="flex items-center gap-2 border-b border-slate-300 dark:border-zinc-800 pb-2">
+      <div className="flex items-center gap-2 border-b border-slate-200 dark:border-zinc-800 pb-2">
         <button
           onClick={() => setActiveTab('blueprint')}
-          className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer ${
+          className={`px-3.5 py-2 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer ${
             activeTab === 'blueprint'
-              ? 'bg-emerald-100 text-emerald-900 dark:bg-emerald-500/20 dark:text-neon-emerald border border-emerald-400 dark:border-emerald-500/40'
-              : 'text-slate-600 dark:text-zinc-400 hover:text-slate-950 dark:hover:text-white'
+              ? 'bg-emerald-600 text-white dark:bg-emerald-500 dark:text-black shadow-sm'
+              : 'text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-zinc-850'
           }`}
         >
-          [ 01_SCHEMATIC_CANVAS ]
+          01 Schematic Canvas
         </button>
         <button
           onClick={() => setActiveTab('stack')}
-          className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer ${
+          className={`px-3.5 py-2 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer ${
             activeTab === 'stack'
-              ? 'bg-emerald-100 text-emerald-900 dark:bg-emerald-500/20 dark:text-neon-emerald border border-emerald-400 dark:border-emerald-500/40'
-              : 'text-slate-600 dark:text-zinc-400 hover:text-slate-950 dark:hover:text-white'
+              ? 'bg-emerald-600 text-white dark:bg-emerald-500 dark:text-black shadow-sm'
+              : 'text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-zinc-850'
           }`}
         >
-          [ 02_TECH_STACK_MATRIX ]
+          02 Tech Stack Matrix
         </button>
         <button
           onClick={() => setActiveTab('friction')}
-          className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer ${
+          className={`px-3.5 py-2 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer ${
             activeTab === 'friction'
-              ? 'bg-emerald-100 text-emerald-900 dark:bg-emerald-500/20 dark:text-neon-emerald border border-emerald-400 dark:border-emerald-500/40'
-              : 'text-slate-600 dark:text-zinc-400 hover:text-slate-950 dark:hover:text-white'
+              ? 'bg-emerald-600 text-white dark:bg-emerald-500 dark:text-black shadow-sm'
+              : 'text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-zinc-850'
           }`}
         >
-          [ 03_DEVELOPER_FRICTION_LOG ]
+          03 Developer Friction Log
         </button>
       </div>
 
       {activeTab === 'blueprint' && (
         <div className="space-y-6">
           
-          {/* THE CAD BLUEPRINT SCHEMATIC (SINGLE WHOLE-DESIGN FRAME) */}
-          <div className="blueprint-frame p-6 sm:p-8 rounded-3xl relative overflow-hidden bg-slate-900 dark:bg-obsidian-titanium/95 shadow-2xl border border-emerald-500/30 text-white">
+          {/* THE ARCHITECTURE SCHEMATIC FRAME */}
+          <div className="blueprint-frame p-6 sm:p-8 rounded-3xl relative overflow-hidden bg-white dark:bg-[#0b1017] shadow-sm border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white transition-colors">
             {/* Top CAD Header Ribbon */}
-            <div className="flex items-center justify-between pb-4 mb-6 border-b border-emerald-500/30 font-mono text-[11px] text-zinc-300">
+            <div className="flex items-center justify-between pb-4 mb-6 border-b border-slate-200 dark:border-slate-800/80 font-mono text-[11px] text-slate-500 dark:text-zinc-400">
               <div className="flex items-center gap-4">
-                <span className="text-neon-emerald font-bold">CAD-DWG // CLAIM-CHECK-MCP</span>
-                <span>SCALE: 1:1 BUS</span>
-                <span>GRID: 10MM ORTHO</span>
+                <span className="text-emerald-700 dark:text-neon-emerald font-bold tracking-wider">PIPELINE // CLAIM-CHECK-MCP</span>
+                <span className="hidden sm:inline">SCALE: 1:1 BUS</span>
+                <span className="hidden sm:inline">GRID: 10MM ORTHO</span>
               </div>
               <div className="flex items-center gap-3">
-                <span className="text-neon-gold font-bold">TOTAL TTFA SLA: 1,340ms</span>
-                <span className="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-700 text-zinc-300">
+                <span className="text-amber-700 dark:text-neon-gold font-bold">TOTAL TTFA SLA: 1,340ms</span>
+                <span className="px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 text-slate-700 dark:text-zinc-300 font-bold">
                   NODE 0{activeStep} OF 06 ACTIVE
                 </span>
               </div>
             </div>
 
-            {/* FLOWING BUS LINE (ANIMATED LASER PULSE) */}
+            {/* FLOWING BUS LINE (PROGRESS TRACK) */}
             <div className="relative mb-6">
-              <div className="h-1.5 w-full bg-zinc-800 rounded-full overflow-hidden relative">
+              <div className="h-2 w-full bg-slate-100 dark:bg-zinc-800/80 rounded-full overflow-hidden relative border border-slate-200 dark:border-zinc-800">
                 <div
-                  className="h-full bg-gradient-to-r from-neon-emerald via-neon-mint to-neon-gold transition-all duration-500"
+                  className="h-full bg-gradient-to-r from-emerald-500 via-teal-500 to-amber-500 dark:from-neon-emerald dark:via-neon-mint dark:to-neon-gold transition-all duration-500"
                   style={{ width: `${(activeStep / BLUEPRINT_NODES.length) * 100}%` }}
                 />
               </div>
               <div
-                className="absolute -top-1.5 w-4 h-4 rounded-full bg-neon-emerald shadow-emerald-glow border-2 border-white transition-all duration-500"
+                className="absolute -top-1 w-4 h-4 rounded-full bg-emerald-600 dark:bg-neon-emerald border-2 border-white dark:border-zinc-900 shadow-sm transition-all duration-500"
                 style={{ left: `calc(${(activeStep / BLUEPRINT_NODES.length) * 100}% - 8px)` }}
               />
             </div>
 
-            {/* SINGLE FRAME: 6 INTEGRATED BLUEPRINT IC NODES */}
+            {/* 6 INTEGRATED PIPELINE IC NODES */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
               {BLUEPRINT_NODES.map((node) => {
                 const isActive = node.id === activeStep;
@@ -293,61 +293,60 @@ export default function HarmonizedArchitecturePage() {
                       setIsPlaying(false);
                       setActiveStep(node.id);
                     }}
-                    className={`relative p-5 rounded-2xl border transition-all duration-300 cursor-pointer group ${
+                    className={`relative p-5 rounded-2xl border transition-all duration-200 cursor-pointer group ${
                       isActive
-                        ? 'bg-zinc-950 border-neon-emerald shadow-emerald-glow ring-2 ring-neon-emerald/50 scale-[1.02] z-10'
+                        ? 'bg-white dark:bg-slate-900/90 border-emerald-600 dark:border-emerald-500 ring-2 ring-emerald-500/20 shadow-md scale-[1.01] z-10'
                         : isPassed
-                        ? 'bg-zinc-900/60 border-emerald-500/30 opacity-90 hover:opacity-100'
-                        : 'bg-zinc-950/40 border-zinc-800 opacity-60 hover:opacity-90'
+                        ? 'bg-slate-50/80 dark:bg-slate-900/50 border-slate-200 dark:border-slate-800/80 hover:bg-white dark:hover:bg-slate-900/80 hover:border-slate-300 dark:hover:border-slate-700 shadow-sm'
+                        : 'bg-slate-50/50 dark:bg-slate-950/40 border-slate-200/60 dark:border-slate-800/50 hover:bg-white dark:hover:bg-slate-900/60 hover:border-slate-300 dark:hover:border-slate-700 shadow-sm'
                     }`}
                   >
-                    {/* Corner CAD Ticks */}
-                    <div className="absolute top-1.5 left-1.5 font-mono text-[9px] text-zinc-600 pointer-events-none">+</div>
-                    <div className="absolute top-1.5 right-1.5 font-mono text-[9px] text-zinc-600 pointer-events-none">+</div>
-                    <div className="absolute bottom-1.5 left-1.5 font-mono text-[9px] text-zinc-600 pointer-events-none">+</div>
-                    <div className="absolute bottom-1.5 right-1.5 font-mono text-[9px] text-zinc-600 pointer-events-none">+</div>
+                    {/* Top status bar indicator for active node */}
+                    {isActive && (
+                      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-t-2xl" />
+                    )}
 
                     {/* Chip Pin Header */}
                     <div className="flex items-center justify-between mb-2">
-                      <span className={`skew-hud px-2 py-0.5 rounded text-[9px] font-mono font-black ${
+                      <span className={`px-2 py-0.5 rounded text-[9px] font-mono font-bold uppercase tracking-wider ${
                         isActive
-                          ? 'bg-neon-emerald text-black'
-                          : 'bg-zinc-800 text-zinc-400'
+                          ? 'bg-emerald-600 text-white dark:bg-neon-emerald dark:text-black'
+                          : 'bg-slate-200/80 text-slate-700 dark:bg-zinc-800 dark:text-zinc-400'
                       }`}>
                         {node.tag}
                       </span>
-                      <span className="text-[10px] font-mono text-zinc-400">
+                      <span className="text-[10px] font-mono text-slate-500 dark:text-zinc-400 font-semibold">
                         T+{node.latencyMs}ms
                       </span>
                     </div>
 
-                    <div className="font-mono text-xs font-bold text-white tracking-wide mb-1">
+                    <div className="font-mono text-xs font-bold text-slate-900 dark:text-white tracking-wide mb-1">
                       {node.code}
                     </div>
 
-                    <h3 className="font-display font-black text-sm text-zinc-100 mb-2">
+                    <h3 className="font-display font-extrabold text-sm text-slate-800 dark:text-zinc-100 mb-1.5">
                       {node.title}
                     </h3>
 
-                    <div className="text-[11px] font-mono text-zinc-400 truncate mb-3">
+                    <div className="text-[11px] font-mono text-slate-500 dark:text-zinc-400 truncate mb-3">
                       {node.component}
                     </div>
 
                     {/* Pinout Bus Connectors */}
-                    <div className="flex items-center gap-1.5 flex-wrap pt-2 border-t border-zinc-800/80">
+                    <div className="flex items-center gap-1.5 flex-wrap pt-2.5 border-t border-slate-200 dark:border-zinc-800/80">
                       {node.pins.map((pin, i) => (
                         <span
                           key={i}
                           className={`text-[8px] font-mono px-1.5 py-0.5 rounded border ${
                             isActive
-                              ? 'bg-emerald-500/10 text-neon-emerald border-emerald-500/40'
-                              : 'bg-zinc-900 text-zinc-500 border-zinc-800'
+                              ? 'bg-emerald-50 text-emerald-800 border-emerald-200 dark:bg-emerald-950/40 dark:text-neon-emerald dark:border-emerald-800/60'
+                              : 'bg-slate-100 text-slate-600 border-slate-200 dark:bg-zinc-900 dark:text-zinc-400 dark:border-zinc-800'
                           }`}
                         >
                           PIN:{pin}
                         </span>
                       ))}
-                      <span className="ml-auto text-[9px] font-mono font-bold text-neon-gold">
+                      <span className="ml-auto text-[9px] font-mono font-bold text-amber-700 dark:text-neon-gold">
                         {node.metric}
                       </span>
                     </div>
@@ -357,24 +356,24 @@ export default function HarmonizedArchitecturePage() {
             </div>
 
             {/* Bottom CAD Metadata Stamp */}
-            <div className="mt-8 pt-4 border-t border-emerald-500/20 flex flex-col sm:flex-row items-center justify-between gap-3 font-mono text-[10px] text-zinc-400">
-              <div className="flex items-center gap-3">
+            <div className="mt-8 pt-4 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 font-mono text-[10px] text-slate-500 dark:text-zinc-400">
+              <div className="flex items-center gap-3 flex-wrap">
                 <span>PROJECT: CLAIM-CHECK-MCP</span>
                 <span>STAGE: HARDWARE VERIFICATION</span>
                 <span>SECURITY: ZERO AIR-GAP HALLUCINATIONS</span>
               </div>
-              <div className="text-neon-emerald font-bold">
+              <div className="text-emerald-700 dark:text-neon-emerald font-bold">
                 STATUS: PIPELINE ONLINE & STREAMING (PORT 8000)
               </div>
             </div>
           </div>
 
           {/* REAL-TIME NODE TELEMETRY INSPECTOR */}
-          <div className="p-6 rounded-3xl neu-raised border border-slate-300 dark:border-emerald-500/20 grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <div className="p-6 rounded-3xl bg-white dark:bg-[#0b1017] shadow-sm border border-slate-200 dark:border-slate-800 grid grid-cols-1 lg:grid-cols-12 gap-6">
             <div className="lg:col-span-4 space-y-3">
               <div className="flex items-center justify-between">
-                <span className="skew-hud px-2.5 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-100 text-emerald-900 dark:bg-emerald-500/20 dark:text-neon-emerald border border-emerald-300 dark:border-emerald-500/40">
-                  LIVE OSCILLOSCOPE TELEMETRY
+                <span className="px-2.5 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-50 text-emerald-800 dark:bg-emerald-500/20 dark:text-neon-emerald border border-emerald-200 dark:border-emerald-500/40">
+                  LIVE TELEMETRY INSPECTOR
                 </span>
                 <span className="text-xs font-mono text-amber-700 dark:text-neon-gold font-bold">
                   STAGE 0{currentNode.id}/06
@@ -388,7 +387,7 @@ export default function HarmonizedArchitecturePage() {
                 Component: {currentNode.component}
               </p>
 
-              <div className="p-3 rounded-xl bg-slate-100 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 space-y-1 font-mono text-xs">
+              <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-zinc-950 border border-slate-200 dark:border-zinc-800 space-y-1.5 font-mono text-xs">
                 <div className="flex justify-between text-slate-600 dark:text-zinc-400">
                   <span>LATENCY BUDGET:</span>
                   <span className="text-emerald-700 dark:text-neon-emerald font-bold">{currentNode.latencyMs}ms</span>
@@ -406,22 +405,22 @@ export default function HarmonizedArchitecturePage() {
 
             {/* Wire Payload Inspector */}
             <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="p-4 rounded-2xl bg-slate-900 dark:bg-zinc-950 border border-slate-700 dark:border-zinc-800 font-mono text-xs space-y-2 text-white">
+              <div className="p-4 rounded-2xl bg-slate-900 dark:bg-zinc-950 border border-slate-800 dark:border-zinc-800 font-mono text-xs space-y-2 text-white shadow-inner">
                 <div className="flex items-center justify-between text-zinc-400 text-[10px] uppercase font-bold border-b border-zinc-800 pb-1.5">
-                  <span className="text-neon-gold">RX WIRE INFLOW (INPUT)</span>
+                  <span className="text-amber-400">RX WIRE INFLOW (INPUT)</span>
                   <span>BUS_PIN_IN</span>
                 </div>
-                <pre className="text-zinc-300 text-[11px] whitespace-pre-wrap leading-relaxed overflow-x-auto max-h-40">
+                <pre className="text-zinc-200 text-[11px] whitespace-pre-wrap leading-relaxed overflow-x-auto max-h-40">
                   {currentNode.inputPayload}
                 </pre>
               </div>
 
-              <div className="p-4 rounded-2xl bg-slate-900 dark:bg-zinc-950 border border-slate-700 dark:border-zinc-800 font-mono text-xs space-y-2 text-white">
+              <div className="p-4 rounded-2xl bg-slate-900 dark:bg-zinc-950 border border-slate-800 dark:border-zinc-800 font-mono text-xs space-y-2 text-white shadow-inner">
                 <div className="flex items-center justify-between text-zinc-400 text-[10px] uppercase font-bold border-b border-zinc-800 pb-1.5">
-                  <span className="text-neon-emerald">TX WIRE OUTFLOW (OUTPUT)</span>
+                  <span className="text-emerald-400">TX WIRE OUTFLOW (OUTPUT)</span>
                   <span>BUS_PIN_OUT</span>
                 </div>
-                <pre className="text-zinc-300 text-[11px] whitespace-pre-wrap leading-relaxed overflow-x-auto max-h-40">
+                <pre className="text-zinc-200 text-[11px] whitespace-pre-wrap leading-relaxed overflow-x-auto max-h-40">
                   {currentNode.outputPayload}
                 </pre>
               </div>
@@ -434,9 +433,9 @@ export default function HarmonizedArchitecturePage() {
       {activeTab === 'stack' && (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {TECH_STACK.map((tech, i) => (
-            <div key={i} className="p-5 rounded-2xl neu-raised border border-slate-300 dark:border-emerald-500/20 space-y-2">
+            <div key={i} className="p-5 rounded-2xl bg-white dark:bg-[#0b1017] border border-slate-200 dark:border-slate-800 shadow-sm space-y-2.5 hover:border-slate-300 dark:hover:border-slate-700 transition-all">
               <div className="flex items-center justify-between">
-                <span className="text-[10px] font-mono font-bold text-emerald-800 dark:text-neon-emerald px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-500/10 border border-emerald-300 dark:border-emerald-500/30">
+                <span className="text-[10px] font-mono font-bold text-emerald-800 dark:text-neon-emerald px-2 py-0.5 rounded bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/30">
                   {tech.category}
                 </span>
                 <span className="text-[10px] font-mono text-slate-500 dark:text-zinc-500">{tech.owner}</span>
@@ -452,9 +451,9 @@ export default function HarmonizedArchitecturePage() {
       {activeTab === 'friction' && (
         <div className="space-y-4">
           {FRICTION_LOG.map((f) => (
-            <div key={f.id} className="p-5 rounded-2xl neu-raised border border-amber-300 dark:border-amber-500/30 space-y-2">
+            <div key={f.id} className="p-5 rounded-2xl bg-white dark:bg-[#0b1017] border border-slate-200 dark:border-slate-800 shadow-sm space-y-2 hover:border-amber-300 dark:hover:border-amber-700/50 transition-all">
               <div className="flex items-center gap-2">
-                <span className="px-2 py-0.5 rounded font-mono text-[10px] font-bold bg-amber-100 dark:bg-amber-500/20 text-amber-800 dark:text-neon-gold border border-amber-300 dark:border-amber-500/40">
+                <span className="px-2 py-0.5 rounded font-mono text-[10px] font-bold bg-amber-50 dark:bg-amber-500/20 text-amber-800 dark:text-neon-gold border border-amber-200 dark:border-amber-500/40">
                   {f.id}
                 </span>
                 <h3 className="font-display font-bold text-sm text-slate-900 dark:text-white">{f.title}</h3>

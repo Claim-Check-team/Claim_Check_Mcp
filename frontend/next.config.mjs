@@ -7,6 +7,14 @@ const nextConfig = {
         source: '/api/:path*',
         destination: 'http://localhost:8000/api/:path*',
       },
+      {
+        source: '/mcp',
+        destination: 'http://localhost:8000/mcp',
+      },
+      {
+        source: '/mcp/:path*',
+        destination: 'http://localhost:8000/mcp/:path*',
+      },
     ];
   },
 };

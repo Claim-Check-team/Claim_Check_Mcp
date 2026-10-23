@@ -40,10 +40,9 @@ const config: Config = {
         'neu-raised': '0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04)',
         'neu-raised-sm': '0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.04)',
         'neu-inset': 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)',
-        'neu-button': '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.06)',
-        'emerald-glow': '0 0 30px rgba(0, 245, 155, 0.45)',
-        'gold-glow': '0 0 30px rgba(245, 158, 11, 0.45)',
-        'hud-glow': '0 0 20px rgba(16, 185, 129, 0.35)',
+        'emerald-glow': '0 4px 16px -2px rgba(16, 185, 129, 0.18)',
+        'gold-glow': '0 4px 16px -2px rgba(245, 158, 11, 0.18)',
+        'hud-glow': '0 2px 10px -1px rgba(16, 185, 129, 0.15)',
       },
       animation: {
         'spin-slow': 'spin 24s linear infinite',

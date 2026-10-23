@@ -1,34 +1,93 @@
 'use client';
 
-import React, { useState } from 'react';
-import { PRESET_SCENARIOS } from '../../lib/presets';
+import React, { useState, useEffect } from 'react';
+import { PRESET_SCENARIOS, Scenario } from '../../lib/presets';
 import TrustGauge from '../../components/TrustGauge';
 
 export default function StressLabPage() {
+  const [customScenarios, setCustomScenarios] = useState<Scenario[]>([]);
   const [selectedScenarioIndex, setSelectedScenarioIndex] = useState<number>(0);
   const [isEvaluating, setIsEvaluating] = useState<boolean>(false);
   const [thinkingExpanded, setThinkingExpanded] = useState<boolean>(true);
   const [activeReasoningStep, setActiveReasoningStep] = useState<number>(4);
   const [selectedClaimIdx, setSelectedClaimIdx] = useState<number>(0);
   const [safetyThreshold, setSafetyThreshold] = useState<number>(75);
+  const [liveResult, setLiveResult] = useState<Scenario | null>(null);
+  const [liveLatency, setLiveLatency] = useState<number | null>(null);
 
-  const scenario = PRESET_SCENARIOS[selectedScenarioIndex] || PRESET_SCENARIOS[0];
+  // Load custom scenarios on mount from API and localStorage
+  useEffect(() => {
+    const fetchCustom = async () => {
+      try {
+        const res = await fetch('/api/custom-scenarios');
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data) && data.length > 0) {
+            setCustomScenarios(data);
+            return;
+          }
+        }
+      } catch (err) {
+        console.warn('API custom fetch failed in StressLab:', err);
+      }
+      try {
+        const local = localStorage.getItem('claimcheck_custom_scenarios');
+        if (local) {
+          const parsed = JSON.parse(local);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            setCustomScenarios(parsed);
+          }
+        }
+      } catch (err) {}
+    };
+    fetchCustom();
+  }, []);
 
-  // Simulation of real-time epistemic chain-of-thought
-  const runEvaluation = () => {
+  const allScenarios = [...customScenarios, ...PRESET_SCENARIOS];
+  const baseScenario = allScenarios[selectedScenarioIndex] || PRESET_SCENARIOS[0];
+  const scenario = liveResult || baseScenario;
+
+  // Real-time epistemic chain-of-thought & live API check
+  const runEvaluation = async () => {
     setIsEvaluating(true);
     setActiveReasoningStep(1);
 
     const stepInterval = setInterval(() => {
-      setActiveReasoningStep((prev) => {
-        if (prev >= 4) {
-          clearInterval(stepInterval);
-          setIsEvaluating(false);
-          return 4;
-        }
-        return prev + 1;
+      setActiveReasoningStep((prev) => (prev < 3 ? prev + 1 : prev));
+    }, 300);
+
+    const startTime = performance.now();
+    try {
+      const res = await fetch('/api/check', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          response_text: baseScenario.original_text,
+          query_context: baseScenario.title,
+        }),
       });
-    }, 450);
+
+      const elapsed = Math.round(performance.now() - startTime);
+      setLiveLatency(elapsed);
+
+      if (res.ok) {
+        const data = await res.json();
+        // Merge into Scenario format
+        const updatedScenario: Scenario = {
+          ...baseScenario,
+          claims: data.claims || baseScenario.claims,
+          spoken_verdict: data.spoken_verdict || baseScenario.spoken_verdict,
+          mcp_trace: data.mcp_trace || baseScenario.mcp_trace,
+        };
+        setLiveResult(updatedScenario);
+      }
+    } catch (err) {
+      console.warn('Live evaluation network error:', err);
+    } finally {
+      clearInterval(stepInterval);
+      setActiveReasoningStep(4);
+      setIsEvaluating(false);
+    }
   };
 
   // Derive dynamic rubric breakdown based on the scenario claims
@@ -223,15 +282,17 @@ export default function StressLabPage() {
           <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-slate-500 dark:text-zinc-400 px-2">
             SELECT SCENARIO:
           </span>
-          {PRESET_SCENARIOS.map((item, idx) => {
+          {allScenarios.map((item, idx) => {
             const isSelected = selectedScenarioIndex === idx;
+            const isCustom = item.is_custom || item.preset_id?.startsWith('custom');
             return (
               <button
-                key={item.preset_id}
+                key={item.preset_id || `scenario-${idx}`}
                 onClick={() => {
                   setSelectedScenarioIndex(idx);
                   setSelectedClaimIdx(0);
-                  runEvaluation();
+                  setLiveResult(null);
+                  setLiveLatency(null);
                 }}
                 className={`px-3.5 py-2 rounded-xl text-xs font-mono font-bold transition-all flex items-center gap-2 cursor-pointer ${
                   isSelected
@@ -241,6 +302,11 @@ export default function StressLabPage() {
               >
                 <span>0{idx + 1}</span>
                 <span className="font-sans font-medium">{item.title.split('(')[0].trim()}</span>
+                {isCustom && (
+                  <span className="px-1.5 py-0.2 rounded text-[8px] font-mono uppercase bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-300 border border-blue-300 dark:border-blue-700">
+                    CUSTOM
+                  </span>
+                )}
                 <span
                   className={`px-1.5 py-0.2 rounded text-[9px] font-mono uppercase ${
                     item.spoken_verdict.status === 'verified_safe'
@@ -271,7 +337,7 @@ export default function StressLabPage() {
                 VECTOR: {scenario.red_team_vector}
               </span>
               <span className="text-xs font-mono text-slate-500 dark:text-zinc-400">
-                LATENCY: <strong className="text-emerald-700 dark:text-neon-emerald font-bold">1,340ms</strong> / 1,800ms SLA
+                LATENCY: <strong className="text-emerald-700 dark:text-neon-emerald font-bold">{liveLatency !== null ? `${liveLatency}ms` : '1,340ms'}</strong> / 1,800ms SLA {liveLatency !== null && (liveLatency <= 1800 ? '✓' : '⚠️')}
               </span>
             </div>
 

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { PRESET_SCENARIOS, Scenario, McpTraceStep } from '../../lib/presets';
 
 interface ExpandedPayload {
@@ -9,6 +9,7 @@ interface ExpandedPayload {
 }
 
 export default function ProtocolPage() {
+  const [customScenarios, setCustomScenarios] = useState<Scenario[]>([]);
   const [selectedScenario, setSelectedScenario] = useState<Scenario>(
     PRESET_SCENARIOS[0]
   );
@@ -16,6 +17,33 @@ export default function ProtocolPage() {
     null
   );
   const [showFullPayload, setShowFullPayload] = useState(false);
+
+  useEffect(() => {
+    const fetchCustom = async () => {
+      try {
+        const res = await fetch('/api/custom-scenarios');
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data) && data.length > 0) {
+            setCustomScenarios(data);
+            return;
+          }
+        }
+      } catch (err) {}
+      try {
+        const local = localStorage.getItem('claimcheck_custom_scenarios');
+        if (local) {
+          const parsed = JSON.parse(local);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            setCustomScenarios(parsed);
+          }
+        }
+      } catch (err) {}
+    };
+    fetchCustom();
+  }, []);
+
+  const allScenarios = [...customScenarios, ...PRESET_SCENARIOS];
 
   const togglePayload = (scenarioId: string, step: number) => {
     if (
@@ -114,11 +142,12 @@ export default function ProtocolPage() {
           SELECT SCENARIO FOR WIRE INSPECTION:
         </span>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
-          {PRESET_SCENARIOS.map((sc, i) => {
+          {allScenarios.map((sc, i) => {
             const isActive = sc.preset_id === selectedScenario.preset_id;
+            const isCustom = sc.is_custom || sc.preset_id?.startsWith('custom');
             return (
               <button
-                key={sc.preset_id}
+                key={sc.preset_id || `protocol-sc-${i}`}
                 onClick={() => setSelectedScenario(sc)}
                 className={`p-2 text-left rounded-xl border transition-all text-xs font-mono font-bold truncate cursor-pointer ${
                   isActive
@@ -126,7 +155,7 @@ export default function ProtocolPage() {
                     : 'text-slate-700 border-slate-300 hover:border-emerald-500/50 bg-white dark:text-zinc-300 dark:border-zinc-800 dark:bg-zinc-900/60'
                 }`}
               >
-                0{i + 1} {sc.title.split('(')[0].trim()}
+                0{i + 1} {sc.title.split('(')[0].trim()}{isCustom ? ' [C]' : ''}
               </button>
             );
           })}

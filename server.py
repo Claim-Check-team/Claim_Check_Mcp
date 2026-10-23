@@ -35,21 +35,7 @@ BASE_DIR = Path(__file__).resolve().parent
 PRESET_CACHE_PATH = BASE_DIR / "data" / "preset_cache.json"
 CUSTOM_SCENARIOS_PATH = BASE_DIR / "data" / "custom_scenarios.json"
 
-# Initialize FastAPI App
-app = FastAPI(
-    title="Claim-Check MCP Server",
-    description="Epistemic Safety & Atomic Fact Verification for Amazon Alexa+",
-    version="1.0.0"
-)
-
-# Configure CORS for Next.js simulator (Port 3000)
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["http://localhost:3000", "*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+from contextlib import asynccontextmanager
 
 # Initialize MCP Server
 mcp_server = MCPServer("claim-check-mcp")
@@ -98,16 +84,64 @@ def export_alexa_apl(preset_id: str = "dengue_aspirin") -> Dict[str, Any]:
     return build_apl_directive(target)
 
 
-# Mount MCP Streamable HTTP endpoint at /mcp
+# Initialize MCP Streamable HTTP sub-application
+try:
+    from mcp.server.transport_security import TransportSecuritySettings
+    mcp_security = TransportSecuritySettings(enable_dns_rebinding_protection=False)
+except Exception:
+    mcp_security = None
+
+mcp_kwargs: Dict[str, Any] = {"streamable_http_path": "/", "stateless_http": True}
+if mcp_security is not None:
+    mcp_kwargs["transport_security"] = mcp_security
+
 try:
     if hasattr(mcp_server, "streamable_http_app"):
-        app.mount("/mcp", mcp_server.streamable_http_app())
-        logger.info("MCP Streamable HTTP endpoint successfully mounted at /mcp")
+        mcp_app = mcp_server.streamable_http_app(**mcp_kwargs)
     elif hasattr(mcp_server, "sse_app"):
-        app.mount("/mcp", mcp_server.sse_app())
-        logger.info("MCP SSE endpoint successfully mounted at /mcp")
+        mcp_app = mcp_server.sse_app()
+    else:
+        mcp_app = None
 except Exception as e:
-    logger.warning(f"Could not mount MCP streamable app: {e}")
+    logger.warning(f"Could not build MCP app: {e}")
+    mcp_app = None
+
+
+@asynccontextmanager
+async def lifespan(fastapi_app: FastAPI):
+    """Ensure Starlette MCP sub-application lifespan (TaskGroup) is started."""
+    if mcp_app is not None and hasattr(mcp_app, "router") and hasattr(mcp_app.router, "lifespan_context"):
+        try:
+            async with mcp_app.router.lifespan_context(mcp_app):
+                yield
+        except Exception as err:
+            logger.warning(f"MCP lifespan context exited with: {err}")
+            yield
+    else:
+        yield
+
+
+# Initialize FastAPI App
+app = FastAPI(
+    title="Claim-Check MCP Server",
+    description="Epistemic Safety & Atomic Fact Verification for Amazon Alexa+",
+    version="1.0.0",
+    lifespan=lifespan
+)
+
+# Configure CORS for Next.js simulator (Port 3000)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000", "*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Mount MCP Streamable HTTP endpoint at /mcp
+if mcp_app is not None:
+    app.mount("/mcp", mcp_app)
+    logger.info("MCP Streamable HTTP endpoint successfully mounted at /mcp")
 
 
 def _load_preset_cache() -> List[Dict[str, Any]]:
