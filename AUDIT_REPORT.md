@@ -11,6 +11,12 @@
 
 A comprehensive systematic audit of the entire Claim-Check MCP codebase was performed to evaluate whether all verification workflows operate dynamically in real-time or rely on hardcoded presets.
 
+### Live Production Deployment (HTTPS):
+- **Web Application (Frontend UI):** [https://claimcheck.165.99.219.253.sslip.io/](https://claimcheck.165.99.219.253.sslip.io/) (Default Light Mode)
+- **API Health Check (FastAPI):** [https://claimcheck.165.99.219.253.sslip.io/api/check](https://claimcheck.165.99.219.253.sslip.io/api/check)
+- **FastMCP Streamable Wire (SSE):** [https://claimcheck.165.99.219.253.sslip.io/mcp/](https://claimcheck.165.99.219.253.sslip.io/mcp/)
+- **SSL Certificate:** Let's Encrypt TLS (ECDSA) with automatic 301 HTTPS redirection.
+
 ### Key Audit Conclusions:
 1. **Dynamic Engine Verification:** The core verification engine is **100% dynamic**. When given arbitrary, un-preset statements (e.g., custom prompts regarding Marie Curie, astronomical distances, financial stocks, etc.), the system automatically performs:
    - SVO clause decomposition into atomic claims (Gemini 2.5 Flash / rule-based SVO parser fallback).
@@ -19,6 +25,7 @@ A comprehensive systematic audit of the entire Claim-Check MCP codebase was perf
 2. **MCP Wire Protocol Fix:** Identified and resolved a critical mounting defect in FastMCP 2.x Starlette sub-app where `/mcp` failed with HTTP 404/500 (`Task group is not initialized`). Successfully integrated FastAPI `lifespan_context`, enabling full RFC-compliant JSON-RPC `tools/list` and `tools/call` over Streamable HTTP (SSE).
 3. **Frontend Dynamic Unification:** Extended both `frontend/app/stress-lab/page.tsx` and `frontend/app/protocol/page.tsx` to dynamically fetch and inspect custom live-verified scenarios alongside benchmark presets, plus added real-time round-trip latency measurement to the "RE-RUN STRESS PROOF" button.
 4. **Zero Build & Type Errors:** Next.js production bundle build (`npm run build`) succeeded with exit code 0 and zero lint/type errors.
+5. **Theme Default:** Configured default UI theme to Light Mode on fresh load.
 
 ---
 
