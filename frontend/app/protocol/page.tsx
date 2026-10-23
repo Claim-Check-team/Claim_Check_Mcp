@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useState } from 'react';
 import { PRESET_SCENARIOS, Scenario, McpTraceStep } from '../../lib/presets';
@@ -80,41 +80,53 @@ export default function ProtocolPage() {
   };
 
   return (
-    <div className="p-6 lg:p-8 max-w-6xl mx-auto">
+    <div className="p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto space-y-6 blueprint-grid min-h-screen">
       {/* HEADER */}
-      <div className="neu-raised p-5 md:p-6 mb-6 border border-white/80">
-        <div className="flex items-center gap-2 mb-1">
-          <span className="w-8 h-8 rounded-xl bg-gradient-to-br from-marigold-400 via-marigold-500 to-aubergine-900 flex items-center justify-center text-white font-bold text-sm shadow-md shadow-violet-500/30">
-            P
-          </span>
-          <h1 className="font-display font-extrabold text-xl text-aubergine-950">
-            MCP Protocol Inspector
+      <div className="p-6 rounded-3xl glass-card neu-raised relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border border-emerald-500/30 bg-gradient-to-r from-obsidian-card via-zinc-950 to-obsidian-card">
+        <div>
+          <div className="flex items-center gap-3 mb-2 flex-wrap">
+            <span className="skew-hud px-2.5 py-0.5 rounded text-[10px] font-mono font-black bg-neon-emerald/20 text-neon-emerald border border-neon-emerald/50">
+              PROTOCOL // INSPECTOR
+            </span>
+            <span className="px-2 py-0.5 rounded text-[10px] font-mono text-neon-gold border border-amber-500/30 bg-amber-500/10">
+              JSON-RPC 2.0 • STREAMABLE HTTP
+            </span>
+            <span className="px-2 py-0.5 rounded text-[10px] font-mono text-zinc-400 border border-zinc-700">
+              PORT 8000 /mcp
+            </span>
+          </div>
+
+          <h1 className="font-display font-black text-2xl sm:text-3xl text-white tracking-tight flex items-center gap-3">
+            FastMCP Wire Protocol Trace
+            <span className="text-xs font-mono font-normal px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-neon-emerald hidden sm:inline">
+              Spec 2025-11-25
+            </span>
           </h1>
+          <p className="text-xs text-zinc-400 font-mono mt-1">
+            Real-time JSON-RPC 2.0 packet payloads over the official Streamable HTTP transport wire.
+          </p>
         </div>
-        <p className="text-xs text-silver-700 font-medium ml-10">
-          Visualize JSON-RPC 2.0 request/response cycles over MCP Streamable HTTP transport (/mcp endpoint).
-        </p>
       </div>
 
       {/* SCENARIO SELECTOR */}
-      <div className="neu-raised p-4 mb-6 border border-white/80">
-        <span className="text-[10px] font-bold uppercase tracking-wider text-silver-700 block mb-2">
-          Select Scenario for Trace Inspection
+      <div className="p-4 rounded-2xl glass-panel border border-emerald-500/20">
+        <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-zinc-400 block mb-2">
+          SELECT SCENARIO FOR WIRE INSPECTION:
         </span>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
-          {PRESET_SCENARIOS.map((sc) => {
+          {PRESET_SCENARIOS.map((sc, i) => {
             const isActive = sc.preset_id === selectedScenario.preset_id;
             return (
               <button
                 key={sc.preset_id}
                 onClick={() => setSelectedScenario(sc)}
-                className={`neu-button p-2 text-left rounded-xl border transition-all text-xs font-bold truncate ${
+                className={`neu-button p-2 text-left rounded-xl border transition-all text-xs font-mono font-bold truncate cursor-pointer ${
                   isActive
-                    ? 'active ring-2 ring-zinc-400 text-cyan-500 font-extrabold border-zinc-600/30'
-                    : 'text-aubergine-900 border-white/60 hover:scale-[1.02]'
+                    ? 'active ring-2 ring-emerald-400 text-neon-emerald font-extrabold border-emerald-500 bg-zinc-950 shadow-emerald-glow'
+                    : 'text-zinc-300 border-zinc-800 hover:border-emerald-500/50 bg-zinc-900/60'
                 }`}
               >
-                {sc.title.split('(')[0].trim()}
+                0{i + 1} {sc.title.split('(')[0].trim()}
               </button>
             );
           })}
@@ -122,51 +134,51 @@ export default function ProtocolPage() {
       </div>
 
       {/* PROTOCOL OVERVIEW CARDS */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-        <div className="neu-raised p-3 border border-white/80 text-center">
-          <span className="font-display font-extrabold text-2xl text-cyan-500">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="p-4 rounded-2xl glass-card neu-raised border border-emerald-500/20 text-center">
+          <span className="font-display font-black text-2xl text-neon-emerald">
             {selectedScenario.mcp_trace.length}
           </span>
-          <span className="block text-[10px] font-bold text-silver-700 uppercase tracking-wider mt-0.5">
-            Tool Calls
+          <span className="block text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-wider mt-0.5">
+            Tool Invocations
           </span>
         </div>
-        <div className="neu-raised p-3 border border-white/80 text-center">
-          <span className="font-display font-extrabold text-2xl text-aubergine-900">
+        <div className="p-4 rounded-2xl glass-card neu-raised border border-emerald-500/20 text-center">
+          <span className="font-display font-black text-2xl text-white">
             {totalLatency}
-            <span className="text-sm text-slate-400">ms</span>
+            <span className="text-sm text-zinc-500">ms</span>
           </span>
-          <span className="block text-[10px] font-bold text-silver-700 uppercase tracking-wider mt-0.5">
-            Total Latency
+          <span className="block text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-wider mt-0.5">
+            Total Wire Latency
           </span>
         </div>
-        <div className="neu-raised p-3 border border-white/80 text-center">
-          <span className="font-display font-extrabold text-2xl text-cyan-600">
+        <div className="p-4 rounded-2xl glass-card neu-raised border border-emerald-500/20 text-center">
+          <span className="font-display font-black text-2xl text-neon-gold">
             HTTP
           </span>
-          <span className="block text-[10px] font-bold text-silver-700 uppercase tracking-wider mt-0.5">
-            Transport
+          <span className="block text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-wider mt-0.5">
+            Streamable Transport
           </span>
         </div>
-        <div className="neu-raised p-3 border border-white/80 text-center">
-          <span className="font-display font-extrabold text-2xl text-emerald-600">
+        <div className="p-4 rounded-2xl glass-card neu-raised border border-emerald-500/20 text-center">
+          <span className="font-display font-black text-2xl text-neon-emerald">
             2.0
           </span>
-          <span className="block text-[10px] font-bold text-silver-700 uppercase tracking-wider mt-0.5">
+          <span className="block text-[10px] font-mono font-bold text-zinc-400 uppercase tracking-wider mt-0.5">
             JSON-RPC Version
           </span>
         </div>
       </div>
 
       {/* WATERFALL TIMELINE */}
-      <div className="neu-raised p-5 mb-6 border border-white/80">
-        <h2 className="font-display font-bold text-sm text-aubergine-900 uppercase tracking-wider mb-4">
+      <div className="p-6 rounded-3xl glass-card neu-raised border border-emerald-500/20 space-y-4">
+        <h2 className="font-display font-bold text-sm text-white uppercase tracking-wider font-mono">
           Latency Waterfall Timeline
         </h2>
 
-        <div className="space-y-3">
+        <div className="space-y-3 font-mono">
           {selectedScenario.mcp_trace.map((step, idx) => {
-            const widthPct = Math.max((step.latency_ms / maxLatency) * 100, 8);
+            const widthPct = Math.max((step.latency_ms / maxLatency) * 100, 10);
             const offsetPct =
               idx === 0
                 ? 0
@@ -176,11 +188,6 @@ export default function ProtocolPage() {
                     totalLatency) *
                   60;
 
-            const colors = [
-              'from-marigold-400 to-marigold-600',
-              'from-aubergine-600 to-aubergine-900',
-              'from-marigold-500 to-marigold-700',
-            ];
             const isExpanded =
               expandedPayload?.scenarioId === selectedScenario.preset_id &&
               expandedPayload?.step === step.step;
@@ -194,50 +201,50 @@ export default function ProtocolPage() {
                   }
                 >
                   {/* Step label */}
-                  <div className="w-32 shrink-0 flex items-center gap-2">
-                    <span className="w-6 h-6 rounded-md bg-slate-200 flex items-center justify-center text-[10px] font-bold text-slate-600">
-                      {step.step}
+                  <div className="w-36 shrink-0 flex items-center gap-2">
+                    <span className="w-6 h-6 rounded-md bg-zinc-800 flex items-center justify-center text-[10px] font-bold text-neon-emerald border border-emerald-500/30">
+                      0{step.step}
                     </span>
-                    <span className="text-xs font-bold text-aubergine-900 truncate">
+                    <span className="text-xs font-bold text-zinc-200 truncate">
                       {step.tool}
                     </span>
                   </div>
 
                   {/* Waterfall bar */}
-                  <div className="flex-1 relative h-8 neu-inset rounded-lg overflow-hidden">
+                  <div className="flex-1 relative h-8 neu-inset rounded-lg overflow-hidden bg-zinc-950 border border-zinc-800">
                     <div
-                      className={`absolute top-1 bottom-1 rounded-md bg-gradient-to-r ${colors[idx % colors.length]} shadow-sm transition-all duration-700 group-hover:opacity-90`}
+                      className="absolute top-1 bottom-1 rounded-md bg-gradient-to-r from-neon-emerald to-emerald-700 shadow-sm transition-all duration-700 group-hover:opacity-90"
                       style={{
                         left: `${offsetPct}%`,
                         width: `${widthPct}%`,
                       }}
                     />
                     <span
-                      className="absolute top-1/2 -translate-y-1/2 text-[10px] font-mono font-bold text-white drop-shadow-sm"
-                      style={{ left: `${offsetPct + 1}%` }}
+                      className="absolute top-1/2 -translate-y-1/2 text-[10px] font-mono font-bold text-black drop-shadow-sm ml-2"
+                      style={{ left: `${offsetPct}%` }}
                     >
                       {step.latency_ms}ms
                     </span>
                   </div>
 
                   {/* Status */}
-                  <span className="w-16 shrink-0 text-right text-[10px] font-bold text-emerald-600 uppercase">
+                  <span className="w-20 shrink-0 text-right text-[10px] font-bold text-neon-gold uppercase">
                     {step.status}
                   </span>
                 </div>
 
                 {/* Expanded JSON-RPC payload */}
                 {isExpanded && (
-                  <div className="ml-[140px] mt-2 mb-1 neu-inset p-3 rounded-xl">
+                  <div className="ml-[152px] mt-2 mb-1 neu-inset p-3.5 rounded-xl bg-zinc-950 border border-emerald-500/30">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-cyan-500">
+                      <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-neon-emerald">
                         JSON-RPC 2.0 Request Payload
                       </span>
-                      <span className="text-[9px] font-mono text-slate-400">
+                      <span className="text-[9px] font-mono text-zinc-500">
                         POST /mcp HTTP/1.1
                       </span>
                     </div>
-                    <pre className="text-[11px] font-mono text-aubergine-900 whitespace-pre-wrap bg-white/50 p-2.5 rounded-lg border border-slate-200/60">
+                    <pre className="text-[11px] font-mono text-zinc-300 whitespace-pre-wrap bg-black/60 p-2.5 rounded-lg border border-zinc-800">
                       {JSON.stringify(
                         generateJsonRpc(step, selectedScenario),
                         null,
@@ -253,57 +260,57 @@ export default function ProtocolPage() {
       </div>
 
       {/* FULL PAYLOAD VIEWER */}
-      <div className="neu-raised p-5 border border-white/80">
+      <div className="p-6 rounded-3xl glass-card neu-raised border border-emerald-500/20">
         <div className="flex items-center justify-between mb-3">
-          <h2 className="font-display font-bold text-sm text-aubergine-900 uppercase tracking-wider">
+          <h2 className="font-display font-bold text-sm text-white uppercase tracking-wider font-mono">
             Full Scenario Payload
           </h2>
           <button
             onClick={() => setShowFullPayload(!showFullPayload)}
-            className="neu-button px-3 py-1 text-[11px] font-bold text-cyan-500"
+            className="neu-button px-3 py-1 text-[11px] font-mono font-bold text-neon-emerald border border-emerald-500/40 rounded-lg cursor-pointer"
           >
             {showFullPayload ? 'Collapse' : 'Expand'} JSON
           </button>
         </div>
 
         {showFullPayload && (
-          <pre className="neu-inset p-4 rounded-xl text-[11px] font-mono text-aubergine-900 max-h-[500px] overflow-y-auto whitespace-pre-wrap">
+          <pre className="neu-inset p-4 rounded-xl text-[11px] font-mono text-zinc-300 bg-zinc-950 border border-zinc-800 max-h-[500px] overflow-y-auto whitespace-pre-wrap">
             {JSON.stringify(selectedScenario, null, 2)}
           </pre>
         )}
 
         {!showFullPayload && (
-          <div className="neu-inset p-3 rounded-xl">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-[11px]">
+          <div className="neu-inset p-3 rounded-xl bg-zinc-950/80 border border-zinc-800">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-[11px] font-mono">
               <div>
-                <span className="block text-slate-400 font-bold uppercase tracking-wider text-[9px] mb-0.5">
+                <span className="block text-zinc-500 font-bold uppercase tracking-wider text-[9px] mb-0.5">
                   Preset ID
                 </span>
-                <span className="font-mono font-bold text-aubergine-900">
+                <span className="font-bold text-white">
                   {selectedScenario.preset_id}
                 </span>
               </div>
               <div>
-                <span className="block text-slate-400 font-bold uppercase tracking-wider text-[9px] mb-0.5">
+                <span className="block text-zinc-500 font-bold uppercase tracking-wider text-[9px] mb-0.5">
                   Claims
                 </span>
-                <span className="font-bold text-aubergine-900">
+                <span className="font-bold text-neon-emerald">
                   {selectedScenario.total_claims} atomic claims
                 </span>
               </div>
               <div>
-                <span className="block text-slate-400 font-bold uppercase tracking-wider text-[9px] mb-0.5">
+                <span className="block text-zinc-500 font-bold uppercase tracking-wider text-[9px] mb-0.5">
                   Trust Score
                 </span>
-                <span className="font-bold text-aubergine-900">
+                <span className="font-bold text-neon-gold">
                   {selectedScenario.spoken_verdict.overall_trust_score}%
                 </span>
               </div>
               <div>
-                <span className="block text-slate-400 font-bold uppercase tracking-wider text-[9px] mb-0.5">
+                <span className="block text-zinc-500 font-bold uppercase tracking-wider text-[9px] mb-0.5">
                   Status
                 </span>
-                <span className="font-bold text-aubergine-900">
+                <span className="font-bold text-white">
                   {selectedScenario.spoken_verdict.status.replace(/_/g, ' ')}
                 </span>
               </div>

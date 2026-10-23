@@ -1,4 +1,4 @@
-﻿import type { Config } from 'tailwindcss';
+import type { Config } from 'tailwindcss';
 
 const config: Config = {
   darkMode: 'class',
@@ -9,47 +9,20 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        aubergine: {
-          950: '#18071c',
-          900: '#260c2d',
-          850: '#32103b',
-          800: '#42164d',
-          700: '#581f66',
-          600: '#722a84',
-          500: '#8e37a4',
-          200: '#ecd4f2',
-          100: '#f6eaf8',
-          50: '#faf5fb',
+        neon: {
+          emerald: '#00f59b',
+          mint: '#10b981',
+          gold: '#f59e0b',
+          amber: '#d97706',
+          sun: '#fbbf24',
         },
-        alexa: {
-          cyan: '#00d2ff',
-          neon: '#00caff',
-          sapphire: '#0284c7',
-          deep: '#0369a1',
-          glow: 'rgba(0, 210, 255, 0.45)',
-        },
-        cyan: {
-          950: '#082f49',
-          900: '#0c4a6e',
-          800: '#075985',
-          700: '#0369a1',
-          600: '#0284c7',
-          500: '#0ea5e9',
-          400: '#38bdf8',
-          300: '#7dd3fc',
-          200: '#bae6fd',
-          100: '#e0f2fe',
-          50: '#f0f9ff',
-        },
-        // Fallback compatibility mapped to Alexa Cyan
-        marigold: {
-          600: '#0284c7',
-          500: '#0ea5e9',
-          400: '#38bdf8',
-          300: '#7dd3fc',
-          200: '#bae6fd',
-          100: '#e0f2fe',
-          50: '#f0f9ff',
+        obsidian: {
+          950: '#05080c',
+          900: '#0a0f16',
+          850: '#101722',
+          800: '#16202e',
+          700: '#1f2d3f',
+          600: '#2c3e56',
         },
         silver: {
           900: '#1e293b',
@@ -64,12 +37,24 @@ const config: Config = {
         },
       },
       boxShadow: {
-        'neu-raised': '6px 6px 14px #cbd5e1, -6px -6px 14px #ffffff',
-        'neu-raised-sm': '3px 3px 8px #cbd5e1, -3px -3px 8px #ffffff',
-        'neu-inset': 'inset 3px 3px 6px #cbd5e1, inset -3px -3px 6px #ffffff',
-        'neu-button': '4px 4px 10px #cbd5e1, -4px -4px 10px #ffffff',
-        'aubergine-glow': '0 10px 30px -5px rgba(38, 12, 45, 0.4)',
-        'alexa-glow': '0 0 25px rgba(0, 210, 255, 0.55)',
+        'neu-raised': '8px 8px 20px #cbd5e1, -8px -8px 20px #ffffff',
+        'neu-raised-sm': '4px 4px 12px #cbd5e1, -4px -4px 12px #ffffff',
+        'neu-inset': 'inset 4px 4px 8px #cbd5e1, inset -4px -4px 8px #ffffff',
+        'neu-button': '5px 5px 12px #cbd5e1, -5px -5px 12px #ffffff',
+        'emerald-glow': '0 0 30px rgba(0, 245, 155, 0.45)',
+        'gold-glow': '0 0 30px rgba(245, 158, 11, 0.45)',
+        'hud-glow': '0 0 20px rgba(16, 185, 129, 0.35)',
+      },
+      animation: {
+        'spin-slow': 'spin 24s linear infinite',
+        'pulse-subtle': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'radar-sweep': 'radarSweep 4s linear infinite',
+      },
+      keyframes: {
+        radarSweep: {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(360deg)' },
+        },
       },
     },
   },

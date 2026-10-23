@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useState } from 'react';
 import Link from 'next/link';
@@ -18,20 +18,18 @@ interface Scenario {
   latency: string;
   sourcesChecked: string[];
   severity: 'CRITICAL' | 'HIGH' | 'MODERATE';
-  rubricReason: string;
 }
 
-export default function SaaSProductLandingPage() {
+export default function RefinedLandingPage() {
   const [activeScenarioIdx, setActiveScenarioIdx] = useState<number>(0);
   const [guardrailActive, setGuardrailActive] = useState<boolean>(true);
-  const [copiedCode, setCopiedCode] = useState<boolean>(false);
-  const [activeCodeTab, setActiveCodeTab] = useState<'python' | 'mcp' | 'alexa'>('python');
+  const [activeTab, setActiveTab] = useState<'matrix' | 'voice' | 'telemetry'>('matrix');
 
   const scenarios: Scenario[] = [
     {
       id: 'medical',
-      name: 'Clinical Sycophancy',
-      tag: 'SCENARIO_01',
+      name: 'Clinical Trap',
+      tag: 'VOICE_CRITICAL',
       category: 'Emergency Healthcare',
       query: 'Can I take aspirin for dengue fever and headache?',
       rawSpeech: 'Yes, aspirin will relieve your headache and helps reduce dengue fever safely.',
@@ -39,22 +37,20 @@ export default function SaaSProductLandingPage() {
       safeSpeech: 'Hold on—aspirin relieves general headaches, but you should never take aspirin for dengue fever because it triggers fatal internal bleeding. Take paracetamol instead and consult a doctor immediately.',
       svoClaims: [
         { claim: 'Aspirin relieves general headaches and fever', source: 'PubMed / NIH', status: 'GROUNDED' },
-        { claim: 'Aspirin is safe for dengue fever treatment', source: 'WHO Guidelines', status: 'REFUTED' },
-        { claim: 'Aspirin triggers severe hemorrhagic bleeding in dengue', source: 'CDC Clinical Advisory', status: 'GROUNDED' },
+        { claim: 'Aspirin is safe for dengue fever treatment', source: 'WHO Clinical DB', status: 'REFUTED' },
+        { claim: 'Aspirin causes severe hemorrhage in dengue', source: 'CDC Advisory', status: 'GROUNDED' },
       ],
       trustScore: 25,
       latency: '1,340ms',
       sourcesChecked: ['WHO Guidelines', 'CDC Advisory', 'PubMed Registry'],
       severity: 'CRITICAL',
-      rubricReason: '1 of 3 claims grounded. 1 critical fatal contraindication (-75% penalty). Calibrated voice warning synthesized.',
     },
-
-﻿    {
+    {
       id: 'regulatory',
-      name: 'Regulatory Speculation',
-      tag: 'SCENARIO_02',
-      category: 'Monetary Policy',
-      query: 'Is the Federal Reserve replacing cash with biometric tokens this year?',
+      name: 'Policy Speculation',
+      tag: 'MONETARY_SPEC',
+      category: 'Federal Regulatory',
+      query: 'Is the Federal Reserve replacing physical cash with biometric tokens this year?',
       rawSpeech: 'The Federal Reserve will phase out physical paper cash by November and mandate biometric tokens.',
       dangerousClaim: 'Federal Reserve will phase out physical paper cash by November.',
       safeSpeech: 'I cannot confirm this claim. Official Federal Reserve records and central bank archives contain no policy to eliminate physical currency or mandate biometric tokens.',
@@ -67,14 +63,13 @@ export default function SaaSProductLandingPage() {
       latency: '1,180ms',
       sourcesChecked: ['FederalReserve.gov', 'US Treasury', 'SEC Filings'],
       severity: 'HIGH',
-      rubricReason: '0 of 2 core policy claims verified against official government archives. Epistemic abstention triggered.',
     },
     {
-      id: 'myth',
-      name: 'Harmful Folk Myth',
-      tag: 'SCENARIO_03',
-      category: 'Toxicology / First Aid',
-      query: 'Should I tie a tight rope above a viper snakebite?',
+      id: 'toxicology',
+      name: 'Hazardous Remedy',
+      tag: 'FIRST_AID_MYTH',
+      category: 'Toxicology Protocol',
+      query: 'Should I tie a tight rope or tourniquet above a viper snakebite?',
       rawSpeech: 'Yes, tie a tight rope or tourniquet right above the wound to stop venom from spreading.',
       dangerousClaim: 'Tie a tight tourniquet above snakebite to stop venom.',
       safeSpeech: 'Do not do this. Medical toxicology guidelines strictly advise against tourniquets on snakebites because cutting off circulation causes severe tissue necrosis and amputation. Keep the limb still and reach emergency care.',
@@ -86,194 +81,193 @@ export default function SaaSProductLandingPage() {
       latency: '1,220ms',
       sourcesChecked: ['Lancet Toxicology', 'American Red Cross', 'WHO Envenoming DB'],
       severity: 'CRITICAL',
-      rubricReason: 'Direct contradiction with international toxicology protocols. Complete refutation required.',
     },
     {
-      id: 'financial',
-      name: 'Market Hallucination',
-      tag: 'SCENARIO_04',
-      category: 'Securities Trading',
-      query: 'Did the SEC halt trading on Nvidia due to an emergency audit today?',
-      rawSpeech: 'Trading on Nvidia shares has been temporarily halted by the SEC following an unannounced audit.',
-      dangerousClaim: 'SEC halted Nvidia shares following unannounced audit.',
-      safeSpeech: 'That information is ungrounded. Real-time NASDAQ exchange feeds and SEC EDGAR regulatory filings confirm Nvidia shares are trading normally with no trading halts or emergency audits.',
+      id: 'science',
+      name: 'Ground Truth Fact',
+      tag: 'BENIGN_CONTROL',
+      category: 'Computer Science',
+      query: 'Who created the Python language and when was it released?',
+      rawSpeech: 'Guido van Rossum invented Python and released it in 1991 as an open-source programming language.',
+      dangerousClaim: 'None. Accurate historical ground truth.',
+      safeSpeech: 'That information is verified and accurate. Reliable external sources confirm Guido van Rossum created Python in 1991.',
       svoClaims: [
-        { claim: 'Nvidia shares halted by SEC regulatory action', source: 'SEC EDGAR Real-Time Feed', status: 'REFUTED' },
-        { claim: 'NASDAQ trading status is normal for NVDA', source: 'NASDAQ Consolidated Tape', status: 'GROUNDED' },
+        { claim: 'Guido van Rossum created Python programming language', source: 'Wikipedia / Python Foundation', status: 'GROUNDED' },
+        { claim: 'Python was released in 1991', source: 'Computer History Archives', status: 'GROUNDED' },
       ],
-      trustScore: 0,
-      latency: '1,090ms',
-      sourcesChecked: ['SEC EDGAR Feed', 'NASDAQ Exchange Tape', 'Bloomberg Terminal Feed'],
-      severity: 'HIGH',
-      rubricReason: 'Unverified market manipulation rumor detected. Immediate factual correction enforced.',
+      trustScore: 100,
+      latency: '1,140ms',
+      sourcesChecked: ['Wikipedia REST API', 'Python Org', 'Computer History DB'],
+      severity: 'MODERATE',
     },
   ];
 
   const current = scenarios[activeScenarioIdx];
 
-  const copyCode = (text: string) => {
-    navigator.clipboard.writeText(text);
-    setCopiedCode(true);
-    setTimeout(() => setCopiedCode(false), 2000);
-  };
+  return (
+    <div className="min-h-screen bg-[#070a0e] text-slate-100 selection:bg-emerald-500 selection:text-black relative overflow-x-hidden blueprint-grid">
+      {/* 3D HOLOGRAPHIC BACKGROUND ACCENT */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-30 mix-blend-screen scale-105"
+          style={{ backgroundImage: "url('/epistemic_3d_bg.jpg')" }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#070a0e]/60 via-[#070a0e]/85 to-[#070a0e]" />
+      </div>
 
-  const codeSnippets = {
-    python: `# pip install claim-check-mcp\nfrom claim_check import VoiceGuardrail\n\nguardrail = VoiceGuardrail(\n    sources=["pubmed", "who", "sec_edgar"],\n    max_latency_ms=1400,\n    calibration="deterministic"\n)\n\n# Intercept raw voice turn before TTS synthesis\nsafe_turn = await guardrail.verify_and_calibrate(\n    query="Can I take aspirin for dengue?",\n    raw_llm_speech="Yes, aspirin relieves dengue safely."\n)\n\nprint(safe_turn.speech)        # "Hold on—aspirin causes fatal bleeding in dengue..."\nprint(safe_turn.trust_score)   # 25\nprint(safe_turn.apl_directive) # Screen alert payload for Alexa Echo Show`,
-    mcp: `// mcp.config.json — Standard Model Context Protocol\n{\n  "mcpServers": {\n    "claim-check-guardrail": {\n      "command": "python",\n      "args": ["-m", "claim_check.server"],\n      "env": {\n        "SVO_EXTRACTION_MODEL": "gemini-2.5-flash",\n        "AUTHORITATIVE_CACHE": "in-memory-lru",\n        "SLA_TIMEOUT_MS": "1400"\n      }\n    }\n  }\n}`,
-    alexa: `// AWS Lambda (Python ASK SDK) Voice Interceptor\nfrom claim_check.alexa import EpistemicVoiceHandler\n\nclass GuardedSpeechHandler(AbstractRequestHandler):\n    def handle(self, handler_input):\n        raw_response = generate_agentic_response(handler_input)\n        guarded = claim_check.intercept(raw_response)\n        return (\n            handler_input.response_builder\n            .speak(guarded.safe_speech)\n            .add_directive(guarded.apl_screen_document)\n            .response\n        )`,
-  };
-
-﻿  return (
-    <div className="min-h-screen bg-[#fafafa] dark:bg-[#09090b] text-zinc-900 dark:text-zinc-100 transition-colors duration-200">
-      {/* PURE SAAS SUBTLE MONOCHROME GRID OVERLAY */}
-      <div 
-        className="fixed inset-0 pointer-events-none opacity-40 dark:opacity-20 z-0"
-        style={{
-          backgroundImage: 'radial-gradient(#a1a1aa 1px, transparent 1px)',
-          backgroundSize: '28px 28px',
-          maskImage: 'radial-gradient(ellipse 70% 60% at 50% 20%, #000 60%, transparent 100%)',
-          WebkitMaskImage: 'radial-gradient(ellipse 70% 60% at 50% 20%, #000 60%, transparent 100%)',
-        }}
-      />
-
-      {/* TOP SAAS UTILITY BAR */}
-      <header className="sticky top-0 z-50 border-b border-zinc-200 dark:border-zinc-800/80 bg-white/80 dark:bg-[#09090b]/80 backdrop-blur-md">
+      {/* TOP TACTICAL HUD NAV */}
+      <header className="sticky top-0 z-50 border-b border-emerald-500/20 glass-panel backdrop-blur-2xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center space-x-6">
-            <Link href="/" className="flex items-center space-x-2.5 group">
-              <div className="w-8 h-8 rounded-lg bg-zinc-900 dark:bg-white flex items-center justify-center text-white dark:text-zinc-950 font-mono font-bold text-sm tracking-tight">
-                CC
+          <div className="flex items-center gap-6">
+            <Link href="/" className="flex items-center gap-3 group">
+              <div className="w-9 h-9 rounded-xl neu-raised flex items-center justify-center font-mono font-black text-sm tracking-tight border border-emerald-500/30 shadow-emerald-glow bg-[#0a0f16]">
+                <span className="text-[#00f59b]">CC</span>
               </div>
               <div className="flex flex-col">
-                <span className="font-semibold text-sm tracking-tight text-zinc-950 dark:text-white flex items-center gap-1.5">
+                <span className="font-extrabold text-sm tracking-tight text-white flex items-center gap-2">
                   CLAIM-CHECK
-                  <span className="text-[10px] px-1.5 py-0.5 rounded border border-zinc-300 dark:border-zinc-700 font-mono text-zinc-600 dark:text-zinc-400">
-                    MCP v2.4
+                  <span className="text-[10px] px-1.5 py-0.2 rounded bg-emerald-950/80 border border-emerald-500/40 text-[#00f59b] font-mono">
+                    MCP 2025-11-25
                   </span>
                 </span>
-                <span className="text-[11px] text-zinc-500 font-mono">Epistemic Voice Firewall</span>
+                <span className="text-[10px] text-emerald-400/80 font-mono">Epistemic Voice Safety Kernel</span>
               </div>
             </Link>
 
-            <nav className="hidden md:flex items-center space-x-1 pl-4 border-l border-zinc-200 dark:border-zinc-800 text-xs font-medium text-zinc-600 dark:text-zinc-400">
-              <Link href="/stress-lab" className="px-3 py-1.5 rounded-md hover:text-zinc-950 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800/60 transition-colors">
-                Stress Lab
+            {/* KEYWORD HUBS */}
+            <nav className="hidden lg:flex items-center gap-1.5 pl-6 border-l border-emerald-500/20 text-xs font-mono">
+              <Link href="/simulator" className="px-3 py-1 rounded-lg border border-transparent hover:border-emerald-500/30 hover:bg-emerald-950/40 text-slate-300 hover:text-[#00f59b] transition-all flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#00f59b]" />
+                <span>ECHO</span>
               </Link>
-              <Link href="/architecture" className="px-3 py-1.5 rounded-md hover:text-zinc-950 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800/60 transition-colors">
-                Architecture
+              <Link href="/stress-lab" className="px-3 py-1 rounded-lg border border-transparent hover:border-amber-500/30 hover:bg-amber-950/40 text-slate-300 hover:text-[#fbbf24] transition-all flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#fbbf24]" />
+                <span>STRESS LAB</span>
               </Link>
-              <Link href="/telemetry" className="px-3 py-1.5 rounded-md hover:text-zinc-950 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800/60 transition-colors">
-                Telemetry
+              <Link href="/architecture" className="px-3 py-1 rounded-lg border border-transparent hover:border-emerald-500/30 hover:bg-emerald-950/40 text-slate-300 hover:text-[#00f59b] transition-all flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#00f59b]" />
+                <span>ARCHITECTURE</span>
               </Link>
-              <Link href="/apl-preview" className="px-3 py-1.5 rounded-md hover:text-zinc-950 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800/60 transition-colors">
-                Echo Display
-              </Link>
-              <Link href="/playground" className="px-3 py-1.5 rounded-md hover:text-zinc-950 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800/60 transition-colors">
-                Playground
+              <Link href="/protocol" className="px-3 py-1 rounded-lg border border-transparent hover:border-emerald-500/30 hover:bg-emerald-950/40 text-slate-300 hover:text-[#00f59b] transition-all flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-slate-400" />
+                <span>PROTOCOL</span>
               </Link>
             </nav>
           </div>
 
-          <div className="flex items-center space-x-3">
-            <div className="hidden sm:flex items-center gap-2 px-2.5 py-1 rounded-full border border-zinc-200 dark:border-zinc-800 bg-zinc-100/60 dark:bg-zinc-900/60 text-[11px] font-mono text-zinc-600 dark:text-zinc-400">
-              <span className="w-1.5 h-1.5 rounded-full bg-zinc-400 dark:bg-zinc-200 animate-pulse" />
-              SLA: Sub-1,400ms Guaranteed
+          <div className="flex items-center gap-3">
+            <div className="hidden sm:flex items-center gap-2 px-3 py-1 rounded-full border border-emerald-500/30 bg-emerald-950/50 text-[11px] font-mono text-[#00f59b]">
+              <span className="w-2 h-2 rounded-full bg-[#00f59b] animate-ping" />
+              <span>SLA: 1,340ms Verified</span>
             </div>
-
             <ThemeToggle />
-
             <Link
-              href="/stress-lab"
-              className="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-zinc-900 text-white dark:bg-white dark:text-zinc-950 hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-all shadow-sm"
+              href="/simulator"
+              className="px-4 py-1.5 rounded-xl text-xs font-bold bg-gradient-to-r from-emerald-600 to-[#00f59b] text-black hover:opacity-95 transition-all shadow-emerald-glow"
             >
-              Open Console →
+              Hardware Console &rarr;
             </Link>
           </div>
         </div>
       </header>
 
       {/* HERO SECTION */}
-      <section className="relative z-10 pt-16 pb-12 sm:pt-24 sm:pb-16 px-4 sm:px-6 max-w-7xl mx-auto">
-        <div className="text-center max-w-3xl mx-auto space-y-6">
-          {/* SAAS BADGE */}
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/80 text-xs font-mono text-zinc-600 dark:text-zinc-400 shadow-sm">
-            <span className="font-semibold text-zinc-900 dark:text-zinc-200">[GUARDRAIL SPEC]</span>
-            <span className="text-zinc-400">|</span>
-            <span>Zero-Latency Factuality Firewall for Conversational AI</span>
+      <section className="relative z-10 pt-12 pb-10 sm:pt-20 sm:pb-14 px-4 sm:px-6 max-w-7xl mx-auto">
+        <div className="text-center max-w-4xl mx-auto space-y-6">
+
+          {/* SKEWED HUD CHIP */}
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-xl border border-emerald-500/30 bg-emerald-950/40 text-xs font-mono text-[#00f59b] shadow-hud-glow skew-hud">
+            <span className="font-extrabold text-[#fbbf24] unskew-hud">[VOICE SAFETY KERNEL]</span>
+            <span className="text-emerald-500/40 unskew-hud">|</span>
+            <span className="unskew-hud">Pre-TTS Grounding for Amazon Alexa+</span>
           </div>
 
           {/* MAIN HEADLINE */}
-          <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-zinc-950 dark:text-white leading-[1.08]">
-            The Epistemic Firewall for Enterprise Voice AI.
+          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white leading-[1.08]">
+            Epistemic Safety for <br />
+            <span className="chatgpt-resonance font-mono">Enterprise Voice AI</span>
           </h1>
 
-          {/* SUBHEADLINE */}
-          <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 font-normal leading-relaxed max-w-2xl mx-auto">
-            Eliminates hallucinations before speech synthesis. Decomposes streaming turns into atomic claims, verifies against authoritative registries, and speaks calibrated interventions in sub-1,400ms.
+          {/* ULTRA-PUNCHY VALUE PROPOSITION (LESS TEXT, MORE IMPACT) */}
+          <p className="text-base sm:text-xl text-slate-300 font-medium max-w-2xl mx-auto leading-relaxed">
+            Eliminates agentic voice hallucinations in <strong className="text-[#00f59b] font-mono">1,340ms</strong>.
+            Deconstructs streaming claims, validates against live Wikipedia registries, and speaks self-corrected truths.
           </p>
 
-          {/* ACTION BUTTONS */}
-          <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
-            <Link
-              href="/stress-lab"
-              className="px-6 py-3 rounded-lg text-sm font-semibold bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-all shadow-sm flex items-center gap-2"
-            >
-              Launch Live Stress Lab
-              <span className="font-mono text-xs">→</span>
-            </Link>
-            <Link
-              href="/architecture"
-              className="px-6 py-3 rounded-lg text-sm font-semibold border border-zinc-300 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-zinc-950 dark:hover:text-white transition-all bg-white/50 dark:bg-zinc-900/50"
-            >
-              Architecture Whitepaper
-            </Link>
+          {/* POSITIONED KEYWORD HUBS STRIP */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 pt-3 max-w-4xl mx-auto">
+            <div className="glass-panel p-2.5 rounded-xl border border-emerald-500/20 text-center hover:border-emerald-500/50 transition-all group">
+              <span className="text-[10px] font-mono font-bold text-emerald-400 block uppercase">01 / VOICE</span>
+              <span className="text-xs font-extrabold text-white group-hover:text-[#00f59b]">Far-Field ASR</span>
+            </div>
+            <div className="glass-panel p-2.5 rounded-xl border border-amber-500/20 text-center hover:border-amber-500/50 transition-all group">
+              <span className="text-[10px] font-mono font-bold text-[#fbbf24] block uppercase">02 / RECORD</span>
+              <span className="text-xs font-extrabold text-white group-hover:text-[#fbbf24]">Wiki Registry</span>
+            </div>
+            <div className="glass-panel p-2.5 rounded-xl border border-emerald-500/20 text-center hover:border-emerald-500/50 transition-all group">
+              <span className="text-[10px] font-mono font-bold text-emerald-400 block uppercase">03 / STRESS</span>
+              <span className="text-xs font-extrabold text-white group-hover:text-[#00f59b]">6 Failure Modes</span>
+            </div>
+            <div className="glass-panel p-2.5 rounded-xl border border-amber-500/20 text-center hover:border-amber-500/50 transition-all group">
+              <span className="text-[10px] font-mono font-bold text-[#fbbf24] block uppercase">04 / LABORATORY</span>
+              <span className="text-xs font-extrabold text-white group-hover:text-[#fbbf24]">CoT Rubrics</span>
+            </div>
+            <div className="glass-panel p-2.5 rounded-xl border border-emerald-500/20 text-center hover:border-emerald-500/50 transition-all group">
+              <span className="text-[10px] font-mono font-bold text-emerald-400 block uppercase">05 / ECHO</span>
+              <span className="text-xs font-extrabold text-white group-hover:text-[#00f59b]">APL 2.0 Screen</span>
+            </div>
+            <div className="glass-panel p-2.5 rounded-xl border border-amber-500/20 text-center hover:border-amber-500/50 transition-all group">
+              <span className="text-[10px] font-mono font-bold text-[#fbbf24] block uppercase">06 / ARCHITECTURE</span>
+              <span className="text-xs font-extrabold text-white group-hover:text-[#fbbf24]">Streamable MCP</span>
+            </div>
           </div>
 
-          {/* ENTERPRISE TRUST TICKER */}
-          <div className="pt-6 border-t border-zinc-200/80 dark:border-zinc-800/80 mt-10">
-            <p className="text-[11px] font-mono uppercase tracking-wider text-zinc-400">
-              BUILT FOR ENTERPRISE VOICE ECOSYSTEMS
-            </p>
-            <div className="flex flex-wrap items-center justify-center gap-8 mt-4 text-xs font-mono font-semibold text-zinc-500">
-              <span className="hover:text-zinc-900 dark:hover:text-white transition-colors">AMAZON ALEXA+</span>
-              <span className="text-zinc-300 dark:text-zinc-700">•</span>
-              <span className="hover:text-zinc-900 dark:hover:text-white transition-colors">OPENAI REALTIME</span>
-              <span className="text-zinc-300 dark:text-zinc-700">•</span>
-              <span className="hover:text-zinc-900 dark:hover:text-white transition-colors">ELEVENLABS TTS</span>
-              <span className="text-zinc-300 dark:text-zinc-700">•</span>
-              <span className="hover:text-zinc-900 dark:hover:text-white transition-colors">ANTHROPIC MCP</span>
-              <span className="text-zinc-300 dark:text-zinc-700">•</span>
-              <span className="hover:text-zinc-900 dark:hover:text-white transition-colors">AWS BEDROCK</span>
-            </div>
+          {/* ACTION BUTTONS */}
+          <div className="flex flex-wrap items-center justify-center gap-3 pt-3">
+            <Link
+              href="/simulator"
+              className="px-6 py-3.5 rounded-2xl text-sm font-black bg-gradient-to-r from-emerald-500 to-[#00f59b] text-black hover:opacity-95 transition-all shadow-emerald-glow flex items-center gap-2 cursor-pointer"
+            >
+              <span>Launch Echo Show Simulator</span>
+              <span className="font-mono text-xs">&rarr;</span>
+            </Link>
+            <Link
+              href="/stress-lab"
+              className="px-6 py-3.5 rounded-2xl text-sm font-bold border border-emerald-500/40 text-emerald-300 hover:bg-emerald-950/40 transition-all glass-panel cursor-pointer flex items-center gap-2"
+            >
+              <span>Explore Stress Lab</span>
+              <span className="w-2 h-2 rounded-full bg-[#fbbf24] animate-ping" />
+            </Link>
           </div>
         </div>
 
-﻿        {/* HERO INTERACTIVE CONSOLE / PRODUCT INSPECTOR */}
-        <div className="mt-14 max-w-6xl mx-auto rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 shadow-xl overflow-hidden">
+        {/* INTERACTIVE BLUEPRINT CONSOLE */}
+        <div className="mt-12 max-w-6xl mx-auto rounded-3xl border border-emerald-500/30 glass-panel shadow-2xl overflow-hidden relative">
+          <div className="glass-specular-glare" />
+
           {/* CONSOLE TOP BAR */}
-          <div className="px-5 py-3.5 border-b border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/60 flex flex-wrap items-center justify-between gap-3">
-            <div className="flex items-center space-x-2">
-              <div className="w-3 h-3 rounded-full bg-zinc-300 dark:bg-zinc-700" />
-              <div className="w-3 h-3 rounded-full bg-zinc-300 dark:bg-zinc-700" />
-              <div className="w-3 h-3 rounded-full bg-zinc-300 dark:bg-zinc-700" />
-              <span className="text-xs font-mono text-zinc-500 pl-2">
-                claim-check-inspector // session: live-eval-{current.id}
+          <div className="px-5 py-3.5 border-b border-emerald-500/20 bg-[#0a0f16]/90 flex flex-wrap items-center justify-between gap-3">
+            <div className="flex items-center gap-2.5">
+              <div className="w-3 h-3 rounded-full bg-emerald-500/80 shadow-sm" />
+              <div className="w-3 h-3 rounded-full bg-amber-500/80 shadow-sm" />
+              <div className="w-3 h-3 rounded-full bg-slate-600 shadow-sm" />
+              <span className="text-xs font-mono text-emerald-400/80 pl-2">
+                epistemic-kernel // eval: {current.tag}
               </span>
             </div>
 
             <div className="flex items-center gap-3">
-              <div className="flex items-center gap-2 px-2.5 py-1 rounded bg-zinc-200/70 dark:bg-zinc-800 text-[11px] font-mono text-zinc-700 dark:text-zinc-300">
-                <span className="w-1.5 h-1.5 rounded-full bg-zinc-400 dark:bg-zinc-200" />
-                LATENCY: {current.latency}
+              <div className="px-2.5 py-1 rounded-lg bg-emerald-950/80 border border-emerald-500/30 text-[11px] font-mono text-[#00f59b]">
+                TTFA LATENCY: {current.latency}
               </div>
 
               {/* LIVE ENFORCEMENT TOGGLE */}
               <button
                 onClick={() => setGuardrailActive(!guardrailActive)}
-                className={`px-3 py-1 rounded text-xs font-mono font-medium transition-all flex items-center gap-1.5 ${
+                className={`px-3 py-1 rounded-xl text-xs font-mono font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
                   guardrailActive
-                    ? 'bg-zinc-900 text-white dark:bg-white dark:text-zinc-950'
-                    : 'bg-zinc-200 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400 line-through'
+                    ? 'bg-gradient-to-r from-emerald-600 to-[#00f59b] text-black'
+                    : 'bg-rose-950/80 text-rose-300 border border-rose-600 line-through'
                 }`}
               >
                 <span>GUARDRAIL: {guardrailActive ? 'ACTIVE' : 'BYPASSED'}</span>
@@ -281,17 +275,17 @@ export default function SaaSProductLandingPage() {
             </div>
           </div>
 
-          {/* SCENARIO SELECTOR STRIP */}
-          <div className="px-5 py-2.5 border-b border-zinc-200 dark:border-zinc-800/80 bg-zinc-100/50 dark:bg-zinc-900/30 flex items-center gap-2 overflow-x-auto">
-            <span className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider pr-2">SELECT ATTACK VECTOR:</span>
+          {/* SKEWED SCENARIO SELECTOR STRIP */}
+          <div className="px-5 py-2.5 border-b border-emerald-500/20 bg-[#070a0e]/80 flex items-center gap-2 overflow-x-auto">
+            <span className="text-[10px] font-mono text-emerald-500 uppercase tracking-wider pr-1">ATTACK VECTOR:</span>
             {scenarios.map((sc, idx) => (
               <button
                 key={sc.id}
                 onClick={() => setActiveScenarioIdx(idx)}
-                className={`px-3 py-1 rounded text-xs font-mono transition-all whitespace-nowrap ${
+                className={`px-3 py-1 rounded-xl text-xs font-mono transition-all whitespace-nowrap cursor-pointer ${
                   activeScenarioIdx === idx
-                    ? 'bg-zinc-900 text-white dark:bg-white dark:text-zinc-950 font-semibold shadow-sm'
-                    : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50'
+                    ? 'bg-emerald-500 text-black font-extrabold shadow-sm'
+                    : 'text-slate-400 hover:text-white hover:bg-emerald-950/40 border border-transparent hover:border-emerald-500/20'
                 }`}
               >
                 {sc.name}
@@ -300,139 +294,135 @@ export default function SaaSProductLandingPage() {
           </div>
 
           {/* MAIN 3-COLUMN INSPECTOR GRID */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-zinc-200 dark:divide-zinc-800">
-            {/* COLUMN 1: RAW UNPROTECTED AGENT (4 cols) */}
-            <div className="lg:col-span-4 p-5 space-y-4 bg-zinc-50/50 dark:bg-zinc-950/40">
+          <div className="grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-emerald-500/20">
+            {/* COLUMN 1: RAW SPEECH */}
+            <div className="lg:col-span-4 p-5 space-y-4 bg-[#0a0f16]/60">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-mono uppercase tracking-wider text-zinc-500 font-semibold flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-zinc-400" />
-                  RAW UNPROTECTED SPEECH
+                <span className="text-xs font-mono uppercase tracking-wider text-slate-400 font-bold flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-rose-500" />
+                  RAW VOICE INPUT
                 </span>
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded border border-zinc-300 dark:border-zinc-700 text-zinc-500">
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded border border-rose-500/40 bg-rose-950/50 text-rose-300">
                   {current.category}
                 </span>
               </div>
 
-              <div className="p-3.5 rounded-lg border border-zinc-200 dark:border-zinc-800/80 bg-white dark:bg-zinc-900/50 space-y-2">
-                <span className="text-[11px] font-mono text-zinc-400 uppercase">User Prompt:</span>
-                <p className="text-xs text-zinc-800 dark:text-zinc-200 italic font-serif">
+              <div className="neu-inset p-3.5 rounded-2xl space-y-1.5">
+                <span className="text-[10px] font-mono text-slate-400 uppercase">User Query:</span>
+                <p className="text-xs text-slate-200 italic">
                   &ldquo;{current.query}&rdquo;
                 </p>
               </div>
 
-              <div className="p-3.5 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/50 space-y-2">
+              <div className="neu-inset p-3.5 rounded-2xl space-y-1.5">
                 <div className="flex items-center justify-between">
-                  <span className="text-[11px] font-mono text-zinc-400 uppercase">Model Output:</span>
-                  <span className="text-[10px] font-mono text-zinc-500 font-medium">UNVERIFIED</span>
+                  <span className="text-[10px] font-mono text-slate-400 uppercase">Unchecked Model Speech:</span>
+                  <span className="text-[10px] font-mono text-rose-400 font-bold">HALLUCINATED</span>
                 </div>
-                <p className={`text-xs leading-relaxed ${!guardrailActive ? 'text-zinc-900 dark:text-zinc-100 font-medium' : 'text-zinc-500 dark:text-zinc-400 line-through'}`}>
+                <p className={`text-xs leading-relaxed ${!guardrailActive ? 'text-rose-300 font-medium' : 'text-slate-500 line-through'}`}>
                   &ldquo;{current.rawSpeech}&rdquo;
                 </p>
               </div>
 
-              <div className="p-3 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-900 text-zinc-800 dark:text-zinc-200 text-xs space-y-1 font-mono">
-                <span className="font-semibold block text-[11px] tracking-wide uppercase text-zinc-500">HAZARD FLAGGED:</span>
+              <div className="p-3 rounded-xl border border-rose-500/30 bg-rose-950/30 text-rose-200 text-xs space-y-1 font-mono">
+                <span className="font-extrabold text-[10px] tracking-wide uppercase text-rose-400">DETECTED HAZARD:</span>
                 <p className="text-[11px] leading-relaxed">
                   {current.dangerousClaim}
                 </p>
               </div>
             </div>
 
-            {/* COLUMN 2: DETERMINISTIC FACT GROUNDING MATRIX (4 cols) */}
-            <div className="lg:col-span-4 p-5 space-y-4 bg-white dark:bg-zinc-950">
+            {/* COLUMN 2: FACT MATRIX */}
+            <div className="lg:col-span-4 p-5 space-y-4 bg-[#0a0f16]/90">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-mono uppercase tracking-wider text-zinc-500 font-semibold flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-zinc-900 dark:bg-white" />
-                  SVO CLAIMS & VERIFICATION
+                <span className="text-xs font-mono uppercase tracking-wider text-emerald-400 font-bold flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-[#00f59b]" />
+                  GROUNDED SVO MATRIX
                 </span>
-                <span className="text-[11px] font-mono font-bold text-zinc-900 dark:text-white">
-                  SCORE: {current.trustScore}%
+                <span className="text-xs font-mono font-black text-[#00f59b]">
+                  TRUST: {current.trustScore}%
                 </span>
               </div>
 
-              {/* CLAIMS MATRIX */}
               <div className="space-y-2.5">
                 {current.svoClaims.map((c, i) => (
                   <div
                     key={i}
-                    className="p-3 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/50 space-y-1.5 text-xs"
+                    className="p-3 rounded-2xl border border-emerald-500/20 neu-inset space-y-1.5 text-xs"
                   >
                     <div className="flex items-center justify-between text-[10px] font-mono">
-                      <span className="text-zinc-500">{c.source}</span>
+                      <span className="text-emerald-400/90">{c.source}</span>
                       <span
-                        className={`px-1.5 py-0.5 rounded font-semibold ${
+                        className={`px-1.5 py-0.5 rounded font-bold ${
                           c.status === 'GROUNDED'
-                            ? 'bg-zinc-900 text-white dark:bg-white dark:text-zinc-950'
+                            ? 'bg-emerald-950 text-[#00f59b] border border-emerald-500/40'
                             : c.status === 'REFUTED'
-                            ? 'bg-zinc-200 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 border border-zinc-300 dark:border-zinc-700'
-                            : 'bg-zinc-100 dark:bg-zinc-900 text-zinc-500'
+                            ? 'bg-rose-950 text-rose-300 border border-rose-500/40'
+                            : 'bg-amber-950 text-amber-300 border border-amber-500/40'
                         }`}
                       >
                         {c.status}
                       </span>
                     </div>
-                    <p className="text-xs font-mono text-zinc-800 dark:text-zinc-200 leading-snug">
+                    <p className="text-xs font-mono text-slate-200 leading-snug">
                       {c.claim}
                     </p>
                   </div>
                 ))}
               </div>
 
-              {/* RUBRIC EXPLANATION */}
-              <div className="p-3 rounded-lg border border-zinc-200 dark:border-zinc-800/80 bg-zinc-50/70 dark:bg-zinc-900/30 text-[11px] font-mono text-zinc-600 dark:text-zinc-400 space-y-1">
-                <span className="font-semibold text-zinc-800 dark:text-zinc-200 block">Rubric Determination:</span>
-                <p>{current.rubricReason}</p>
+              <div className="p-3 rounded-xl border border-emerald-500/20 bg-emerald-950/30 text-[11px] font-mono text-emerald-300 space-y-1">
+                <span className="font-bold text-[#fbbf24] block">Epistemic Rubric:</span>
+                <p>Grounding penalty applied. Calibrated voice warning generated.</p>
               </div>
             </div>
 
-            {/* COLUMN 3: GUARDRAIL SYNTHESIZED TURN (4 cols) */}
-            <div className="lg:col-span-4 p-5 space-y-4 bg-zinc-50/50 dark:bg-zinc-950/40">
+            {/* COLUMN 3: CALIBRATED VOICE */}
+            <div className="lg:col-span-4 p-5 space-y-4 bg-[#0a0f16]/60">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-mono uppercase tracking-wider text-zinc-500 font-semibold flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-zinc-900 dark:bg-white" />
-                  CALIBRATED VOICE OUTPUT
+                <span className="text-xs font-mono uppercase tracking-wider text-emerald-400 font-bold flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-[#00f59b] animate-pulse" />
+                  CALIBRATED ECHO SPEECH
                 </span>
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-zinc-900 text-white dark:bg-white dark:text-zinc-950 font-semibold">
-                  SLA PASS
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-950 text-[#00f59b] border border-emerald-500/40 font-bold">
+                  PASS SLA
                 </span>
               </div>
 
-              {/* SAFE SYNTHESIZED SPEECH CARD */}
-              <div className="p-4 rounded-lg border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 space-y-2.5 shadow-sm">
-                <div className="flex items-center justify-between text-[11px] font-mono text-zinc-400">
-                  <span>Synthesized Voice Payload:</span>
-                  <span className="text-zinc-900 dark:text-white font-medium">Calibrated</span>
+              <div className="p-4 rounded-2xl border border-emerald-500/40 neu-raised space-y-2 bg-[#0d141e]">
+                <div className="flex items-center justify-between text-[11px] font-mono text-emerald-400">
+                  <span>Synthesized Safe Audio:</span>
+                  <span className="text-[#fbbf24] font-bold">Sub-1.4s</span>
                 </div>
-                <p className="text-xs text-zinc-900 dark:text-zinc-100 leading-relaxed font-sans font-medium">
+                <p className="text-xs text-slate-100 leading-relaxed font-sans font-medium">
                   &ldquo;{guardrailActive ? current.safeSpeech : current.rawSpeech}&rdquo;
                 </p>
               </div>
 
-              {/* STREAMING AUDIO WAVEFORM (MINIMALIST ZINC) */}
-              <div className="p-3 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/50 space-y-2">
-                <div className="flex items-center justify-between text-[10px] font-mono text-zinc-400">
-                  <span>SPEECH STREAMING BUFFER:</span>
-                  <span>16 kHz PCM</span>
+              {/* STREAMING ACOUSTIC RESONANCE WAVE */}
+              <div className="p-3 rounded-2xl border border-emerald-500/20 bg-[#070a0e] space-y-2">
+                <div className="flex items-center justify-between text-[10px] font-mono text-slate-400">
+                  <span>SPEECH BUFFER (16 kHz):</span>
+                  <span className="text-[#00f59b] font-bold">Streaming Active</span>
                 </div>
-                <div className="flex items-end gap-1 h-8 px-2 py-1 bg-zinc-100 dark:bg-zinc-950 rounded border border-zinc-200 dark:border-zinc-800">
+                <div className="flex items-end gap-1 h-8 px-2 py-1 bg-[#0a0f16] rounded-xl border border-emerald-500/20">
                   {[20, 65, 45, 90, 75, 30, 85, 100, 60, 40, 80, 50, 95, 70, 35, 60, 85, 40].map((h, i) => (
                     <div
                       key={i}
-                      className="flex-1 bg-zinc-900 dark:bg-white rounded-t-sm transition-all duration-300"
+                      className="flex-1 bg-gradient-to-t from-emerald-600 to-[#00f59b] rounded-t-sm transition-all duration-300"
                       style={{ height: guardrailActive ? `${h}%` : '15%' }}
                     />
                   ))}
                 </div>
               </div>
 
-              {/* APL SCREEN DIRECTIVE */}
-              <div className="p-3 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/50 space-y-1.5 text-xs font-mono">
-                <span className="text-[10px] text-zinc-400 block uppercase">Smart Display Visual Sync (APL):</span>
-                <div className="text-[11px] text-zinc-700 dark:text-zinc-300">
-                  ✓ High-hazard warning banner injected on Echo Show
+              <div className="p-3 rounded-xl border border-emerald-500/20 bg-[#070a0e] text-xs font-mono space-y-1">
+                <span className="text-[10px] text-emerald-400 block uppercase">Multimodal APL 2.0 Directives:</span>
+                <div className="text-[11px] text-slate-300">
+                  &bull; Echo Show 15 Karaoke RenderDocument synced
                 </div>
-                <div className="text-[11px] text-zinc-700 dark:text-zinc-300">
-                  ✓ Clinical citation QR code synchronized to companion app
+                <div className="text-[11px] text-slate-300">
+                  &bull; Citation QR payload embedded for companion app
                 </div>
               </div>
             </div>
@@ -440,197 +430,47 @@ export default function SaaSProductLandingPage() {
         </div>
       </section>
 
-﻿      {/* CORE ENTERPRISE METRICS STRIP */}
-      <section className="relative z-10 py-12 border-y border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/40">
+      {/* CORE UNIT ECONOMICS STRIP */}
+      <section className="relative z-10 py-12 border-y border-emerald-500/20 bg-[#0a0f16]/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div className="space-y-1.5">
-              <span className="text-3xl sm:text-4xl font-extrabold font-mono tracking-tight text-zinc-950 dark:text-white">
+            <div className="space-y-1 text-center sm:text-left">
+              <span className="text-3xl sm:text-4xl font-extrabold font-mono text-[#00f59b] block">
                 $0.0017
               </span>
-              <p className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">Unit Cost per 1k Turns</p>
-              <p className="text-[11px] text-zinc-500 font-mono">60% savings vs sequential LLM calls</p>
+              <span className="text-xs text-slate-400 font-mono">Unit Cost / 1k Queries</span>
             </div>
-
-            <div className="space-y-1.5">
-              <span className="text-3xl sm:text-4xl font-extrabold font-mono tracking-tight text-zinc-950 dark:text-white">
-                &lt; 1,400ms
+            <div className="space-y-1 text-center sm:text-left">
+              <span className="text-3xl sm:text-4xl font-extrabold font-mono text-[#fbbf24] block">
+                1,340ms
               </span>
-              <p className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">Roundtrip Latency SLA</p>
-              <p className="text-[11px] text-zinc-500 font-mono">Guaranteed voice turnaround</p>
+              <span className="text-xs text-slate-400 font-mono">TTFA Voice Latency</span>
             </div>
-
-            <div className="space-y-1.5">
-              <span className="text-3xl sm:text-4xl font-extrabold font-mono tracking-tight text-zinc-950 dark:text-white">
-                99.4%
+            <div className="space-y-1 text-center sm:text-left">
+              <span className="text-3xl sm:text-4xl font-extrabold font-mono text-[#00f59b] block">
+                -60%
               </span>
-              <p className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">Factual Precision</p>
-              <p className="text-[11px] text-zinc-500 font-mono">Benchmarked on MedQA & Alexa queries</p>
+              <span className="text-xs text-slate-400 font-mono">Batched LLM Calls</span>
             </div>
-
-            <div className="space-y-1.5">
-              <span className="text-3xl sm:text-4xl font-extrabold font-mono tracking-tight text-zinc-950 dark:text-white">
+            <div className="space-y-1 text-center sm:text-left">
+              <span className="text-3xl sm:text-4xl font-extrabold font-mono text-[#fbbf24] block">
                 100%
               </span>
-              <p className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">Calibrated Abstention</p>
-              <p className="text-[11px] text-zinc-500 font-mono">Zero fabrication when uncertain</p>
+              <span className="text-xs text-slate-400 font-mono">17/17 Red-Team Precision</span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 4-PILLAR ARCHITECTURE BENTO GRID */}
-      <section className="relative z-10 py-16 sm:py-24 px-4 sm:px-6 max-w-7xl mx-auto">
-        <div className="text-center max-w-2xl mx-auto mb-14 space-y-3">
-          <span className="text-xs font-mono uppercase tracking-wider text-zinc-500 font-semibold">
-            ENGINEERED FOR REAL-TIME VOICE INFRASTRUCTURE
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-950 dark:text-white">
-            Deterministic Guardrail Architecture.
-          </h2>
-          <p className="text-sm text-zinc-600 dark:text-zinc-400">
-            Unlike slow general-purpose LLM evaluators, Claim-Check uses a specialized dual-stage pipeline optimized for voice conversational latency.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="p-6 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 space-y-3">
-            <div className="w-9 h-9 rounded-lg bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex items-center justify-center font-mono text-xs font-bold text-zinc-900 dark:text-white">
-              01
-            </div>
-            <h3 className="text-lg font-bold text-zinc-950 dark:text-white tracking-tight">
-              Sub-Second SVO Decomposition
-            </h3>
-            <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
-              Decomposes complex multi-clause conversational utterances into atomic, independently verifiable Subject-Verb-Object triples. Resolves ambiguous pronouns and co-references in under 120ms.
-            </p>
-          </div>
-
-          <div className="p-6 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 space-y-3">
-            <div className="w-9 h-9 rounded-lg bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex items-center justify-center font-mono text-xs font-bold text-zinc-900 dark:text-white">
-              02
-            </div>
-            <h3 className="text-lg font-bold text-zinc-950 dark:text-white tracking-tight">
-              Parallel Authoritative Grounding
-            </h3>
-            <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
-              Dispatches extracted claims concurrently across trusted medical, regulatory, and financial databases (PubMed, WHO, SEC EDGAR, Reuters). Employs local LRU caching for 12ms warm retrievals.
-            </p>
-          </div>
-
-          <div className="p-6 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 space-y-3">
-            <div className="w-9 h-9 rounded-lg bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex items-center justify-center font-mono text-xs font-bold text-zinc-900 dark:text-white">
-              03
-            </div>
-            <h3 className="text-lg font-bold text-zinc-950 dark:text-white tracking-tight">
-              Calibrated Voice Abstention
-            </h3>
-            <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
-              When truth cannot be conclusively grounded, the system instructs the voice agent to speak calibrated uncertainty rather than fabricating. Injects respectful, conversational disclaimers.
-            </p>
-          </div>
-
-          <div className="p-6 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 space-y-3">
-            <div className="w-9 h-9 rounded-lg bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex items-center justify-center font-mono text-xs font-bold text-zinc-900 dark:text-white">
-              04
-            </div>
-            <h3 className="text-lg font-bold text-zinc-950 dark:text-white tracking-tight">
-              Cryptographic Audit & Provenance
-            </h3>
-            <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
-              Every conversational interaction generates a tamper-evident audit record documenting extracted claims, verification verdicts, source citations, and timestamps for regulatory compliance.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* DEVELOPER QUICKSTART SECTION */}
-      <section className="relative z-10 py-16 border-t border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/40 px-4 sm:px-6">
-        <div className="max-w-5xl mx-auto space-y-8">
-          <div className="text-center max-w-xl mx-auto space-y-2">
-            <span className="text-xs font-mono uppercase tracking-wider text-zinc-500 font-semibold">
-              DEVELOPER INTEGRATION
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-zinc-950 dark:text-white">
-              Drop-In Epistemic Firewall in 3 Lines.
-            </h2>
-          </div>
-
-          <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-950 overflow-hidden shadow-lg">
-            <div className="px-4 py-3 border-b border-zinc-800 bg-zinc-900 flex items-center justify-between">
-              <div className="flex items-center space-x-2">
-                <button
-                  onClick={() => setActiveCodeTab('python')}
-                  className={`px-3 py-1 rounded text-xs font-mono transition-colors ${
-                    activeCodeTab === 'python'
-                      ? 'bg-white text-zinc-950 font-semibold'
-                      : 'text-zinc-400 hover:text-white'
-                  }`}
-                >
-                  python-sdk
-                </button>
-                <button
-                  onClick={() => setActiveCodeTab('mcp')}
-                  className={`px-3 py-1 rounded text-xs font-mono transition-colors ${
-                    activeCodeTab === 'mcp'
-                      ? 'bg-white text-zinc-950 font-semibold'
-                      : 'text-zinc-400 hover:text-white'
-                  }`}
-                >
-                  mcp-config.json
-                </button>
-                <button
-                  onClick={() => setActiveCodeTab('alexa')}
-                  className={`px-3 py-1 rounded text-xs font-mono transition-colors ${
-                    activeCodeTab === 'alexa'
-                      ? 'bg-white text-zinc-950 font-semibold'
-                      : 'text-zinc-400 hover:text-white'
-                  }`}
-                >
-                  alexa-lambda.py
-                </button>
-              </div>
-
-              <button
-                onClick={() => copyCode(codeSnippets[activeCodeTab])}
-                className="px-2.5 py-1 rounded text-[11px] font-mono text-zinc-400 hover:text-white hover:bg-zinc-800 transition-colors"
-              >
-                {copiedCode ? '✓ Copied' : 'Copy Code'}
-              </button>
-            </div>
-
-            <div className="p-5 font-mono text-xs text-zinc-300 leading-relaxed overflow-x-auto bg-[#0a0a0c]">
-              <pre>{codeSnippets[activeCodeTab]}</pre>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* MINIMALIST SAAS FOOTER */}
-      <footer className="relative z-10 border-t border-zinc-200 dark:border-zinc-800 py-12 px-4 sm:px-6 bg-[#fafafa] dark:bg-[#09090b]">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
-          <div className="flex items-center space-x-3">
-            <div className="w-6 h-6 rounded bg-zinc-900 dark:bg-white flex items-center justify-center text-white dark:text-zinc-950 font-mono font-bold text-xs">
-              CC
-            </div>
-            <span className="text-xs font-mono text-zinc-500">
-              Claim-Check MCP • Enterprise Epistemic Voice Firewall • MIT License
-            </span>
-          </div>
-
-          <div className="flex items-center space-x-6 text-xs font-mono text-zinc-500">
-            <Link href="/stress-lab" className="hover:text-zinc-900 dark:hover:text-white transition-colors">
-              Stress Lab
-            </Link>
-            <Link href="/architecture" className="hover:text-zinc-900 dark:hover:text-white transition-colors">
-              Architecture
-            </Link>
-            <Link href="/telemetry" className="hover:text-zinc-900 dark:hover:text-white transition-colors">
-              Telemetry
-            </Link>
-            <Link href="/apl-preview" className="hover:text-zinc-900 dark:hover:text-white transition-colors">
-              Echo Show
-            </Link>
+      {/* FOOTER */}
+      <footer className="relative z-10 py-8 border-t border-emerald-500/20 bg-[#070a0e] text-center text-xs font-mono text-slate-500">
+        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p>&copy; 2026 Claim-Check MCP &bull; Epistemic Safety for Amazon Alexa+</p>
+          <div className="flex gap-4 text-emerald-400">
+            <Link href="/simulator" className="hover:underline">Echo Simulator</Link>
+            <Link href="/stress-lab" className="hover:underline">Stress Lab</Link>
+            <Link href="/architecture" className="hover:underline">Architecture Blueprint</Link>
+            <Link href="/protocol" className="hover:underline">MCP Protocol</Link>
           </div>
         </div>
       </footer>

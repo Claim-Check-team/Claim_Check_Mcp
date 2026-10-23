@@ -20,6 +20,7 @@ export default function EchoShowSimulator() {
   const [activeRightTab, setActiveRightTab] = useState<'claims' | 'apl' | 'mcp'>('claims');
   const [isChecking, setIsChecking] = useState<boolean>(false);
   const [mode, setMode] = useState<'presets' | 'custom'>('presets');
+  const [selectorView, setSelectorView] = useState<'wheel' | 'grid'>('wheel');
 
   const recognitionRef = useRef<any>(null);
 
@@ -31,6 +32,15 @@ export default function EchoShowSimulator() {
     { label: 'Hazardous Remedy (Bleach)', text: 'Drinking diluted bleach cleanses your lungs and safely eliminates respiratory viral infections.' },
     { label: 'Regulatory Myth (Federal Reserve)', text: 'The Federal Reserve will phase out physical paper cash by November and mandate biometric tokens.' },
   ];
+
+  const activeScenarioIndex = Math.max(0, scenarios.findIndex((s) => s.preset_id === currentScenario.preset_id));
+
+  const rotateWheel = (direction: 'next' | 'prev') => {
+    const nextIdx = direction === 'next'
+      ? (activeScenarioIndex + 1) % scenarios.length
+      : (activeScenarioIndex - 1 + scenarios.length) % scenarios.length;
+    selectScenario(scenarios[nextIdx].preset_id);
+  };
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -343,6 +353,30 @@ export default function EchoShowSimulator() {
           </div>
 
           <div className="flex items-center gap-2 shrink-0">
+            {mode === 'presets' && (
+              <div className="flex items-center bg-zinc-900/40 p-0.5 rounded-xl border border-emerald-500/20 text-xs">
+                <button
+                  onClick={() => setSelectorView('wheel')}
+                  className={`px-2.5 py-1 rounded-lg font-mono text-[11px] transition-all cursor-pointer ${
+                    selectorView === 'wheel'
+                      ? 'bg-emerald-500/20 text-neon-emerald font-bold border border-emerald-500/40 shadow-sm'
+                      : 'text-zinc-400 hover:text-zinc-200'
+                  }`}
+                >
+                  ◎ ROTARY WHEEL
+                </button>
+                <button
+                  onClick={() => setSelectorView('grid')}
+                  className={`px-2.5 py-1 rounded-lg font-mono text-[11px] transition-all cursor-pointer ${
+                    selectorView === 'grid'
+                      ? 'bg-emerald-500/20 text-neon-emerald font-bold border border-emerald-500/40 shadow-sm'
+                      : 'text-zinc-400 hover:text-zinc-200'
+                  }`}
+                >
+                  ☵ MATRIX GRID
+                </button>
+              </div>
+            )}
             <button
               onClick={() => {
                 setMode('presets');
@@ -351,7 +385,7 @@ export default function EchoShowSimulator() {
               }}
               className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                 mode === 'presets'
-                  ? 'neu-raised text-cyan-700 dark:text-cyan-300 border border-cyan-400/40 shadow-sm'
+                  ? 'neu-raised text-emerald-400 border border-emerald-500/40 shadow-sm'
                   : 'neu-button text-zinc-600 dark:text-zinc-400'
               }`}
             >
@@ -364,60 +398,189 @@ export default function EchoShowSimulator() {
               }}
               className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
                 mode === 'custom'
-                  ? 'neu-raised text-emerald-700 dark:text-emerald-300 border border-emerald-400/40 shadow-sm'
+                  ? 'neu-raised text-emerald-400 border border-emerald-400/40 shadow-sm'
                   : 'neu-button text-zinc-600 dark:text-zinc-400'
               }`}
             >
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
               <span>🎙️ Live Judges Playground</span>
             </button>
           </div>
         </div>
 
-        {/* IF IN PRESETS MODE: 6 PRESET TILES */}
+        {/* IF IN PRESETS MODE: ROTARY WHEEL OR COMPACT MATRIX */}
         {mode === 'presets' ? (
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5">
-            {scenarios.map((sc, i) => {
-              const isActive = sc.preset_id === currentScenario.preset_id;
-              const st = sc.spoken_verdict.status;
-              let badgeColor = 'bg-cyan-100 dark:bg-cyan-950/60 text-cyan-800 dark:text-cyan-200 border-zinc-600/40';
-              if (st === 'verified_safe') {
-                badgeColor = 'bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border-emerald-300 dark:border-emerald-800';
-              } else if (st === 'abstained') {
-                badgeColor = 'bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300 border-amber-300 dark:border-amber-800';
-              } else if (st === 'self_corrected') {
-                badgeColor = 'bg-rose-100 dark:bg-rose-950/60 text-rose-800 dark:text-rose-300 border-rose-300 dark:border-rose-800';
-              }
+          selectorView === 'wheel' ? (
+            /* INTERACTIVE ROTATING WHEEL DIAL */
+            <div className="p-4 rounded-2xl border border-emerald-500/30 bg-slate-900 dark:bg-gradient-to-br dark:from-emerald-950/30 dark:via-zinc-950/50 dark:to-amber-950/20 text-white shadow-xl">
+              <div className="flex flex-col lg:flex-row items-center gap-6 justify-between">
+                
+                {/* ROTARY ORBITAL WHEEL */}
+                <div className="relative w-72 h-72 sm:w-80 sm:h-80 flex items-center justify-center shrink-0">
+                  {/* Outer Orbit Guides */}
+                  <div className="absolute inset-0 rounded-full border border-emerald-500/20 border-dashed animate-spin-slow pointer-events-none" />
+                  <div className="absolute inset-4 rounded-full border border-zinc-700/40 pointer-events-none" />
+                  <div className="absolute inset-8 rounded-full border border-amber-500/10 pointer-events-none" />
 
-              return (
-                <button
-                  key={sc.preset_id}
-                  onClick={() => selectScenario(sc.preset_id)}
-                  className={`neu-button p-2 text-left flex flex-col justify-between rounded-xl border border-white/60 dark:border-white/10 transition-all hover:scale-[1.02] ${
-                    isActive ? 'active ring-2 ring-cyan-500 dark:ring-cyan-400' : ''
-                  }`}
-                >
-                  <div className="flex items-center justify-between w-full mb-1">
-                    <span className="text-[10px] font-mono font-bold text-zinc-400 dark:text-zinc-500">#{i + 1}</span>
-                    <span className={`text-[8px] px-1.5 py-0.2 rounded-full font-bold border ${badgeColor}`}>
-                      {st.replace('_', ' ').toUpperCase()}
+                  {/* Rotary Stepper Buttons */}
+                  <button
+                    onClick={() => rotateWheel('prev')}
+                    title="Rotate Previous Scenario"
+                    className="absolute left-0 z-20 w-8 h-8 rounded-full bg-zinc-900/90 border border-emerald-500/40 hover:border-neon-emerald text-neon-emerald flex items-center justify-center shadow-lg transition-transform hover:scale-110 cursor-pointer"
+                  >
+                    ⟲
+                  </button>
+                  <button
+                    onClick={() => rotateWheel('next')}
+                    title="Rotate Next Scenario"
+                    className="absolute right-0 z-20 w-8 h-8 rounded-full bg-zinc-900/90 border border-emerald-500/40 hover:border-neon-emerald text-neon-emerald flex items-center justify-center shadow-lg transition-transform hover:scale-110 cursor-pointer"
+                  >
+                    ⟳
+                  </button>
+
+                  {/* Rotating Carousel Drum */}
+                  <div
+                    className="relative w-full h-full transition-transform duration-700 ease-out"
+                    style={{ transform: `rotate(${-activeScenarioIndex * 60}deg)` }}
+                  >
+                    {scenarios.map((sc, i) => {
+                      const angle = i * 60 - 90; // Start at top 12 o'clock
+                      const rad = (angle * Math.PI) / 180;
+                      const radius = 105; // radius in px
+                      const x = Math.round(radius * Math.cos(rad));
+                      const y = Math.round(radius * Math.sin(rad));
+                      const isActive = sc.preset_id === currentScenario.preset_id;
+                      const isCorrected = sc.spoken_verdict.status === 'self_corrected';
+                      const isAbstained = sc.spoken_verdict.status === 'abstained';
+
+                      return (
+                        <button
+                          key={sc.preset_id}
+                          onClick={() => selectScenario(sc.preset_id)}
+                          style={{
+                            transform: `translate(${x}px, ${y}px) rotate(${activeScenarioIndex * 60}deg)`,
+                          }}
+                          className={`absolute top-1/2 left-1/2 -mt-6 -ml-6 w-12 h-12 rounded-xl flex flex-col items-center justify-center transition-all duration-300 cursor-pointer group ${
+                            isActive
+                              ? 'bg-zinc-950 border-2 border-neon-emerald shadow-emerald-glow scale-125 z-20'
+                              : 'bg-zinc-900/80 border border-zinc-700/60 hover:border-emerald-500/60 hover:scale-110 opacity-75 hover:opacity-100'
+                          }`}
+                        >
+                          <span className={`text-[10px] font-mono font-black ${isActive ? 'text-neon-emerald' : 'text-zinc-400'}`}>
+                            0{i + 1}
+                          </span>
+                          <span
+                            className={`w-2 h-2 rounded-full mt-0.5 ${
+                              isCorrected ? 'bg-rose-500' : isAbstained ? 'bg-amber-400' : 'bg-emerald-400'
+                            }`}
+                          />
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  {/* Wheel Center Core (HUD status) */}
+                  <div className="absolute inset-16 rounded-full bg-zinc-950/90 border border-emerald-500/40 p-4 flex flex-col items-center justify-center text-center shadow-inner pointer-events-none">
+                    <span className="text-[9px] font-mono font-bold tracking-widest text-emerald-400 uppercase">
+                      BENCHMARK 0{activeScenarioIndex + 1}/06
+                    </span>
+                    <span className="text-xs font-black text-white line-clamp-1 mt-0.5">
+                      {currentScenario.title.split('(')[0]}
+                    </span>
+                    <span className="text-[8px] font-mono uppercase tracking-wider text-amber-400 mt-1 px-1.5 py-0.5 rounded border border-amber-500/30 bg-amber-500/10">
+                      {currentScenario.spoken_verdict.status.replace('_', ' ')}
                     </span>
                   </div>
-                  <span className="text-xs font-bold text-zinc-950 dark:text-zinc-100 line-clamp-1">
-                    {sc.title.split('(')[0]}
-                  </span>
-                  <span className="text-[9px] font-bold text-cyan-700 dark:text-cyan-400 line-clamp-1 mt-1">
-                    {sc.red_team_vector}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
+                </div>
+
+                {/* ACTIVE SCENARIO HUD OVERVIEW PANEL */}
+                <div className="flex-1 w-full flex flex-col gap-2.5">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-500/20 text-neon-emerald border border-emerald-500/40">
+                        ACTIVE BENCHMARK 0{activeScenarioIndex + 1}
+                      </span>
+                      <span className="text-xs font-mono text-zinc-400">
+                        {currentScenario.preset_id}
+                      </span>
+                    </div>
+                    <span className="text-[11px] font-mono text-amber-400 font-bold">
+                      {currentScenario.red_team_vector}
+                    </span>
+                  </div>
+
+                  <div className="p-3 rounded-xl bg-zinc-900/60 border border-white/10 text-xs text-zinc-200 leading-relaxed font-sans">
+                    <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-400 block mb-1">
+                      Raw Query Input:
+                    </span>
+                    &ldquo;{currentScenario.original_text}&rdquo;
+                  </div>
+
+                  <div className="flex items-center gap-2 pt-1">
+                    <button
+                      onClick={() => rotateWheel('prev')}
+                      className="px-3 py-1.5 rounded-lg text-xs font-mono neu-button text-zinc-300 hover:text-white flex items-center gap-1 cursor-pointer"
+                    >
+                      <span>⟵</span> Prev Vector
+                    </button>
+                    <button
+                      onClick={() => rotateWheel('next')}
+                      className="px-3 py-1.5 rounded-lg text-xs font-mono neu-button text-zinc-300 hover:text-white flex items-center gap-1 cursor-pointer"
+                    >
+                      Next Vector <span>⟶</span>
+                    </button>
+                    <span className="text-[11px] font-mono text-zinc-500 ml-auto hidden sm:inline">
+                      Tip: Click any satellite orb on the dial to rotate directly
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : (
+            /* COMPACT MATRIX GRID VIEW */
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5">
+              {scenarios.map((sc, i) => {
+                const isActive = sc.preset_id === currentScenario.preset_id;
+                const st = sc.spoken_verdict.status;
+                let badgeColor = 'bg-zinc-800 text-zinc-300 border-zinc-600/40';
+                if (st === 'verified_safe') {
+                  badgeColor = 'bg-emerald-950/60 text-emerald-300 border-emerald-700/60';
+                } else if (st === 'abstained') {
+                  badgeColor = 'bg-amber-950/60 text-amber-300 border-amber-700/60';
+                } else if (st === 'self_corrected') {
+                  badgeColor = 'bg-rose-950/60 text-rose-300 border-rose-700/60';
+                }
+
+                return (
+                  <button
+                    key={sc.preset_id}
+                    onClick={() => selectScenario(sc.preset_id)}
+                    className={`neu-button p-2 text-left flex flex-col justify-between rounded-xl border border-white/10 transition-all hover:scale-[1.02] cursor-pointer ${
+                      isActive ? 'active ring-2 ring-emerald-400 shadow-emerald-glow' : ''
+                    }`}
+                  >
+                    <div className="flex items-center justify-between w-full mb-1">
+                      <span className="text-[10px] font-mono font-bold text-zinc-400">#{i + 1}</span>
+                      <span className={`text-[8px] px-1.5 py-0.2 rounded-full font-bold border ${badgeColor}`}>
+                        {st.replace('_', ' ').toUpperCase()}
+                      </span>
+                    </div>
+                    <span className="text-xs font-bold text-zinc-100 line-clamp-1">
+                      {sc.title.split('(')[0]}
+                    </span>
+                    <span className="text-[9px] font-bold text-emerald-400 line-clamp-1 mt-1">
+                      {sc.red_team_vector}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          )
         ) : (
           /* IF IN CUSTOM PLAYGROUND MODE: 1-CLICK TEST CHIPS */
           <div>
             <div className="flex items-center justify-between mb-2">
-              <span className="text-[11px] font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
+              <span className="text-[11px] font-bold uppercase tracking-wider text-zinc-400 font-mono">
                 1-Click Judge Test Prompts (Instant Custom Claims):
               </span>
               <button
@@ -425,7 +588,7 @@ export default function EchoShowSimulator() {
                   setInputText('');
                   setStatusMessage('Cleared candidate response. Type or speak your own query.');
                 }}
-                className="text-[11px] font-semibold text-rose-500 hover:text-rose-600 dark:hover:text-rose-400 cursor-pointer"
+                className="text-[11px] font-semibold text-rose-400 hover:text-rose-300 cursor-pointer"
               >
                 Clear Input
               </button>
@@ -435,9 +598,9 @@ export default function EchoShowSimulator() {
                 <button
                   key={idx}
                   onClick={() => loadJudgePrompt(prompt.text)}
-                  className="px-2.5 py-1.5 rounded-xl text-xs font-medium neu-button hover:border-cyan-400/60 text-zinc-800 dark:text-zinc-200 transition-all flex items-center gap-1.5 cursor-pointer"
+                  className="px-2.5 py-1.5 rounded-xl text-xs font-medium neu-button hover:border-emerald-500/60 text-zinc-200 transition-all flex items-center gap-1.5 cursor-pointer"
                 >
-                  <span className="text-cyan-500 font-bold">›</span>
+                  <span className="text-neon-emerald font-bold">›</span>
                   <span>{prompt.label}</span>
                 </button>
               ))}
@@ -447,7 +610,7 @@ export default function EchoShowSimulator() {
       </div>
 
       {/* ADVERSARIAL RED-TEAM VECTOR EXPLANATION CALLOUT */}
-      <div className="glass-panel p-3.5 mb-6 rounded-2xl border border-white/80 dark:border-white/10 bg-gradient-to-r from-cyan-500/10 via-sky-500/5 to-transparent flex items-start gap-3">
+      <div className="glass-panel p-3.5 mb-6 rounded-2xl border border-emerald-500/20 bg-gradient-to-r from-emerald-500/10 via-amber-500/5 to-transparent flex items-start gap-3">
         <span className="px-2.5 py-1 rounded-lg text-xs font-extrabold bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 shrink-0 mt-0.5">
           {mode === 'custom' ? 'LIVE INPUT' : 'RED-TEAM VECTOR'}
         </span>
@@ -490,14 +653,14 @@ export default function EchoShowSimulator() {
 
             <div className="neu-inset px-2 py-0.5 flex items-center gap-1.5 text-xs text-silver-700 font-bold">
               <span>VOL</span>
-              <button onClick={() => adjustVolume(-0.1)} className="hover:text-cyan-500 px-1 cursor-pointer">-</button>
+              <button onClick={() => adjustVolume(-0.1)} className="hover:text-emerald-400 px-1 cursor-pointer">-</button>
               <span className="text-[11px] font-mono">{Math.round(volume * 100)}%</span>
-              <button onClick={() => adjustVolume(0.1)} className="hover:text-cyan-500 px-1 cursor-pointer">+</button>
+              <button onClick={() => adjustVolume(0.1)} className="hover:text-emerald-400 px-1 cursor-pointer">+</button>
             </div>
           </div>
         </div>
 
-        {/* AUTHENTIC ALEXA LIGHT BAR (CYAN/SAPPHIRE AURA) */}
+        {/* AUTHENTIC ALEXA LIGHT BAR (EMERALD/AMBER RESONANCE) */}
         <div className={`transition-all duration-300 relative z-10 ${isSpeaking || isListening || isChecking ? 'opacity-100 mb-4' : 'opacity-35 mb-3'}`}>
           <div className="alexa-light-bar" />
         </div>

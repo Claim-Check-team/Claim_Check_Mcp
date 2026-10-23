@@ -14,12 +14,12 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   const isLandingPage = pathname === '/';
 
   if (isLandingPage) {
-    return <div className="min-h-screen w-full bg-[#fafafa] dark:bg-[#09090b]">{children}</div>;
+    return <div className="min-h-screen w-full bg-[#070a0e] text-zinc-100">{children}</div>;
   }
 
   // Inside internal app pages (/simulator, /stress-lab, /protocol, /architecture):
   return (
-    <div className="flex min-h-screen w-full relative bg-[#f1f5f9] dark:bg-[#09090b] text-zinc-900 dark:text-zinc-100 transition-colors">
+    <div className="flex min-h-screen w-full relative bg-slate-100 dark:bg-[#070a0e] text-slate-900 dark:text-zinc-100 transition-colors">
       {/* COLLAPSIBLE SIDEBAR */}
       <div
         className={`transition-all duration-300 ease-in-out shrink-0 z-40 ${
@@ -31,12 +31,12 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
       {/* MAIN APPLICATION CONTAINER WITH TOP HAMBURGER HEADER */}
       <div className="flex-1 flex flex-col min-w-0">
-        <header className="px-4 py-3 flex items-center justify-between border-b border-slate-200/80 dark:border-white/10 glass-panel sticky top-0 z-30 transition-colors">
+        <header className="px-4 py-3 flex items-center justify-between border-b border-slate-200 dark:border-emerald-500/20 glass-panel sticky top-0 z-30 transition-colors bg-white/90 dark:bg-obsidian-titanium/90">
           <div className="flex items-center gap-3">
             {/* HAMBURGER TOGGLE BUTTON */}
             <button
               onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-              className="w-9 h-9 rounded-xl neu-raised-sm flex items-center justify-center text-zinc-700 dark:text-zinc-300 hover:text-zinc-950 dark:hover:text-white transition-all cursor-pointer border border-white/80 dark:border-white/10"
+              className="w-9 h-9 rounded-xl neu-raised-sm flex items-center justify-center text-slate-700 dark:text-zinc-300 hover:text-slate-950 dark:hover:text-white transition-all cursor-pointer border border-slate-300 dark:border-emerald-500/20 bg-slate-100 dark:bg-zinc-950"
               title={isSidebarOpen ? 'Hide Navigation' : 'Show Navigation'}
               aria-label="Toggle navigation"
             >
@@ -47,14 +47,14 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 
             <div>
               <div className="flex items-center gap-2">
-                <h2 className="font-extrabold text-sm text-zinc-950 dark:text-white tracking-tight">
+                <h2 className="font-extrabold text-sm text-slate-900 dark:text-white tracking-tight">
                   Claim-Check MCP
                 </h2>
-                <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-cyan-100 dark:bg-cyan-950/80 text-cyan-800 dark:text-cyan-300 border border-cyan-200 dark:border-cyan-800">
-                  Epistemic Safety
+                <span className="skew-hud px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-500/10 text-emerald-800 dark:text-neon-emerald border border-emerald-500/40">
+                  EPISTEMIC SAFETY
                 </span>
               </div>
-              <span className="text-[11px] font-mono text-zinc-500 dark:text-zinc-400 hidden sm:inline">
+              <span className="text-[11px] font-mono text-slate-600 dark:text-zinc-400 hidden sm:inline">
                 Live Grounding Engine • FastMCP 2025-11-25
               </span>
             </div>
@@ -64,10 +64,10 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             <ThemeToggle />
             <Link
               href="/"
-              className="px-3 py-1.5 rounded-xl text-xs font-bold neu-button flex items-center gap-1.5 text-zinc-800 dark:text-zinc-200 border border-white/80 dark:border-white/10 shadow-sm"
+              className="px-3 py-1.5 rounded-xl text-xs font-mono font-bold neu-button flex items-center gap-1.5 text-slate-800 dark:text-zinc-200 border border-slate-300 dark:border-emerald-500/20 shadow-sm bg-slate-100 dark:bg-zinc-900 hover:border-emerald-500/50"
             >
-              <span className="text-cyan-500">&larr;</span>
-              <span>Overview</span>
+              <span className="text-emerald-700 dark:text-neon-emerald">&larr;</span>
+              <span>Overview HUD</span>
             </Link>
           </div>
         </header>
