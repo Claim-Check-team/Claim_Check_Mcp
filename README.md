@@ -1,4 +1,4 @@
-﻿# Claim-Check MCP: Epistemic Safety & Atomic Fact Verification for Amazon Alexa+
+# Claim-Check MCP: Epistemic Safety & Atomic Fact Verification for Amazon Alexa+
 
 <div align="center">
 
@@ -12,7 +12,7 @@
 **An Enterprise-Grade Epistemic Safety Guardrail & Model Context Protocol (MCP) Server for Amazon Alexa+**  
 *Real-time atomic claim decomposition, live Wikipedia REST grounding, calibrated voice abstention, native Alexa APL 2.0 multimodal karaoke rendering, and AWS Lambda skill adapter.*
 
-[Live Simulator](http://localhost:3000/simulator) • [System Architecture](http://localhost:3000/architecture) • [Stress Lab](http://localhost:3000/stress-lab) • [Developer Friction Log](./FRICTION_LOG.md)
+[🌐 Live Web Simulator](https://claimcheck.165.99.219.253.sslip.io/) • [📱 Hardware Echo Simulator](https://claimcheck.165.99.219.253.sslip.io/simulator) • [🧪 Stress Lab](https://claimcheck.165.99.219.253.sslip.io/stress-lab) • [📡 MCP Wire Inspector](https://claimcheck.165.99.219.253.sslip.io/protocol) • [📝 Developer Friction Log](./FRICTION_LOG.md) • [📋 Audit Report](./AUDIT_REPORT.md)
 
 </div>
 
