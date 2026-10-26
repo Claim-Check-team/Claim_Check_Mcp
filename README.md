@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[![M8ven Score](https://m8ven.ai/badge/mcp/claim-check-team-claim-check-mcp-1foasn?v=af533d45b8f5a9d83c7fcf5f25c76ae8)](https://m8ven.ai/mcp/claim-check-team-claim-check-mcp-1foasn?s=readme)
+[![M8ven Score](https://m8ven.ai/badge/mcp/claim-check-team/claim_check_mcp)](https://m8ven.ai/mcp/claim-check-team/claim_check_mcp?s=readme)
 ![FastMCP Spec](https://img.shields.io/badge/FastMCP-Spec%202025--11--25-00d2ff?style=for-the-badge&logo=fastapi&logoColor=black)
 ![Alexa APL](https://img.shields.io/badge/Alexa_APL-v2024.2_Karaoke-260c2d?style=for-the-badge&logo=amazon-alexa&logoColor=white)
 ![AWS Lambda](https://img.shields.io/badge/AWS_Lambda-ask--sdk--core-ff9900?style=for-the-badge&logo=awslambda&logoColor=black)
